@@ -3,13 +3,15 @@ import { BLOCKED_REPLY, checkReply } from "./guard";
 import type { ModelClient } from "./model";
 import { search, type Bm25Index } from "./retrieval";
 import { decide, type DecisionResult } from "./rules";
-import { detectSignals, ticketText, type Signals } from "./signals";
+import { detectSignals, redactInjection, ticketText, type Signals } from "./signals";
 import type { Assessment, BugReport, Retrieved, TicketInput } from "./types";
 
 export interface Trace {
   ticketId: string;
   model: string;
   signals: Signals;
+  /** Text left out of retrieval and model calls because the injection detector flagged it. */
+  redacted: string[];
   retrieved: Retrieved[];
   assessment: Assessment;
   decision: DecisionResult;
@@ -27,16 +29,18 @@ export function extractCitations(reply: string): string[] {
 }
 
 export async function triage(ticket: TicketInput, index: Bm25Index, model: ModelClient): Promise<Trace> {
+  // Detectors see the full original text; everything downstream sees the redacted copy.
   const signals = detectSignals(ticket);
-  const retrieved = search(index, ticketText(ticket), TOP_K);
+  const { ticket: clean, removed: redacted } = redactInjection(ticket);
+  const retrieved = search(index, ticketText(clean), TOP_K);
   const ids = new Set(retrieved.map((r) => r.id));
 
-  const assess = await model.assess(ticket, retrieved, index.articles);
+  const assess = await model.assess(clean, retrieved, index.articles);
   // The model may only vouch for articles that were actually retrieved.
   const assessment = { ...assess.value, articleMatches: assess.value.articleMatches.filter((m) => ids.has(m.id)) };
 
   const decision = decide({ ticket, signals, assessment, retrieved });
-  const draft = await model.draft(ticket, retrieved, index.articles, decision, assessment);
+  const draft = await model.draft(clean, retrieved, index.articles, decision, assessment);
 
   // Citations outside the retrieved set are stripped, and recorded for the eval.
   const cited = extractCitations(draft.value.reply);
@@ -52,6 +56,7 @@ export async function triage(ticket: TicketInput, index: Bm25Index, model: Model
     ticketId: ticket.id,
     model: model.name,
     signals,
+    redacted,
     retrieved,
     assessment,
     decision,

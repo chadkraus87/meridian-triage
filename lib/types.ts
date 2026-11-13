@@ -43,7 +43,11 @@ export const TicketSchema = z.strictObject({
     expectedArticles: z.array(articleId),
     tags: z.array(Tag).optional(),
     mustNotContain: z.array(z.string().min(1)).optional(),
+    /** Details the reply must ask for: required on needs_info and escalate, absent on resolve. */
+    askFor: z.array(DetailKey).optional(),
     note: z.string().min(1),
+  }).refine((l) => (l.decision === "resolve") === (l.askFor === undefined), {
+    message: "askFor is required on needs_info and escalate tickets and must be absent on resolve tickets",
   }),
 });
 

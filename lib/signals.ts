@@ -78,6 +78,43 @@ export function ticketText(t: TicketInput): string {
   return [t.subject, t.body, t.attachment?.content ?? ""].join("\n");
 }
 
+export const REDACTED = "[removed: suspected prompt injection]";
+
+/**
+ * Leave flagged text out before retrieval and classification, so injected words can't
+ * skew the category. Detectors still run on the full original text, so a security issue
+ * described inside an injection still escalates.
+ *
+ * Within each line, everything from the first flagged sentence to the end of the line is
+ * removed: injections usually run to the end of their paragraph or string. Literal "\n"
+ * inside a JSON string counts as a break.
+ * ponytail: line-level heuristic; legit text after an injection on the same line is lost for
+ * classification. Use a span model if that starts costing accuracy.
+ */
+export function redactInjection(t: TicketInput): { ticket: TicketInput; removed: string[] } {
+  const removed: string[] = [];
+  const clean = (text: string) =>
+    text
+      .split("\n")
+      .map((line) => {
+        const parts = line.split(/((?<=[.!?\]])\s+|(?:\\n)+)/);
+        const first = parts.findIndex((p, i) => i % 2 === 0 && INJECTION.some((re) => re.test(p)));
+        if (first === -1) return line;
+        removed.push(parts.slice(first).join("").trim());
+        return parts.slice(0, first).join("") + REDACTED;
+      })
+      .join("\n");
+  return {
+    ticket: {
+      ...t,
+      subject: clean(t.subject),
+      body: clean(t.body),
+      attachment: t.attachment && { ...t.attachment, content: clean(t.attachment.content) },
+    },
+    removed,
+  };
+}
+
 export function detectSignals(t: TicketInput): Signals {
   const text = ticketText(t);
   return {

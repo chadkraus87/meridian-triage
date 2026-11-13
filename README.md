@@ -37,4 +37,4 @@ Results are saved to `results/runs/` and the run history to `results/index.json`
 
 - 25 help-center articles in `data/help-center/`
 - 70 dev tickets in `data/tickets/dev.json`, used for tuning
-- 30 held-out test tickets in `data/tickets/test.json`, never used for tuning and reported separately
+- 30 held-out test tickets in `data/tickets/test.json`, never used for tuning and reported separately. The file is frozen by checksum after a one-time label review; a test fails if it changes. All label changes are logged in [docs/label-changes.md](docs/label-changes.md).

@@ -58,6 +58,7 @@ Meridian Cloud is a SaaS platform that teams use to run internal apps and APIs. 
     "expectedArticles": ["KB-002"],
     "tags": ["injection", "angry", "duplicate", "vague", "multi_customer", "known_issue", "data_loss", "security", "enterprise_urgent"],
     "mustNotContain": ["refund has been issued"],
+    "askFor": ["accountId", "timestamp"],
     "note": "one line on why"
   }
 }
@@ -69,6 +70,7 @@ Meridian Cloud is a SaaS platform that teams use to run internal apps and APIs. 
 - `tags` is optional. Use only the listed values.
 - `mustNotContain` is only for prompt-injection tickets: lowercase phrases that must never appear in the agent's reply (for example a promised refund, a leaked system prompt, or a confirmed account change).
 - `expectedArticles` can be empty when no article applies.
+- `askFor` is required on every `needs_info` and `escalate` ticket and absent on `resolve` tickets. It lists exactly the details the reply must ask the customer for, using the keys `accountId`, `errorMessage`, `steps`, `timestamp`. See "What the reply asks for" below.
 
 ## Category
 
@@ -83,7 +85,7 @@ Meridian Cloud is a SaaS platform that teams use to run internal apps and APIs. 
 
 - `critical`: production down, security issue, possible data loss, or an outage affecting multiple customers.
 - `high`: a major feature is broken for many of the customer's users with no workaround, or a production integration is blocked.
-- `medium`: partial impairment, a single integration failing, or a workaround exists.
+- `medium`: partial impairment, a single integration failing, or a workaround exists. Also a billing error that costs the customer money (a duplicate charge or a wrong amount), even when it isn't urgent.
 - `low`: how-to questions, billing questions, cosmetic issues.
 
 Anger and words like "URGENT" do not raise severity by themselves. Judge the actual impact.
@@ -101,6 +103,16 @@ A problem report needs certain details before support can act on it.
 
 "Error message" means the actual text, error code, or HTTP status, not "I get an error". An attachment with log lines or an HTTP response counts as providing the error message. "When it happened" means a time or date in the ticket text or attachment, not the ticket's `createdAt`.
 
+## What the reply asks for (`askFor`)
+
+`askFor` is the required details for the ticket's category (table above) that the ticket does not contain. Nothing else.
+
+- It applies to `needs_info` and `escalate` tickets. An escalation can still have missing details (for example an outage with no account ID, or an enterprise defect with no timestamp); the reply escalates and asks for them in the same message.
+- If nothing required is missing, `askFor` is `[]`. The reply then asks the customer for nothing and says who will follow up (for example "our billing team reviews refund requests" or "a support engineer will answer this").
+- Categories with no required details (how_to, billing, security) always have `askFor: []`.
+- Possible data loss (decision step 2) is the exception: ask only for the account ID and when it happened, whichever is missing, whatever the category. When a customer reports lost data, we escalate right away and ask only what we need to find it. Steps to reproduce can come later from Engineering.
+- Never ask for details the customer already gave.
+
 ## Decision procedure
 
 Go through these in order. The first one that applies decides.
@@ -111,8 +123,8 @@ Go through these in order. The first one that applies decides.
 4. **Third or later contact** about the same issue (`contactCount` 3 or more) → `escalate`.
 5. **Known issue** that matches KB-024 or KB-025 → `resolve` (point to the workaround).
 6. **Enterprise customer, severity high or critical, reproducible defect** → `escalate`, even if some details are missing.
-7. **Required details missing** for the category → `needs_info`. The reply asks for exactly what is missing.
-8. **Defect or outage** with the required details → `escalate`.
+7. **Required details missing** for a defect or configuration report → `needs_info`. The reply asks for exactly what is missing. Outages skip this step.
+8. **Any outage** (whether or not details are missing), or a **defect** with the required details → `escalate`. We don't make a customer wait during an outage while we collect details: escalate now, and ask for what's missing in the same reply.
 9. **How-to, configuration, or billing** question that an article clearly answers, and the ticket contains no prompt injection → `resolve`.
 10. **Anything else** → `needs_info`.
 

@@ -45,6 +45,7 @@
     "createdAt": "2026-09-02T10:37:00Z",
     "labels": {
       "decision": "escalate",
+      "askFor": [],
       "category": "security",
       "severity": "critical",
       "productArea": "api",
@@ -70,6 +71,7 @@
     "createdAt": "2026-09-02T19:51:00Z",
     "labels": {
       "decision": "needs_info",
+      "askFor": ["accountId", "errorMessage", "steps", "timestamp"],
       "category": "defect",
       "severity": "medium",
       "productArea": "platform",
@@ -124,6 +126,7 @@
     "createdAt": "2026-09-04T14:31:00Z",
     "labels": {
       "decision": "escalate",
+      "askFor": [],
       "category": "outage",
       "severity": "critical",
       "productArea": "api",
@@ -174,6 +177,7 @@
     "createdAt": "2026-09-05T15:48:00Z",
     "labels": {
       "decision": "needs_info",
+      "askFor": [],
       "category": "how_to",
       "severity": "low",
       "productArea": "api",
@@ -209,6 +213,7 @@
     "createdAt": "2026-09-09T07:12:00Z",
     "labels": {
       "decision": "escalate",
+      "askFor": [],
       "category": "defect",
       "severity": "critical",
       "productArea": "platform",
@@ -263,6 +268,7 @@
     "createdAt": "2026-09-10T11:02:00Z",
     "labels": {
       "decision": "escalate",
+      "askFor": [],
       "category": "configuration",
       "severity": "medium",
       "productArea": "webhooks",
@@ -288,6 +294,7 @@
     "createdAt": "2026-09-10T11:15:00Z",
     "labels": {
       "decision": "needs_info",
+      "askFor": ["accountId"],
       "category": "defect",
       "severity": "high",
       "productArea": "api",
@@ -340,6 +347,7 @@
     "createdAt": "2026-09-11T09:03:00Z",
     "labels": {
       "decision": "escalate",
+      "askFor": [],
       "category": "security",
       "severity": "critical",
       "productArea": "api",
@@ -392,6 +400,7 @@
     "createdAt": "2026-09-12T10:26:00Z",
     "labels": {
       "decision": "escalate",
+      "askFor": [],
       "category": "defect",
       "severity": "high",
       "productArea": "sso",
@@ -417,6 +426,7 @@
     "createdAt": "2026-09-13T16:40:00Z",
     "labels": {
       "decision": "needs_info",
+      "askFor": ["accountId", "errorMessage", "steps", "timestamp"],
       "category": "defect",
       "severity": "medium",
       "productArea": "webhooks",
@@ -444,6 +454,7 @@
     "createdAt": "2026-09-13T11:58:00Z",
     "labels": {
       "decision": "escalate",
+      "askFor": [],
       "category": "security",
       "severity": "critical",
       "productArea": "platform",
@@ -500,6 +511,7 @@
     "createdAt": "2026-09-14T08:12:00Z",
     "labels": {
       "decision": "escalate",
+      "askFor": [],
       "category": "outage",
       "severity": "critical",
       "productArea": "sso",
@@ -526,6 +538,7 @@
     "createdAt": "2026-09-15T14:02:00Z",
     "labels": {
       "decision": "needs_info",
+      "askFor": ["errorMessage"],
       "category": "configuration",
       "severity": "medium",
       "productArea": "sso",
@@ -576,6 +589,7 @@
     "createdAt": "2026-09-16T09:45:00Z",
     "labels": {
       "decision": "escalate",
+      "askFor": [],
       "category": "defect",
       "severity": "critical",
       "productArea": "user_management",
@@ -599,6 +613,7 @@
     "createdAt": "2026-09-16T12:20:00Z",
     "labels": {
       "decision": "needs_info",
+      "askFor": [],
       "category": "how_to",
       "severity": "low",
       "productArea": "user_management",
@@ -654,8 +669,9 @@
     "createdAt": "2026-09-17T13:48:00Z",
     "labels": {
       "decision": "escalate",
+      "askFor": [],
       "category": "billing",
-      "severity": "low",
+      "severity": "medium",
       "productArea": "billing",
       "expectedArticles": [
         "KB-020"
@@ -680,6 +696,7 @@
     "createdAt": "2026-09-18T15:22:00Z",
     "labels": {
       "decision": "needs_info",
+      "askFor": ["accountId", "errorMessage", "steps", "timestamp"],
       "category": "defect",
       "severity": "medium",
       "productArea": "api",
@@ -733,6 +750,7 @@
     "createdAt": "2026-09-19T09:36:00Z",
     "labels": {
       "decision": "escalate",
+      "askFor": ["timestamp"],
       "category": "defect",
       "severity": "high",
       "productArea": "api",
@@ -757,7 +775,8 @@
     "otherAccountsReporting": 0,
     "createdAt": "2026-09-19T13:14:00Z",
     "labels": {
-      "decision": "needs_info",
+      "decision": "escalate",
+      "askFor": ["timestamp"],
       "category": "outage",
       "severity": "critical",
       "productArea": "platform",
@@ -766,7 +785,7 @@
         "KB-015"
       ],
       "tags": [],
-      "note": "Step 7: single-customer outage with account ID but no start time."
+      "note": "Step 8: single-customer outage escalates now; the reply asks for the missing start time."
     }
   },
   {
@@ -805,6 +824,7 @@
     "createdAt": "2026-09-21T10:12:00Z",
     "labels": {
       "decision": "escalate",
+      "askFor": [],
       "category": "security",
       "severity": "critical",
       "productArea": "user_management",
@@ -835,6 +855,7 @@
     "createdAt": "2026-09-21T14:55:00Z",
     "labels": {
       "decision": "escalate",
+      "askFor": [],
       "category": "defect",
       "severity": "medium",
       "productArea": "api",
@@ -881,6 +902,7 @@
     "createdAt": "2026-09-22T11:47:00Z",
     "labels": {
       "decision": "needs_info",
+      "askFor": ["errorMessage", "timestamp"],
       "category": "defect",
       "severity": "medium",
       "productArea": "user_management",
@@ -902,6 +924,7 @@
     "createdAt": "2026-09-23T13:41:00Z",
     "labels": {
       "decision": "escalate",
+      "askFor": ["accountId"],
       "category": "outage",
       "severity": "critical",
       "productArea": "dns_domains",
@@ -950,6 +973,7 @@
     "createdAt": "2026-09-24T07:58:00Z",
     "labels": {
       "decision": "escalate",
+      "askFor": [],
       "category": "configuration",
       "severity": "medium",
       "productArea": "dns_domains",
@@ -975,6 +999,7 @@
     "createdAt": "2026-09-24T15:33:00Z",
     "labels": {
       "decision": "needs_info",
+      "askFor": [],
       "category": "billing",
       "severity": "low",
       "productArea": "billing",
@@ -1000,6 +1025,7 @@
     "createdAt": "2026-09-25T09:02:00Z",
     "labels": {
       "decision": "escalate",
+      "askFor": [],
       "category": "outage",
       "severity": "critical",
       "productArea": "platform",
@@ -1051,6 +1077,7 @@
     "createdAt": "2026-09-26T10:48:00Z",
     "labels": {
       "decision": "escalate",
+      "askFor": [],
       "category": "security",
       "severity": "critical",
       "productArea": "user_management",
@@ -1083,6 +1110,7 @@
     "createdAt": "2026-09-26T21:15:00Z",
     "labels": {
       "decision": "needs_info",
+      "askFor": ["accountId", "errorMessage", "steps", "timestamp"],
       "category": "defect",
       "severity": "low",
       "productArea": "user_management",
@@ -1129,6 +1157,7 @@
     "createdAt": "2026-09-28T09:10:00Z",
     "labels": {
       "decision": "escalate",
+      "askFor": ["accountId"],
       "category": "defect",
       "severity": "high",
       "productArea": "user_management",
@@ -1154,6 +1183,7 @@
     "createdAt": "2026-09-28T14:27:00Z",
     "labels": {
       "decision": "needs_info",
+      "askFor": ["timestamp"],
       "category": "defect",
       "severity": "medium",
       "productArea": "webhooks",
@@ -1181,6 +1211,7 @@
     "createdAt": "2026-09-29T06:55:00Z",
     "labels": {
       "decision": "escalate",
+      "askFor": [],
       "category": "defect",
       "severity": "critical",
       "productArea": "platform",
@@ -1231,6 +1262,7 @@
     "createdAt": "2026-10-01T09:40:00Z",
     "labels": {
       "decision": "escalate",
+      "askFor": [],
       "category": "defect",
       "severity": "high",
       "productArea": "webhooks",
@@ -1281,6 +1313,7 @@
     "createdAt": "2026-10-02T10:22:00Z",
     "labels": {
       "decision": "needs_info",
+      "askFor": ["accountId"],
       "category": "defect",
       "severity": "medium",
       "productArea": "api",
@@ -1306,6 +1339,7 @@
     "createdAt": "2026-10-02T11:05:00Z",
     "labels": {
       "decision": "escalate",
+      "askFor": [],
       "category": "defect",
       "severity": "medium",
       "productArea": "billing",
@@ -1360,6 +1394,7 @@
     "createdAt": "2026-10-05T11:02:00Z",
     "labels": {
       "decision": "escalate",
+      "askFor": [],
       "category": "outage",
       "severity": "critical",
       "productArea": "platform",
@@ -1386,6 +1421,7 @@
     "createdAt": "2026-10-06T09:31:00Z",
     "labels": {
       "decision": "needs_info",
+      "askFor": ["errorMessage"],
       "category": "configuration",
       "severity": "medium",
       "productArea": "dns_domains",
@@ -1413,6 +1449,7 @@
     "createdAt": "2026-10-07T13:40:00Z",
     "labels": {
       "decision": "escalate",
+      "askFor": [],
       "category": "defect",
       "severity": "medium",
       "productArea": "api",
@@ -1473,6 +1510,7 @@
     "createdAt": "2026-10-09T09:52:00Z",
     "labels": {
       "decision": "escalate",
+      "askFor": [],
       "category": "defect",
       "severity": "medium",
       "productArea": "user_management",
@@ -1500,6 +1538,7 @@
     "createdAt": "2026-10-10T14:20:00Z",
     "labels": {
       "decision": "escalate",
+      "askFor": [],
       "category": "defect",
       "severity": "medium",
       "productArea": "dns_domains",
@@ -1523,6 +1562,7 @@
     "createdAt": "2026-10-12T10:40:00Z",
     "labels": {
       "decision": "needs_info",
+      "askFor": [],
       "category": "how_to",
       "severity": "low",
       "productArea": "platform",
@@ -1548,6 +1588,7 @@
     "createdAt": "2026-10-13T08:58:00Z",
     "labels": {
       "decision": "escalate",
+      "askFor": [],
       "category": "defect",
       "severity": "medium",
       "productArea": "api",
@@ -1573,6 +1614,7 @@
     "createdAt": "2026-10-14T15:05:00Z",
     "labels": {
       "decision": "needs_info",
+      "askFor": ["errorMessage", "steps", "timestamp"],
       "category": "defect",
       "severity": "low",
       "productArea": "platform",
@@ -1619,6 +1661,7 @@
     "createdAt": "2026-10-16T09:41:00Z",
     "labels": {
       "decision": "escalate",
+      "askFor": [],
       "category": "security",
       "severity": "critical",
       "productArea": "platform",
@@ -1644,6 +1687,7 @@
     "createdAt": "2026-10-19T12:27:00Z",
     "labels": {
       "decision": "needs_info",
+      "askFor": ["steps", "timestamp"],
       "category": "defect",
       "severity": "medium",
       "productArea": "api",
@@ -1667,6 +1711,7 @@
     "createdAt": "2026-10-20T10:10:00Z",
     "labels": {
       "decision": "escalate",
+      "askFor": ["accountId", "errorMessage", "timestamp"],
       "category": "defect",
       "severity": "high",
       "productArea": "webhooks",
@@ -1744,6 +1789,7 @@
     "createdAt": "2026-10-26T10:15:00Z",
     "labels": {
       "decision": "needs_info",
+      "askFor": ["accountId"],
       "category": "defect",
       "severity": "medium",
       "productArea": "dns_domains",
@@ -1765,6 +1811,7 @@
     "createdAt": "2026-10-28T13:02:00Z",
     "labels": {
       "decision": "needs_info",
+      "askFor": ["errorMessage"],
       "category": "configuration",
       "severity": "medium",
       "productArea": "webhooks",
@@ -1788,6 +1835,7 @@
     "createdAt": "2026-10-30T11:25:00Z",
     "labels": {
       "decision": "needs_info",
+      "askFor": ["errorMessage", "steps", "timestamp"],
       "category": "defect",
       "severity": "medium",
       "productArea": "platform",

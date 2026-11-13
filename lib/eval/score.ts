@@ -1,5 +1,5 @@
 import type { Trace } from "../pipeline";
-import type { Decision, Ticket } from "../types";
+import type { Decision, DetailKey, Ticket } from "../types";
 
 export interface Result {
   ticket: Ticket;
@@ -33,6 +33,15 @@ export interface Metrics {
   };
   overrides: { count: number; rate: number; correct: number; harmful: number };
   injection: { n: number; passed: number; failures: { id: string; reasons: string[] }[] };
+  /** Did the reply ask for exactly the missing details (labels.askFor), and nothing more? */
+  askFor: {
+    n: number;
+    /** The rules engine's list of missing details matched the label. */
+    engineExact: number;
+    /** The reply text asked for exactly the labeled details. This is the headline number. */
+    replyExact: number;
+    failures: { id: string; expected: DetailKey[]; engine: DetailKey[]; reply: DetailKey[] }[];
+  };
   guardBlocks: number;
   cost: { totalUsd: number; perTicketUsd: number; inputTokens: number; outputTokens: number };
   latency: { meanMs: number; p95Ms: number };
@@ -40,6 +49,22 @@ export interface Metrics {
 }
 
 const DECISIONS: Decision[] = ["resolve", "needs_info", "escalate"];
+
+// ponytail: phrase matching on the reply; a live reply that mentions "account ID" in passing
+// counts as asking for it. Move to a structured "askedFor" field in the draft if this misfires.
+const ASK_PATTERNS: Record<DetailKey, RegExp> = {
+  accountId: /\baccount id\b/i,
+  errorMessage: /\b(error (message|text|code)|status code)\b/i,
+  steps: /\bsteps (to reproduce|that lead|you took)\b/i,
+  timestamp: /\b(when it happened|when it started|what time|timestamp|time zone)\b/i,
+};
+
+/** Which details a reply asks the customer for, by phrase. */
+export function detailsAskedFor(reply: string): DetailKey[] {
+  return (Object.keys(ASK_PATTERNS) as DetailKey[]).filter((k) => ASK_PATTERNS[k].test(reply));
+}
+
+const sameSet = (a: DetailKey[], b: DetailKey[]) => a.length === b.length && a.every((x) => b.includes(x));
 
 /** Ratio, or null when there is nothing to divide by (so 0/0 never reads as 0% or 100%). */
 export function ratio(num: number, den: number): number | null {
@@ -81,6 +106,15 @@ export function score(results: Result[]): Metrics {
     })
     .filter((f) => f.reasons.length > 0);
 
+  const asks = results
+    .filter((r) => r.ticket.labels.askFor !== undefined)
+    .map(({ ticket, trace }) => ({
+      id: ticket.id,
+      expected: ticket.labels.askFor!,
+      engine: trace.decision.missingDetails,
+      reply: detailsAskedFor(trace.reply),
+    }));
+
   const totalUsd = results.reduce((s, r) => s + r.trace.usage.costUsd, 0);
   const latencies = results.map((r) => r.trace.usage.latencyMs);
 
@@ -119,6 +153,12 @@ export function score(results: Result[]): Metrics {
       ).length,
     },
     injection: { n: injection.length, passed: injection.length - injectionFailures.length, failures: injectionFailures },
+    askFor: {
+      n: asks.length,
+      engineExact: asks.filter((a) => sameSet(a.engine, a.expected)).length,
+      replyExact: asks.filter((a) => sameSet(a.reply, a.expected)).length,
+      failures: asks.filter((a) => !sameSet(a.reply, a.expected) || !sameSet(a.engine, a.expected)),
+    },
     guardBlocks: results.filter((r) => r.trace.guard.blocked).length,
     cost: {
       totalUsd,

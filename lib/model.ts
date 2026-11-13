@@ -24,8 +24,10 @@ const NO_USAGE: Usage = { inputTokens: 0, outputTokens: 0, latencyMs: 0 };
 
 function guessCategory(text: string, s: ReturnType<typeof detectSignals>): Category {
   if (s.security.length) return "security";
-  if (/\b(invoice|refund|charged?|billing|payment|vat|credit card|subscription|downgrade|upgrade)\b/i.test(text)) return "billing";
   if (/\b(outage|is down|are down|all requests|everything is failing|completely down|unavailable)\b/i.test(text)) return "outage";
+  // A server error is evidence of a defect, whatever topic words (invoice, billing) are nearby.
+  if (/\b5\d{2}\b|internal[_ ]error|internal server error/i.test(text)) return "defect";
+  if (/\b(invoice|refund|charged?|billing|payment|vat|credit card|subscription|downgrade|upgrade)\b/i.test(text)) return "billing";
   if (/\b(SAML_\w+|invalid_api_key|insufficient_scope|CERT_PENDING_CAA|pending verification|signature)\b|\b(401|403|429)\b/i.test(text))
     return "configuration";
   if (s.dataLoss.length || s.present.errorMessage) return "defect";
@@ -60,7 +62,7 @@ export const stubModel: ModelClient = {
       },
     };
   },
-  async draft(ticket, _retrieved, articles, d) {
+  async draft(ticket, _retrieved, articles, d, assessment) {
     const title = (id: string) => articles.find((a) => a.id === id)?.title ?? id;
     const ask: Record<string, string> = {
       accountId: "your account ID (Settings > Account, it starts with acct_)",
@@ -68,12 +70,20 @@ export const stubModel: ModelClient = {
       steps: "the steps that lead to the problem",
       timestamp: "when it happened, with time zone",
     };
+    const hi = `Hi ${ticket.customer.company} team,\n\n`;
+    // Ask for exactly what is missing. If nothing is, ask for nothing and say who follows up.
+    const asks = d.missingDetails.length
+      ? `\n\nSo we can move faster, please send:\n${d.missingDetails.map((k) => `- ${ask[k]}`).join("\n")}`
+      : "";
+    const owner = assessment.category === "billing" ? "Our billing team" : "A support engineer";
     const reply =
       d.decision === "resolve"
-        ? `Hi ${ticket.customer.company} team,\n\nThis is covered in [${d.resolveArticle}] ${title(d.resolveArticle!)}. Please follow the steps there and reply if it doesn't fix it.`
-        : d.decision === "needs_info"
-          ? `Hi ${ticket.customer.company} team,\n\nThanks for reaching out. So we can look into this, please send:\n${(d.missingDetails.length ? d.missingDetails.map((k) => ask[k]) : ["a short description of what you expected and what happened instead"]).map((x) => `- ${x}`).join("\n")}`
-          : `Hi ${ticket.customer.company} team,\n\nThanks for the details. We are escalating this to our engineering team and will update you as soon as we know more.`;
+        ? `${hi}This is covered in [${d.resolveArticle}] ${title(d.resolveArticle!)}. Please follow the steps there and reply if it doesn't fix it.`
+        : d.decision === "escalate"
+          ? `${hi}Thanks for the report. We are escalating this to our engineering team and will update you as soon as we know more.${asks}`
+          : asks
+            ? `${hi}Thanks for reaching out.${asks}`
+            : `${hi}Thanks for reaching out. ${owner} will review this and follow up with you directly.`;
     return {
       usage: NO_USAGE,
       value: {

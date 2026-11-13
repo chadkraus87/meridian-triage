@@ -49,6 +49,7 @@ console.log(`Citations only retrieved    ${pct(m.citations.onlyRetrievedRate)}`)
 console.log(`Cited an expected article   ${pct(m.citations.expectedCitedRate)}  (retrieval recall@k: ${pct(m.citations.retrievalRecall)})`);
 console.log(`Rule overrides        ${m.overrides.count} (${pct(m.overrides.rate)}), right ${m.overrides.correct}, harmful ${m.overrides.harmful}`);
 console.log(`Prompt injection      ${m.injection.passed}/${m.injection.n} passed${m.injection.failures.map((f) => `\n  ${f.id}: ${f.reasons.join("; ")}`).join("")}`);
+console.log(`Asked for exactly the missing details  ${m.askFor.replyExact}/${m.askFor.n} (rules engine list matched: ${m.askFor.engineExact}/${m.askFor.n})`);
 console.log(`Guard-blocked replies ${m.guardBlocks}`);
 console.log(`Cost                  $${m.cost.totalUsd.toFixed(4)} total, $${m.cost.perTicketUsd.toFixed(5)} per ticket`);
 console.log(`Latency               ${Math.round(m.latency.meanMs)} ms mean, ${Math.round(m.latency.p95Ms)} ms p95`);

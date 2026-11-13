@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { percentile, ratio, score, type Result } from "../lib/eval/score";
+import { detailsAskedFor, percentile, ratio, score, type Result } from "../lib/eval/score";
 import type { Trace } from "../lib/pipeline";
 import type { Decision, Ticket } from "../lib/types";
 import { assessment, signals, ticket } from "./helpers";
@@ -7,7 +7,7 @@ import { assessment, signals, ticket } from "./helpers";
 function result(
   expected: Decision,
   actual: Decision,
-  opts: { suggested?: Decision; reply?: string; cost?: number; latency?: number; tags?: Ticket["labels"]["tags"]; mustNotContain?: string[]; cited?: string[]; removed?: string[]; retrieved?: string[]; expectedArticles?: string[] } = {},
+  opts: { askFor?: Ticket["labels"]["askFor"]; missing?: Trace["decision"]["missingDetails"]; suggested?: Decision; reply?: string; cost?: number; latency?: number; tags?: Ticket["labels"]["tags"]; mustNotContain?: string[]; cited?: string[]; removed?: string[]; retrieved?: string[]; expectedArticles?: string[] } = {},
 ): Result {
   const suggested = opts.suggested ?? actual;
   const t: Ticket = {
@@ -20,6 +20,7 @@ function result(
       expectedArticles: opts.expectedArticles ?? [],
       tags: opts.tags,
       mustNotContain: opts.mustNotContain,
+      askFor: opts.askFor,
       note: "n",
     },
   };
@@ -27,6 +28,7 @@ function result(
     ticketId: t.id,
     model: "test",
     signals: signals(),
+    redacted: [],
     retrieved: (opts.retrieved ?? []).map((id) => ({ id, title: id, score: 10 })),
     assessment: assessment({ category: "defect", severity: "low", productArea: "api" }),
     decision: {
@@ -36,7 +38,7 @@ function result(
       evidence: [],
       modelSuggestion: suggested,
       overrodeModel: suggested !== actual,
-      missingDetails: [],
+      missingDetails: opts.missing ?? [],
       resolveArticle: null,
     },
     reply: opts.reply ?? "",
@@ -128,5 +130,30 @@ describe("citations, injection, cost, and latency", () => {
     expect(m.cost.inputTokens).toBe(200);
     expect(m.latency.meanMs).toBe(2000);
     expect(m.latency.p95Ms).toBe(3000);
+  });
+});
+
+describe("askFor: asked for exactly the missing details", () => {
+  it("reads which details a reply asks for", () => {
+    expect(detailsAskedFor("Please send your account ID and when it happened, with time zone.")).toEqual(["accountId", "timestamp"]);
+    expect(detailsAskedFor("A support engineer will review this and follow up with you directly.")).toEqual([]);
+  });
+
+  it("passes only when both the engine list and the reply match the label exactly", () => {
+    const m = score([
+      result("needs_info", "needs_info", { askFor: ["accountId"], missing: ["accountId"], reply: "Please send your account ID." }),
+      // Asks for more than is missing.
+      result("needs_info", "needs_info", { askFor: ["accountId"], missing: ["accountId"], reply: "Send your account ID and the exact error message." }),
+      // Nothing missing: must ask for nothing.
+      result("needs_info", "needs_info", { askFor: [], missing: [], reply: "Our billing team will review this and follow up." }),
+      // Escalation that still asks for the missing detail.
+      result("escalate", "escalate", { askFor: ["timestamp"], missing: ["timestamp"], reply: "We are escalating this. Please tell us when it started." }),
+      // Engine was wrong but the reply happened to be right: still a failure.
+      result("escalate", "escalate", { askFor: [], missing: ["steps"], reply: "We are escalating this." }),
+      // Resolve tickets carry no askFor and are not scored.
+      result("resolve", "resolve"),
+    ]);
+    expect(m.askFor).toMatchObject({ n: 5, replyExact: 4, engineExact: 4 });
+    expect(m.askFor.failures.map((f) => f.reply)).toEqual([["accountId", "errorMessage"], []]);
   });
 });

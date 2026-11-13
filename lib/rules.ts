@@ -1,4 +1,4 @@
-import { KNOWN_ISSUE_ARTICLES, REQUIRED_DETAILS, RESOLVE_MIN_SCORE } from "./config";
+import { DATA_LOSS_DETAILS, KNOWN_ISSUE_ARTICLES, REQUIRED_DETAILS, RESOLVE_MIN_SCORE } from "./config";
 import type { Signals } from "./signals";
 import type { Assessment, Decision, DetailKey, Retrieved, TicketInput } from "./types";
 
@@ -15,8 +15,8 @@ export const RULES = {
   "R4-REPEAT-CONTACT": "A third contact about the same issue escalates.",
   "R5-KNOWN-ISSUE": "A known issue with a documented workaround resolves with the workaround article.",
   "R6-ENTERPRISE-DEFECT": "An urgent, reproducible defect from an enterprise customer escalates.",
-  "R7-MISSING-DETAILS": "Key details are missing, so ask for exactly those.",
-  "R8-DEFECT": "A defect or outage with the required details escalates.",
+  "R7-MISSING-DETAILS": "Key details are missing from a defect or configuration report, so ask for exactly those.",
+  "R8-DEFECT": "Any outage escalates now, without waiting for details. A defect escalates once it has the required details.",
   "R9-RESOLVE-KB": "A how-to, configuration, or billing issue with a high-confidence article match resolves.",
   "R9-INJECTION-BLOCK": "The ticket would resolve, but it contains a prompt-injection attempt, so it never auto-resolves.",
   "R10-FALLBACK": "No rule could resolve or escalate it, so ask the customer for more information.",
@@ -40,6 +40,7 @@ export interface DecisionResult {
   evidence: string[];
   modelSuggestion: Decision;
   overrodeModel: boolean;
+  /** Details the reply must ask for. Empty on resolve. Escalations ask for what's missing in the same reply. */
   missingDetails: DetailKey[];
   /** The article that justified resolve, if any. */
   resolveArticle: string | null;
@@ -73,24 +74,25 @@ export function decide({ ticket, signals, assessment: a, retrieved }: RuleInput)
   if (signals.injection.length) evidence.push(`Prompt-injection patterns matched: ${quote(signals.injection)}`);
   if (a.signals.injectionSuspected) evidence.push("Model flagged a prompt-injection attempt");
 
-  const missingDetails = REQUIRED_DETAILS[a.category].filter((k) => !signals.present[k] && !a.detailsPresent[k]);
+  const isMissing = (k: DetailKey) => !signals.present[k] && !a.detailsPresent[k];
+  const missingDetails = REQUIRED_DETAILS[a.category].filter(isMissing);
   const confident = confidentArticles(a, retrieved);
   const knownIssue = confident.find((id) => KNOWN_ISSUE_ARTICLES.includes(id)) ?? null;
   const kbMatch = confident[0] ?? null;
 
-  const result = (decision: Decision, ruleId: RuleId, resolveArticle: string | null = null): DecisionResult => ({
+  const result = (decision: Decision, ruleId: RuleId, resolveArticle: string | null = null, asks = missingDetails): DecisionResult => ({
     decision,
     ruleId,
     reason: RULES[ruleId],
     evidence,
     modelSuggestion: a.suggestedDecision,
     overrodeModel: decision !== a.suggestedDecision,
-    missingDetails: decision === "needs_info" ? missingDetails : [],
+    missingDetails: decision === "resolve" ? [] : asks,
     resolveArticle,
   });
 
   if (security) return result("escalate", "R1-SECURITY");
-  if (dataLoss) return result("escalate", "R2-DATA-LOSS");
+  if (dataLoss) return result("escalate", "R2-DATA-LOSS", null, DATA_LOSS_DETAILS.filter(isMissing));
   if (multiOutage) return result("escalate", "R3-MULTI-CUSTOMER-OUTAGE");
   if (ticket.contactCount >= 3) {
     evidence.push(`Contact number ${ticket.contactCount} about this issue`);
@@ -109,12 +111,15 @@ export function decide({ ticket, signals, assessment: a, retrieved }: RuleInput)
     evidence.push(`Enterprise customer, ${a.severity} severity, reproducible defect`);
     return result("escalate", "R6-ENTERPRISE-DEFECT");
   }
-  if (missingDetails.length) {
+  // We don't make a customer wait during an outage while we collect details.
+  if (missingDetails.length && a.category !== "outage") {
     evidence.push(`Missing for a ${a.category} report: ${missingDetails.join(", ")}`);
     return result("needs_info", "R7-MISSING-DETAILS");
   }
   if (a.category === "defect" || a.category === "outage") {
-    evidence.push(`${a.category} with all required details`);
+    evidence.push(
+      missingDetails.length ? `Outage: escalating now and asking for ${missingDetails.join(", ")}` : `${a.category} with all required details`,
+    );
     return result("escalate", "R8-DEFECT");
   }
   if (kbMatch && (a.category === "how_to" || a.category === "configuration" || a.category === "billing")) {

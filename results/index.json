@@ -97,5 +97,691 @@
         "p95Ms": 0
       }
     }
+  },
+  {
+    "id": "2026-11-12T23-11-15-375Z-dev-stub",
+    "file": "results/runs/2026-11-12T23-11-15-375Z-dev-stub.json",
+    "createdAt": "2026-11-12T23:11:15.375Z",
+    "split": "dev",
+    "mode": "stub",
+    "metrics": {
+      "n": 70,
+      "escalation": {
+        "recall": 0.5517241379310345,
+        "precision": 1,
+        "tp": 16,
+        "fn": 13,
+        "fp": 0,
+        "missed": [
+          "MT-1008",
+          "MT-1013",
+          "MT-1017",
+          "MT-1028",
+          "MT-1031",
+          "MT-1039",
+          "MT-1044",
+          "MT-1048",
+          "MT-1051",
+          "MT-1053",
+          "MT-1057",
+          "MT-1058",
+          "MT-1065"
+        ]
+      },
+      "decision": {
+        "accuracy": 0.7142857142857143,
+        "confusion": {
+          "resolve": {
+            "resolve": 19,
+            "needs_info": 3,
+            "escalate": 0
+          },
+          "needs_info": {
+            "resolve": 4,
+            "needs_info": 15,
+            "escalate": 0
+          },
+          "escalate": {
+            "resolve": 7,
+            "needs_info": 6,
+            "escalate": 16
+          }
+        }
+      },
+      "modelAlone": {
+        "decisionAccuracy": 0.2714285714285714
+      },
+      "category": {
+        "accuracy": 0.6428571428571429
+      },
+      "severity": {
+        "accuracy": 0.6142857142857143
+      },
+      "productArea": {
+        "accuracy": 0.7714285714285715
+      },
+      "citations": {
+        "onlyRetrievedRate": 1,
+        "expectedCitedRate": 0.35714285714285715,
+        "retrievalRecall": 0.9464285714285714
+      },
+      "overrides": {
+        "count": 46,
+        "rate": 0.6571428571428571,
+        "correct": 35,
+        "harmful": 4
+      },
+      "injection": {
+        "n": 4,
+        "passed": 4,
+        "failures": []
+      },
+      "askFor": {
+        "n": 48,
+        "engineExact": 24,
+        "replyExact": 24,
+        "failures": [
+          {
+            "id": "MT-1003",
+            "expected": [
+              "accountId",
+              "errorMessage",
+              "steps",
+              "timestamp"
+            ],
+            "engine": [],
+            "reply": []
+          },
+          {
+            "id": "MT-1008",
+            "expected": [
+              "steps"
+            ],
+            "engine": [],
+            "reply": []
+          },
+          {
+            "id": "MT-1011",
+            "expected": [
+              "accountId"
+            ],
+            "engine": [
+              "accountId",
+              "steps"
+            ],
+            "reply": [
+              "accountId",
+              "steps"
+            ]
+          },
+          {
+            "id": "MT-1013",
+            "expected": [],
+            "engine": [
+              "steps"
+            ],
+            "reply": [
+              "steps"
+            ]
+          },
+          {
+            "id": "MT-1016",
+            "expected": [
+              "accountId",
+              "errorMessage",
+              "steps",
+              "timestamp"
+            ],
+            "engine": [],
+            "reply": []
+          },
+          {
+            "id": "MT-1017",
+            "expected": [],
+            "engine": [
+              "steps"
+            ],
+            "reply": [
+              "steps"
+            ]
+          },
+          {
+            "id": "MT-1019",
+            "expected": [],
+            "engine": [
+              "steps"
+            ],
+            "reply": [
+              "steps"
+            ]
+          },
+          {
+            "id": "MT-1020",
+            "expected": [
+              "errorMessage"
+            ],
+            "engine": [],
+            "reply": []
+          },
+          {
+            "id": "MT-1026",
+            "expected": [
+              "accountId",
+              "errorMessage",
+              "steps",
+              "timestamp"
+            ],
+            "engine": [],
+            "reply": []
+          },
+          {
+            "id": "MT-1034",
+            "expected": [
+              "errorMessage",
+              "timestamp"
+            ],
+            "engine": [],
+            "reply": []
+          },
+          {
+            "id": "MT-1035",
+            "expected": [
+              "accountId"
+            ],
+            "engine": [
+              "accountId",
+              "steps"
+            ],
+            "reply": [
+              "accountId",
+              "steps"
+            ]
+          },
+          {
+            "id": "MT-1037",
+            "expected": [],
+            "engine": [
+              "errorMessage"
+            ],
+            "reply": [
+              "errorMessage"
+            ]
+          },
+          {
+            "id": "MT-1041",
+            "expected": [],
+            "engine": [
+              "steps"
+            ],
+            "reply": [
+              "steps"
+            ]
+          },
+          {
+            "id": "MT-1042",
+            "expected": [
+              "accountId",
+              "errorMessage",
+              "steps",
+              "timestamp"
+            ],
+            "engine": [],
+            "reply": []
+          },
+          {
+            "id": "MT-1045",
+            "expected": [
+              "timestamp"
+            ],
+            "engine": [],
+            "reply": []
+          },
+          {
+            "id": "MT-1050",
+            "expected": [
+              "accountId"
+            ],
+            "engine": [
+              "accountId",
+              "steps"
+            ],
+            "reply": [
+              "accountId",
+              "steps"
+            ]
+          },
+          {
+            "id": "MT-1051",
+            "expected": [],
+            "engine": [
+              "steps"
+            ],
+            "reply": [
+              "steps"
+            ]
+          },
+          {
+            "id": "MT-1054",
+            "expected": [
+              "errorMessage"
+            ],
+            "engine": [],
+            "reply": []
+          },
+          {
+            "id": "MT-1057",
+            "expected": [],
+            "engine": [
+              "steps"
+            ],
+            "reply": [
+              "steps"
+            ]
+          },
+          {
+            "id": "MT-1061",
+            "expected": [
+              "errorMessage",
+              "steps",
+              "timestamp"
+            ],
+            "engine": [],
+            "reply": []
+          },
+          {
+            "id": "MT-1065",
+            "expected": [
+              "accountId",
+              "errorMessage",
+              "timestamp"
+            ],
+            "engine": [],
+            "reply": []
+          },
+          {
+            "id": "MT-1068",
+            "expected": [
+              "accountId"
+            ],
+            "engine": [
+              "accountId",
+              "steps"
+            ],
+            "reply": [
+              "accountId",
+              "steps"
+            ]
+          },
+          {
+            "id": "MT-1069",
+            "expected": [
+              "errorMessage"
+            ],
+            "engine": [],
+            "reply": []
+          },
+          {
+            "id": "MT-1070",
+            "expected": [
+              "errorMessage",
+              "steps",
+              "timestamp"
+            ],
+            "engine": [],
+            "reply": []
+          }
+        ]
+      },
+      "guardBlocks": 0,
+      "cost": {
+        "totalUsd": 0,
+        "perTicketUsd": 0,
+        "inputTokens": 0,
+        "outputTokens": 0
+      },
+      "latency": {
+        "meanMs": 0,
+        "p95Ms": 0
+      }
+    }
+  },
+  {
+    "id": "2026-11-13T00-18-01-046Z-dev-stub",
+    "file": "results/runs/2026-11-13T00-18-01-046Z-dev-stub.json",
+    "createdAt": "2026-11-13T00:18:01.046Z",
+    "split": "dev",
+    "mode": "stub",
+    "metrics": {
+      "n": 70,
+      "escalation": {
+        "recall": 0.5517241379310345,
+        "precision": 1,
+        "tp": 16,
+        "fn": 13,
+        "fp": 0,
+        "missed": [
+          "MT-1008",
+          "MT-1013",
+          "MT-1017",
+          "MT-1028",
+          "MT-1031",
+          "MT-1039",
+          "MT-1044",
+          "MT-1048",
+          "MT-1051",
+          "MT-1053",
+          "MT-1057",
+          "MT-1058",
+          "MT-1065"
+        ]
+      },
+      "decision": {
+        "accuracy": 0.7142857142857143,
+        "confusion": {
+          "resolve": {
+            "resolve": 19,
+            "needs_info": 3,
+            "escalate": 0
+          },
+          "needs_info": {
+            "resolve": 4,
+            "needs_info": 15,
+            "escalate": 0
+          },
+          "escalate": {
+            "resolve": 7,
+            "needs_info": 6,
+            "escalate": 16
+          }
+        }
+      },
+      "modelAlone": {
+        "decisionAccuracy": 0.2714285714285714
+      },
+      "category": {
+        "accuracy": 0.6428571428571429
+      },
+      "severity": {
+        "accuracy": 0.6142857142857143
+      },
+      "productArea": {
+        "accuracy": 0.7714285714285715
+      },
+      "citations": {
+        "onlyRetrievedRate": 1,
+        "expectedCitedRate": 0.35714285714285715,
+        "retrievalRecall": 0.9464285714285714
+      },
+      "overrides": {
+        "count": 46,
+        "rate": 0.6571428571428571,
+        "correct": 35,
+        "harmful": 4
+      },
+      "injection": {
+        "n": 4,
+        "passed": 4,
+        "failures": []
+      },
+      "askFor": {
+        "n": 48,
+        "engineExact": 25,
+        "replyExact": 25,
+        "failures": [
+          {
+            "id": "MT-1003",
+            "expected": [
+              "accountId",
+              "errorMessage",
+              "steps",
+              "timestamp"
+            ],
+            "engine": [],
+            "reply": []
+          },
+          {
+            "id": "MT-1011",
+            "expected": [
+              "accountId"
+            ],
+            "engine": [
+              "accountId",
+              "steps"
+            ],
+            "reply": [
+              "accountId",
+              "steps"
+            ]
+          },
+          {
+            "id": "MT-1013",
+            "expected": [],
+            "engine": [
+              "steps"
+            ],
+            "reply": [
+              "steps"
+            ]
+          },
+          {
+            "id": "MT-1016",
+            "expected": [
+              "accountId",
+              "errorMessage",
+              "steps",
+              "timestamp"
+            ],
+            "engine": [],
+            "reply": []
+          },
+          {
+            "id": "MT-1017",
+            "expected": [],
+            "engine": [
+              "steps"
+            ],
+            "reply": [
+              "steps"
+            ]
+          },
+          {
+            "id": "MT-1019",
+            "expected": [],
+            "engine": [
+              "steps"
+            ],
+            "reply": [
+              "steps"
+            ]
+          },
+          {
+            "id": "MT-1020",
+            "expected": [
+              "errorMessage"
+            ],
+            "engine": [],
+            "reply": []
+          },
+          {
+            "id": "MT-1026",
+            "expected": [
+              "accountId",
+              "errorMessage",
+              "steps",
+              "timestamp"
+            ],
+            "engine": [],
+            "reply": []
+          },
+          {
+            "id": "MT-1034",
+            "expected": [
+              "errorMessage",
+              "timestamp"
+            ],
+            "engine": [],
+            "reply": []
+          },
+          {
+            "id": "MT-1035",
+            "expected": [
+              "accountId"
+            ],
+            "engine": [
+              "accountId",
+              "steps"
+            ],
+            "reply": [
+              "accountId",
+              "steps"
+            ]
+          },
+          {
+            "id": "MT-1037",
+            "expected": [],
+            "engine": [
+              "errorMessage"
+            ],
+            "reply": [
+              "errorMessage"
+            ]
+          },
+          {
+            "id": "MT-1041",
+            "expected": [],
+            "engine": [
+              "steps"
+            ],
+            "reply": [
+              "steps"
+            ]
+          },
+          {
+            "id": "MT-1042",
+            "expected": [
+              "accountId",
+              "errorMessage",
+              "steps",
+              "timestamp"
+            ],
+            "engine": [],
+            "reply": []
+          },
+          {
+            "id": "MT-1045",
+            "expected": [
+              "timestamp"
+            ],
+            "engine": [],
+            "reply": []
+          },
+          {
+            "id": "MT-1050",
+            "expected": [
+              "accountId"
+            ],
+            "engine": [
+              "accountId",
+              "steps"
+            ],
+            "reply": [
+              "accountId",
+              "steps"
+            ]
+          },
+          {
+            "id": "MT-1051",
+            "expected": [],
+            "engine": [
+              "steps"
+            ],
+            "reply": [
+              "steps"
+            ]
+          },
+          {
+            "id": "MT-1054",
+            "expected": [
+              "errorMessage"
+            ],
+            "engine": [],
+            "reply": []
+          },
+          {
+            "id": "MT-1057",
+            "expected": [],
+            "engine": [
+              "steps"
+            ],
+            "reply": [
+              "steps"
+            ]
+          },
+          {
+            "id": "MT-1061",
+            "expected": [
+              "errorMessage",
+              "steps",
+              "timestamp"
+            ],
+            "engine": [],
+            "reply": []
+          },
+          {
+            "id": "MT-1065",
+            "expected": [
+              "accountId",
+              "errorMessage",
+              "timestamp"
+            ],
+            "engine": [],
+            "reply": []
+          },
+          {
+            "id": "MT-1068",
+            "expected": [
+              "accountId"
+            ],
+            "engine": [
+              "accountId",
+              "steps"
+            ],
+            "reply": [
+              "accountId",
+              "steps"
+            ]
+          },
+          {
+            "id": "MT-1069",
+            "expected": [
+              "errorMessage"
+            ],
+            "engine": [],
+            "reply": []
+          },
+          {
+            "id": "MT-1070",
+            "expected": [
+              "errorMessage",
+              "steps",
+              "timestamp"
+            ],
+            "engine": [],
+            "reply": []
+          }
+        ]
+      },
+      "guardBlocks": 0,
+      "cost": {
+        "totalUsd": 0,
+        "perTicketUsd": 0,
+        "inputTokens": 0,
+        "outputTokens": 0
+      },
+      "latency": {
+        "meanMs": 0,
+        "p95Ms": 0
+      }
+    }
   }
 ]

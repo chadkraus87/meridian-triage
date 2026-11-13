@@ -48,6 +48,13 @@ describe("R2 data loss", () => {
   it("escalates when only the model flags it", () => {
     expect(run({ assessment: assessment({ signals: { ...assessment().signals, dataLoss: true } }) }).ruleId).toBe("R2-DATA-LOSS");
   });
+  it("asks only for the account ID and time, never for steps, even on a defect", () => {
+    const d = run({
+      signals: signals({ dataLoss: ["records are missing"], present: { accountId: true, errorMessage: false, steps: false, timestamp: false } }),
+      assessment: assessment({ category: "defect" }),
+    });
+    expect(d.missingDetails).toEqual(["timestamp"]);
+  });
 });
 
 describe("R3 multi-customer outage", () => {
@@ -88,7 +95,9 @@ describe("R6 enterprise defect", () => {
   const urgent = assessment({ category: "defect", severity: "high", suggestedDecision: "needs_info", signals: { ...assessment().signals, reproducible: true } });
   it("escalates an urgent reproducible enterprise defect even with details missing", () => {
     const d = run({ ticket: ticket({ customer: { company: "X", tier: "enterprise" } }), assessment: urgent });
-    expect(d).toMatchObject({ decision: "escalate", ruleId: "R6-ENTERPRISE-DEFECT", overrodeModel: true, missingDetails: [] });
+    // The escalation still asks for what's missing, in the same reply.
+    expect(d).toMatchObject({ decision: "escalate", ruleId: "R6-ENTERPRISE-DEFECT", overrodeModel: true });
+    expect(d.missingDetails).toEqual(["accountId", "errorMessage", "steps", "timestamp"]);
   });
   it("does not apply to a pro customer, who gets asked for the missing details", () => {
     expect(run({ assessment: urgent }).ruleId).toBe("R7-MISSING-DETAILS");
@@ -114,9 +123,9 @@ describe("R7 missing details", () => {
   it("counts a detail as present when the regex finds it, even if the model missed it", () => {
     const d = run({
       signals: signals({ present: { accountId: true, errorMessage: false, steps: false, timestamp: false } }),
-      assessment: assessment({ category: "outage", detailsPresent: { ...allDetails, accountId: false } }),
+      assessment: assessment({ category: "defect", detailsPresent: { ...allDetails, accountId: false } }),
     });
-    expect(d.ruleId).toBe("R8-DEFECT");
+    expect(d).toMatchObject({ ruleId: "R8-DEFECT", missingDetails: [] });
   });
   it("only needs the error message for a configuration problem", () => {
     const d = run({ assessment: assessment({ category: "configuration" }) });
@@ -127,7 +136,18 @@ describe("R7 missing details", () => {
   });
 });
 
-describe("R8 defect with details", () => {
+describe("R8 outages and defects", () => {
+  it("escalates an outage now, even with details missing, and keeps the list to ask for", () => {
+    const d = run({ assessment: assessment({ category: "outage", suggestedDecision: "needs_info", detailsPresent: { ...allDetails, accountId: false } }) });
+    expect(d).toMatchObject({ decision: "escalate", ruleId: "R8-DEFECT", missingDetails: ["accountId"], overrodeModel: true });
+  });
+  it("still sends a defect with details missing to needs_info", () => {
+    expect(run({ assessment: assessment({ category: "defect", detailsPresent: { ...allDetails, steps: false } }) }).decision).toBe("needs_info");
+  });
+  it("never asks for details on a resolve", () => {
+    expect(run({ assessment: assessment({ category: "configuration", detailsPresent: allDetails }) }).missingDetails).toEqual([]);
+  });
+
   it("escalates a defect that has every required detail", () => {
     const d = run({ assessment: assessment({ category: "defect", detailsPresent: allDetails }) });
     expect(d).toMatchObject({ decision: "escalate", ruleId: "R8-DEFECT", overrodeModel: true });

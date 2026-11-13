@@ -24,3 +24,6 @@ export const REQUIRED_DETAILS: Record<Category, DetailKey[]> = {
   billing: [],
   security: [],
 };
+
+/** A data-loss escalation asks only for what we need to find the data. Steps can come later from Engineering. */
+export const DATA_LOSS_DETAILS: DetailKey[] = ["accountId", "timestamp"];

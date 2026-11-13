@@ -1,4 +1,5 @@
 import type { Trace } from "../pipeline";
+import { ASK_PHRASES } from "../prompts";
 import type { Decision, DetailKey, Ticket } from "../types";
 
 export interface Result {
@@ -50,14 +51,12 @@ export interface Metrics {
 
 const DECISIONS: Decision[] = ["resolve", "needs_info", "escalate"];
 
-// ponytail: phrase matching on the reply; a live reply that mentions "account ID" in passing
-// counts as asking for it. Move to a structured "askedFor" field in the draft if this misfires.
-const ASK_PATTERNS: Record<DetailKey, RegExp> = {
-  accountId: /\baccount id\b/i,
-  errorMessage: /\b(error (message|text|code)|status code)\b/i,
-  steps: /\bsteps (to reproduce|that lead|you took)\b/i,
-  timestamp: /\b(when it happened|when it started|what time|timestamp|time zone)\b/i,
-};
+// A reply asks for a detail only if it uses that detail's exact request phrase (ASK_PHRASES),
+// which the draft prompt requires. Mentioning "your account ID" in passing doesn't count.
+const escape = (x: string) => x.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+const ASK_PATTERNS = Object.fromEntries(
+  Object.entries(ASK_PHRASES).map(([k, phrase]) => [k, new RegExp(escape(phrase.replace(/^(your|the) /, "")), "i")]),
+) as Record<DetailKey, RegExp>;
 
 /** Which details a reply asks the customer for, by phrase. */
 export function detailsAskedFor(reply: string): DetailKey[] {

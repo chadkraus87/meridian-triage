@@ -783,5 +783,622 @@
         "p95Ms": 0
       }
     }
+  },
+  {
+    "id": "2026-11-13T03-29-12-134Z-dev-live",
+    "file": "results/runs/2026-11-13T03-29-12-134Z-dev-live.json",
+    "createdAt": "2026-11-13T03:29:12.134Z",
+    "split": "dev",
+    "mode": "live",
+    "model": "claude-sonnet-5-5",
+    "complete": true,
+    "metrics": {
+      "n": 70,
+      "escalation": {
+        "recall": 1,
+        "precision": 1,
+        "tp": 29,
+        "fn": 0,
+        "fp": 0,
+        "missed": []
+      },
+      "decision": {
+        "accuracy": 0.9428571428571428,
+        "confusion": {
+          "resolve": {
+            "resolve": 18,
+            "needs_info": 4,
+            "escalate": 0
+          },
+          "needs_info": {
+            "resolve": 0,
+            "needs_info": 19,
+            "escalate": 0
+          },
+          "escalate": {
+            "resolve": 0,
+            "needs_info": 0,
+            "escalate": 29
+          }
+        }
+      },
+      "modelAlone": {
+        "decisionAccuracy": 0.8714285714285714
+      },
+      "category": {
+        "accuracy": 0.9
+      },
+      "severity": {
+        "accuracy": 0.9428571428571428
+      },
+      "productArea": {
+        "accuracy": 0.9428571428571428
+      },
+      "citations": {
+        "onlyRetrievedRate": 1,
+        "expectedCitedRate": 0.8035714285714286,
+        "retrievalRecall": 0.9464285714285714
+      },
+      "overrides": {
+        "count": 9,
+        "rate": 0.12857142857142856,
+        "correct": 7,
+        "harmful": 2
+      },
+      "injection": {
+        "n": 4,
+        "passed": 4,
+        "failures": []
+      },
+      "askFor": {
+        "n": 48,
+        "engineExact": 43,
+        "replyExact": 33,
+        "failures": [
+          {
+            "id": "MT-1005",
+            "expected": [],
+            "engine": [],
+            "reply": [
+              "accountId"
+            ]
+          },
+          {
+            "id": "MT-1010",
+            "expected": [],
+            "engine": [
+              "steps"
+            ],
+            "reply": [
+              "steps"
+            ]
+          },
+          {
+            "id": "MT-1016",
+            "expected": [
+              "accountId",
+              "errorMessage",
+              "steps",
+              "timestamp"
+            ],
+            "engine": [
+              "errorMessage"
+            ],
+            "reply": [
+              "errorMessage"
+            ]
+          },
+          {
+            "id": "MT-1017",
+            "expected": [],
+            "engine": [],
+            "reply": [
+              "accountId"
+            ]
+          },
+          {
+            "id": "MT-1022",
+            "expected": [],
+            "engine": [],
+            "reply": [
+              "accountId"
+            ]
+          },
+          {
+            "id": "MT-1029",
+            "expected": [
+              "timestamp"
+            ],
+            "engine": [
+              "timestamp"
+            ],
+            "reply": [
+              "accountId",
+              "timestamp"
+            ]
+          },
+          {
+            "id": "MT-1034",
+            "expected": [
+              "errorMessage",
+              "timestamp"
+            ],
+            "engine": [
+              "errorMessage",
+              "timestamp"
+            ],
+            "reply": [
+              "accountId",
+              "errorMessage",
+              "timestamp"
+            ]
+          },
+          {
+            "id": "MT-1037",
+            "expected": [],
+            "engine": [
+              "errorMessage"
+            ],
+            "reply": [
+              "errorMessage"
+            ]
+          },
+          {
+            "id": "MT-1039",
+            "expected": [],
+            "engine": [],
+            "reply": [
+              "accountId"
+            ]
+          },
+          {
+            "id": "MT-1042",
+            "expected": [
+              "accountId",
+              "errorMessage",
+              "steps",
+              "timestamp"
+            ],
+            "engine": [],
+            "reply": []
+          },
+          {
+            "id": "MT-1045",
+            "expected": [
+              "timestamp"
+            ],
+            "engine": [
+              "timestamp"
+            ],
+            "reply": [
+              "accountId",
+              "timestamp"
+            ]
+          },
+          {
+            "id": "MT-1046",
+            "expected": [],
+            "engine": [],
+            "reply": [
+              "accountId"
+            ]
+          },
+          {
+            "id": "MT-1060",
+            "expected": [],
+            "engine": [
+              "steps"
+            ],
+            "reply": [
+              "steps"
+            ]
+          },
+          {
+            "id": "MT-1061",
+            "expected": [
+              "errorMessage",
+              "steps",
+              "timestamp"
+            ],
+            "engine": [
+              "errorMessage",
+              "steps",
+              "timestamp"
+            ],
+            "reply": [
+              "accountId",
+              "errorMessage",
+              "steps",
+              "timestamp"
+            ]
+          },
+          {
+            "id": "MT-1070",
+            "expected": [
+              "errorMessage",
+              "steps",
+              "timestamp"
+            ],
+            "engine": [
+              "errorMessage",
+              "steps",
+              "timestamp"
+            ],
+            "reply": [
+              "accountId",
+              "errorMessage",
+              "steps",
+              "timestamp"
+            ]
+          }
+        ]
+      },
+      "guardBlocks": 0,
+      "cost": {
+        "totalUsd": 1.520078,
+        "perTicketUsd": 0.0217154,
+        "inputTokens": 533504,
+        "outputTokens": 45307
+      },
+      "latency": {
+        "meanMs": 6635.557142857143,
+        "p95Ms": 9695
+      }
+    }
+  },
+  {
+    "id": "2026-11-13T03-34-55-774Z-dev-live",
+    "file": "results/runs/2026-11-13T03-34-55-774Z-dev-live.json",
+    "createdAt": "2026-11-13T03:34:55.774Z",
+    "split": "dev",
+    "mode": "live",
+    "model": "claude-sonnet-5-5",
+    "complete": true,
+    "metrics": {
+      "n": 70,
+      "escalation": {
+        "recall": 0.9655172413793104,
+        "precision": 1,
+        "tp": 28,
+        "fn": 1,
+        "fp": 0,
+        "missed": [
+          "MT-1044"
+        ]
+      },
+      "decision": {
+        "accuracy": 0.9714285714285714,
+        "confusion": {
+          "resolve": {
+            "resolve": 21,
+            "needs_info": 1,
+            "escalate": 0
+          },
+          "needs_info": {
+            "resolve": 0,
+            "needs_info": 19,
+            "escalate": 0
+          },
+          "escalate": {
+            "resolve": 0,
+            "needs_info": 1,
+            "escalate": 28
+          }
+        }
+      },
+      "modelAlone": {
+        "decisionAccuracy": 0.8857142857142857
+      },
+      "category": {
+        "accuracy": 0.9
+      },
+      "severity": {
+        "accuracy": 0.9428571428571428
+      },
+      "productArea": {
+        "accuracy": 0.9571428571428572
+      },
+      "citations": {
+        "onlyRetrievedRate": 1,
+        "expectedCitedRate": 0.7857142857142857,
+        "retrievalRecall": 0.9642857142857143
+      },
+      "overrides": {
+        "count": 10,
+        "rate": 0.14285714285714285,
+        "correct": 8,
+        "harmful": 2
+      },
+      "injection": {
+        "n": 4,
+        "passed": 4,
+        "failures": []
+      },
+      "askFor": {
+        "n": 48,
+        "engineExact": 43,
+        "replyExact": 43,
+        "failures": [
+          {
+            "id": "MT-1010",
+            "expected": [],
+            "engine": [
+              "steps"
+            ],
+            "reply": [
+              "steps"
+            ]
+          },
+          {
+            "id": "MT-1035",
+            "expected": [
+              "accountId"
+            ],
+            "engine": [
+              "accountId",
+              "steps"
+            ],
+            "reply": [
+              "accountId",
+              "steps"
+            ]
+          },
+          {
+            "id": "MT-1037",
+            "expected": [],
+            "engine": [
+              "errorMessage"
+            ],
+            "reply": [
+              "errorMessage"
+            ]
+          },
+          {
+            "id": "MT-1042",
+            "expected": [
+              "accountId",
+              "errorMessage",
+              "steps",
+              "timestamp"
+            ],
+            "engine": [],
+            "reply": []
+          },
+          {
+            "id": "MT-1060",
+            "expected": [],
+            "engine": [
+              "steps"
+            ],
+            "reply": [
+              "steps"
+            ]
+          }
+        ]
+      },
+      "guardBlocks": 0,
+      "cost": {
+        "totalUsd": 1.89334,
+        "perTicketUsd": 0.027047714285714286,
+        "inputTokens": 706435,
+        "outputTokens": 48047
+      },
+      "latency": {
+        "meanMs": 6696.242857142857,
+        "p95Ms": 9418
+      }
+    }
+  },
+  {
+    "id": "2026-11-13T03-38-58-035Z-dev-live",
+    "file": "results/runs/2026-11-13T03-38-58-035Z-dev-live.json",
+    "createdAt": "2026-11-13T03:38:58.035Z",
+    "split": "dev",
+    "mode": "live",
+    "model": "claude-sonnet-5-5",
+    "complete": true,
+    "metrics": {
+      "n": 70,
+      "escalation": {
+        "recall": 1,
+        "precision": 1,
+        "tp": 29,
+        "fn": 0,
+        "fp": 0,
+        "missed": []
+      },
+      "decision": {
+        "accuracy": 1,
+        "confusion": {
+          "resolve": {
+            "resolve": 22,
+            "needs_info": 0,
+            "escalate": 0
+          },
+          "needs_info": {
+            "resolve": 0,
+            "needs_info": 19,
+            "escalate": 0
+          },
+          "escalate": {
+            "resolve": 0,
+            "needs_info": 0,
+            "escalate": 29
+          }
+        }
+      },
+      "modelAlone": {
+        "decisionAccuracy": 0.8714285714285714
+      },
+      "category": {
+        "accuracy": 0.9285714285714286
+      },
+      "severity": {
+        "accuracy": 0.9142857142857143
+      },
+      "productArea": {
+        "accuracy": 0.9571428571428572
+      },
+      "citations": {
+        "onlyRetrievedRate": 0.9857142857142858,
+        "expectedCitedRate": 0.7321428571428571,
+        "retrievalRecall": 0.9642857142857143
+      },
+      "overrides": {
+        "count": 9,
+        "rate": 0.12857142857142856,
+        "correct": 9,
+        "harmful": 0
+      },
+      "injection": {
+        "n": 4,
+        "passed": 4,
+        "failures": []
+      },
+      "askFor": {
+        "n": 48,
+        "engineExact": 44,
+        "replyExact": 44,
+        "failures": [
+          {
+            "id": "MT-1010",
+            "expected": [],
+            "engine": [
+              "steps"
+            ],
+            "reply": [
+              "steps"
+            ]
+          },
+          {
+            "id": "MT-1037",
+            "expected": [],
+            "engine": [
+              "errorMessage"
+            ],
+            "reply": [
+              "errorMessage"
+            ]
+          },
+          {
+            "id": "MT-1042",
+            "expected": [
+              "accountId",
+              "errorMessage",
+              "steps",
+              "timestamp"
+            ],
+            "engine": [],
+            "reply": []
+          },
+          {
+            "id": "MT-1060",
+            "expected": [],
+            "engine": [
+              "steps"
+            ],
+            "reply": [
+              "steps"
+            ]
+          }
+        ]
+      },
+      "guardBlocks": 0,
+      "cost": {
+        "totalUsd": 1.889078,
+        "perTicketUsd": 0.026986828571428572,
+        "inputTokens": 703309,
+        "outputTokens": 48246
+      },
+      "latency": {
+        "meanMs": 6660.442857142857,
+        "p95Ms": 9409
+      }
+    }
+  },
+  {
+    "id": "2026-11-13T03-40-43-327Z-dev-live",
+    "file": "results/runs/2026-11-13T03-40-43-327Z-dev-live.json",
+    "createdAt": "2026-11-13T03:40:43.327Z",
+    "split": "dev",
+    "mode": "live",
+    "model": "claude-sonnet-5-5",
+    "complete": true,
+    "metrics": {
+      "n": 8,
+      "escalation": {
+        "recall": 1,
+        "precision": 1,
+        "tp": 3,
+        "fn": 0,
+        "fp": 0,
+        "missed": []
+      },
+      "decision": {
+        "accuracy": 1,
+        "confusion": {
+          "resolve": {
+            "resolve": 3,
+            "needs_info": 0,
+            "escalate": 0
+          },
+          "needs_info": {
+            "resolve": 0,
+            "needs_info": 2,
+            "escalate": 0
+          },
+          "escalate": {
+            "resolve": 0,
+            "needs_info": 0,
+            "escalate": 3
+          }
+        }
+      },
+      "modelAlone": {
+        "decisionAccuracy": 0.875
+      },
+      "category": {
+        "accuracy": 0.875
+      },
+      "severity": {
+        "accuracy": 1
+      },
+      "productArea": {
+        "accuracy": 0.875
+      },
+      "citations": {
+        "onlyRetrievedRate": 1,
+        "expectedCitedRate": 1,
+        "retrievalRecall": 1
+      },
+      "overrides": {
+        "count": 1,
+        "rate": 0.125,
+        "correct": 1,
+        "harmful": 0
+      },
+      "injection": {
+        "n": 1,
+        "passed": 1,
+        "failures": []
+      },
+      "askFor": {
+        "n": 5,
+        "engineExact": 5,
+        "replyExact": 5,
+        "failures": []
+      },
+      "guardBlocks": 0,
+      "cost": {
+        "totalUsd": 0.22021200000000002,
+        "perTicketUsd": 0.027526500000000002,
+        "inputTokens": 81911,
+        "outputTokens": 5639
+      },
+      "latency": {
+        "meanMs": 6766,
+        "p95Ms": 9223
+      }
+    }
   }
 ]

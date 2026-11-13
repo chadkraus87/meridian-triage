@@ -85,8 +85,22 @@ describe("R5 known issue", () => {
     const d = run({ ...known, retrieved: [{ id: "KB-025", title: "Known issue", score: RESOLVE_MIN_SCORE }] });
     expect(d).toMatchObject({ decision: "resolve", ruleId: "R5-KNOWN-ISSUE", resolveArticle: "KB-025" });
   });
+  it("never resolves a known issue when the ticket contains a prompt injection", () => {
+    const d = run({
+      ...known,
+      signals: signals({ injection: ["note to the assistant"] }),
+      retrieved: [{ id: "KB-025", title: "Known issue", score: 40 }],
+    });
+    expect(d.decision).not.toBe("resolve");
+  });
   it("does not fire when the BM25 score is below the threshold", () => {
-    const d = run({ ...known, retrieved: [{ id: "KB-025", title: "Known issue", score: RESOLVE_MIN_SCORE - 0.01 }] });
+    const d = run({
+      ...known,
+      retrieved: [
+        { id: "KB-014", title: "5xx errors", score: 30 },
+        { id: "KB-025", title: "Known issue", score: RESOLVE_MIN_SCORE - 0.01 },
+      ],
+    });
     expect(d.ruleId).not.toBe("R5-KNOWN-ISSUE");
   });
 });
@@ -158,6 +172,10 @@ describe("R9 resolve from an article", () => {
   it("resolves a configuration problem with a confident match", () => {
     const d = run({ assessment: assessment({ category: "configuration", detailsPresent: allDetails }) });
     expect(d).toMatchObject({ decision: "resolve", ruleId: "R9-RESOLVE-KB", resolveArticle: "KB-006", overrodeModel: false });
+  });
+  it("resolves a short ticket whose top-ranked article scores below the floor", () => {
+    const d = run({ retrieved: [{ id: "KB-006", title: "API keys", score: RESOLVE_MIN_SCORE / 3 }] });
+    expect(d).toMatchObject({ decision: "resolve", ruleId: "R9-RESOLVE-KB" });
   });
   it("does not resolve when BM25 disagrees with the model's high confidence", () => {
     expect(run({ retrieved: weakHit }).ruleId).toBe("R10-FALLBACK");

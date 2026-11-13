@@ -7,7 +7,7 @@ export const MODEL = "claude-sonnet-5-5";
 export const PRICE_PER_MTOK = { input: 2, output: 10 };
 
 /** How many articles retrieval returns. */
-export const TOP_K = 3;
+export const TOP_K = 5;
 
 /** Minimum BM25 score before an article can justify "resolve". Tuned on the dev set only. */
 export const RESOLVE_MIN_SCORE = 12;
@@ -27,3 +27,12 @@ export const REQUIRED_DETAILS: Record<Category, DetailKey[]> = {
 
 /** A data-loss escalation asks only for what we need to find the data. Steps can come later from Engineering. */
 export const DATA_LOSS_DETAILS: DetailKey[] = ["accountId", "timestamp"];
+
+/** Reasoning effort per call. Tuned on the dev set only. */
+export const EFFORT = { assess: "medium", draft: "low" } as const;
+
+/** Hard cap on output tokens per call (thinking included). Bounds the worst-case cost of a run. */
+export const MAX_TOKENS = { assess: 3000, draft: 2000 };
+
+/** A single eval run stops before it spends more than this (USD). */
+export const MAX_RUN_USD = 5;

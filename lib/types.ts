@@ -88,7 +88,8 @@ export const AssessmentSchema = z.object({
     steps: z.boolean(),
     timestamp: z.boolean(),
   }),
-  articleMatches: z.array(z.object({ id: articleId, confidence: z.enum(["high", "medium", "low"]) })),
+  // Plain string here: the model only sees retrieved IDs, and the pipeline drops any others.
+  articleMatches: z.array(z.object({ id: z.string(), confidence: z.enum(["high", "medium", "low"]) })),
   rationale: z.string(),
 });
 export type Assessment = z.infer<typeof AssessmentSchema>;

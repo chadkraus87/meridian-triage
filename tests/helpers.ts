@@ -40,6 +40,10 @@ export function assessment(over: Partial<Assessment> = {}): Assessment {
 
 /** A retrieved article scored well above the resolve threshold. */
 export const strongHit: Retrieved[] = [{ id: "KB-006", title: "Create, scope, and rotate API keys", score: 40 }];
-export const weakHit: Retrieved[] = [{ id: "KB-006", title: "Create, scope, and rotate API keys", score: 1 }];
+/** KB-006 is neither ranked first nor above the score floor. */
+export const weakHit: Retrieved[] = [
+  { id: "KB-009", title: "429 Too Many Requests and rate limits", score: 30 },
+  { id: "KB-006", title: "Create, scope, and rotate API keys", score: 1 },
+];
 
 export const allDetails = { accountId: true, errorMessage: true, steps: true, timestamp: true };

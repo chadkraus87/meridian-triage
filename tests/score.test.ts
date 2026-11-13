@@ -46,6 +46,7 @@ function result(
     citations: { cited: opts.cited ?? [], removed: opts.removed ?? [] },
     guard: { blocked: false, reasons: [] },
     usage: { inputTokens: 100, outputTokens: 10, costUsd: opts.cost ?? 0, latencyMs: opts.latency ?? 0 },
+    modelErrors: [],
   };
   return { ticket: t, trace };
 }
@@ -135,19 +136,20 @@ describe("citations, injection, cost, and latency", () => {
 
 describe("askFor: asked for exactly the missing details", () => {
   it("reads which details a reply asks for", () => {
-    expect(detailsAskedFor("Please send your account ID and when it happened, with time zone.")).toEqual(["accountId", "timestamp"]);
+    expect(detailsAskedFor("Please send your account ID (Settings > Account, it starts with acct_) and when it happened, with time zone.")).toEqual(["accountId", "timestamp"]);
+    expect(detailsAskedFor("Thanks for including your account ID and the time it started.")).toEqual([]);
     expect(detailsAskedFor("A support engineer will review this and follow up with you directly.")).toEqual([]);
   });
 
   it("passes only when both the engine list and the reply match the label exactly", () => {
     const m = score([
-      result("needs_info", "needs_info", { askFor: ["accountId"], missing: ["accountId"], reply: "Please send your account ID." }),
+      result("needs_info", "needs_info", { askFor: ["accountId"], missing: ["accountId"], reply: "Please send your account ID (Settings > Account, it starts with acct_)." }),
       // Asks for more than is missing.
-      result("needs_info", "needs_info", { askFor: ["accountId"], missing: ["accountId"], reply: "Send your account ID and the exact error message." }),
+      result("needs_info", "needs_info", { askFor: ["accountId"], missing: ["accountId"], reply: "Send your account ID (Settings > Account, it starts with acct_) and the exact error message or status code." }),
       // Nothing missing: must ask for nothing.
       result("needs_info", "needs_info", { askFor: [], missing: [], reply: "Our billing team will review this and follow up." }),
       // Escalation that still asks for the missing detail.
-      result("escalate", "escalate", { askFor: ["timestamp"], missing: ["timestamp"], reply: "We are escalating this. Please tell us when it started." }),
+      result("escalate", "escalate", { askFor: ["timestamp"], missing: ["timestamp"], reply: "We are escalating this. Please tell us when it happened, with time zone." }),
       // Engine was wrong but the reply happened to be right: still a failure.
       result("escalate", "escalate", { askFor: [], missing: ["steps"], reply: "We are escalating this." }),
       // Resolve tickets carry no askFor and are not scored.

@@ -1,4 +1,5 @@
 import { RESOLVE_MIN_SCORE } from "./config";
+import { ASK_PHRASES } from "./prompts";
 import type { DecisionResult } from "./rules";
 import { detectSignals, ticketText } from "./signals";
 import type { Article, Assessment, Category, Draft, ProductArea, Retrieved, TicketInput, Usage } from "./types";
@@ -18,6 +19,16 @@ export interface ModelClient {
     decision: DecisionResult,
     assessment: Assessment,
   ): Promise<ModelCall<Draft>>;
+}
+
+/** A failed model call. Carries the tokens it used, so failed calls still count toward cost. */
+export class ModelCallError extends Error {
+  constructor(
+    message: string,
+    readonly usage: Usage,
+  ) {
+    super(message);
+  }
 }
 
 const NO_USAGE: Usage = { inputTokens: 0, outputTokens: 0, latencyMs: 0 };
@@ -64,12 +75,7 @@ export const stubModel: ModelClient = {
   },
   async draft(ticket, _retrieved, articles, d, assessment) {
     const title = (id: string) => articles.find((a) => a.id === id)?.title ?? id;
-    const ask: Record<string, string> = {
-      accountId: "your account ID (Settings > Account, it starts with acct_)",
-      errorMessage: "the exact error message or HTTP status code you see",
-      steps: "the steps that lead to the problem",
-      timestamp: "when it happened, with time zone",
-    };
+    const ask = ASK_PHRASES;
     const hi = `Hi ${ticket.customer.company} team,\n\n`;
     // Ask for exactly what is missing. If nothing is, ask for nothing and say who follows up.
     const asks = d.missingDetails.length

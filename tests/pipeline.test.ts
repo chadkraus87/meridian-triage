@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { loadArticles, loadTickets, withoutLabels } from "../lib/data";
 import { BLOCKED_REPLY, checkReply } from "../lib/guard";
-import { stubModel, type ModelClient } from "../lib/model";
+import { ModelCallError, stubModel, type ModelClient } from "../lib/model";
 import { triage } from "../lib/pipeline";
 import { REDACTED } from "../lib/signals";
 import { buildIndex, search, tokenize } from "../lib/retrieval";
@@ -150,5 +150,36 @@ describe("stub replies ask for exactly what is missing", () => {
     expect(trace.decision).toMatchObject({ decision: "escalate", missingDetails: ["accountId"] });
     expect(trace.reply).toContain("escalating");
     expect(trace.reply).toContain("account ID");
+  });
+});
+
+describe("model failures", () => {
+  it("falls back to the rules-only stub when the model errors, and records why", async () => {
+    const broken: ModelClient = {
+      name: "broken",
+      assess: async () => {
+        throw new Error("refused (cyber)");
+      },
+      draft: async () => {
+        throw new Error("timeout");
+      },
+    };
+    const t = ticket({ body: "I found an XSS vulnerability in the dashboard search box." });
+    const trace = await triage(t, index, broken);
+    expect(trace.modelErrors).toEqual(["assess: refused (cyber)", "draft: timeout"]);
+    expect(trace.decision.decision).toBe("escalate");
+    expect(trace.reply).toContain("escalating");
+  });
+
+  it("still counts the tokens of a failed call toward cost", async () => {
+    const truncated: ModelClient = {
+      name: "truncated",
+      assess: async () => {
+        throw new ModelCallError("hit max_tokens (3000)", { inputTokens: 5000, outputTokens: 3000, latencyMs: 9000 });
+      },
+      draft: (...args) => stubModel.draft(...args),
+    };
+    const trace = await triage(ticket(), index, truncated);
+    expect(trace.usage).toEqual({ inputTokens: 5000, outputTokens: 3000, costUsd: (5000 * 2 + 3000 * 10) / 1e6, latencyMs: 9000 });
   });
 });

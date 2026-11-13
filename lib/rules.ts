@@ -46,12 +46,16 @@ export interface DecisionResult {
   resolveArticle: string | null;
 }
 
-/** An article counts as a confident match only if both the model and BM25 agree. */
+/**
+ * An article counts as a confident match only if both the model and BM25 agree.
+ * BM25 agrees when the article ranks first, or scores at least RESOLVE_MIN_SCORE.
+ * Raw BM25 scores grow with ticket length, so a short ticket ("where is my invoice?")
+ * scores low even when its best article is a clear match; rank doesn't have that bias.
+ */
 function confidentArticles(a: Assessment, retrieved: Retrieved[]): string[] {
-  const scores = new Map(retrieved.map((r) => [r.id, r.score]));
-  return a.articleMatches
-    .filter((m) => m.confidence === "high" && (scores.get(m.id) ?? 0) >= RESOLVE_MIN_SCORE)
-    .map((m) => m.id);
+  const bm25Agrees = (id: string) =>
+    retrieved[0]?.id === id || (retrieved.find((r) => r.id === id)?.score ?? 0) >= RESOLVE_MIN_SCORE;
+  return a.articleMatches.filter((m) => m.confidence === "high" && bm25Agrees(m.id)).map((m) => m.id);
 }
 
 export function decide({ ticket, signals, assessment: a, retrieved }: RuleInput): DecisionResult {
@@ -98,7 +102,8 @@ export function decide({ ticket, signals, assessment: a, retrieved }: RuleInput)
     evidence.push(`Contact number ${ticket.contactCount} about this issue`);
     return result("escalate", "R4-REPEAT-CONTACT");
   }
-  if (knownIssue) {
+  // Injection blocks every path to resolve, not only R9.
+  if (knownIssue && !injection) {
     evidence.push(`Known issue ${knownIssue} matched with high confidence`);
     return result("resolve", "R5-KNOWN-ISSUE", knownIssue);
   }

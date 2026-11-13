@@ -6,7 +6,7 @@ export default function InboxHome() {
   const m = heldOutRun().metrics;
   return (
     <div className="panel p-6 sm:p-8">
-      <h1 className="text-2xl font-semibold tracking-tight text-balance">Support inbox</h1>
+      <h1 className="font-serif text-3xl font-semibold tracking-tight text-balance sm:text-4xl">Support inbox</h1>
       <p className="mt-3 max-w-2xl leading-relaxed text-ink-2">
         These are support tickets for Vantimere Cloud, a made-up SaaS company. For each one, the agent classifies it, finds
         help-center articles, drafts a reply, and recommends a decision. A rules engine you can read makes the final call,
@@ -40,16 +40,16 @@ export default function InboxHome() {
 
       <dl className="mt-8 grid max-w-2xl grid-cols-2 gap-4 sm:grid-cols-3">
         <div className="rounded-lg border border-line bg-surface-2 p-4">
-          <dt className="text-sm text-ink-3">Escalation recall</dt>
-          <dd className="mt-1 text-2xl font-semibold">{pct(m.escalation.recall)}</dd>
+          <dt className="case-label">Escalation recall</dt>
+          <dd className="mt-1 font-serif text-3xl font-semibold tabular-nums">{pct(m.escalation.recall)}</dd>
         </div>
         <div className="rounded-lg border border-line bg-surface-2 p-4">
-          <dt className="text-sm text-ink-3">Decision accuracy</dt>
-          <dd className="mt-1 text-2xl font-semibold">{pct(m.decision.accuracy)}</dd>
+          <dt className="case-label">Decision accuracy</dt>
+          <dd className="mt-1 font-serif text-3xl font-semibold tabular-nums">{pct(m.decision.accuracy)}</dd>
         </div>
         <div className="rounded-lg border border-line bg-surface-2 p-4">
-          <dt className="text-sm text-ink-3">Tickets</dt>
-          <dd className="mt-1 text-2xl font-semibold">{m.n}</dd>
+          <dt className="case-label">Tickets</dt>
+          <dd className="mt-1 font-serif text-3xl font-semibold tabular-nums">{m.n}</dd>
         </div>
       </dl>
       <p className="mt-3 text-sm text-ink-3">

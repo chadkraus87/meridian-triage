@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ReviewButtons } from "@/components/review-buttons";
-import { AREA_LABEL, CATEGORY_LABEL, DecisionBadge, DETAIL_LABEL, Tag, usd } from "@/components/ui";
+import { AREA_LABEL, CATEGORY_LABEL, DecisionBadge, DETAIL_LABEL, Field, SectionTitle, Stamp, Tag, usd } from "@/components/ui";
 import { RULES } from "@/lib/rules";
 import { article, inbox, inboxItem } from "@/lib/site";
 import type { DetailKey } from "@/lib/types";
@@ -22,13 +22,17 @@ export async function generateMetadata({ params }: PageProps<"/tickets/[id]">): 
   return { title: item ? `${id}: ${item.ticket.subject}` : id };
 }
 
+/** One exhibit in the case file: a large serif numeral in the margin, the work beside it. */
 function Step({ n, title, children }: { n: number; title: string; children: React.ReactNode }) {
   return (
-    <li className="panel p-5">
-      <h2 className="flex items-baseline gap-3 text-base font-semibold">
-        <span className="font-mono text-sm text-ink-4">Step {n}</span>
-        {title}
-      </h2>
+    <li className="panel relative p-5 sm:pl-24">
+      <span
+        aria-hidden
+        className="mb-1 block font-serif text-4xl font-semibold leading-none text-ink-4/30 sm:absolute sm:left-6 sm:top-5 sm:mb-0 sm:text-5xl"
+      >
+        {String(n).padStart(2, "0")}
+      </span>
+      <SectionTitle kicker={`Step ${n}`}>{title}</SectionTitle>
       <div className="mt-3 space-y-3 text-sm leading-relaxed text-ink-2">{children}</div>
     </li>
   );
@@ -67,25 +71,43 @@ export default async function TicketPage({ params }: PageProps<"/tickets/[id]">)
         All tickets
       </Link>
 
-      <header className="panel p-5">
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="font-mono text-sm text-ink-3">{t.id}</span>
+      <header className="panel overflow-hidden">
+        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-line bg-surface-2 px-5 py-2.5">
+          <p className="case-label">
+            Case file{" "}
+            <span translate="no" className="ml-1 text-sm tracking-normal text-ink">
+              {t.id}
+            </span>
+          </p>
           <Tag tone={split === "test" ? "accent" : split === "techops" ? "info" : "neutral"}>
             {split === "test" ? "Held-out test" : split === "techops" ? "From TechOps" : "Dev set"}
           </Tag>
-          <Tag>{t.customer.tier} plan</Tag>
-          {t.contactCount > 1 && <Tag>Contact #{t.contactCount} about this</Tag>}
-          {t.otherAccountsReporting > 0 && <Tag tone="info">{t.otherAccountsReporting} other accounts reporting</Tag>}
         </div>
-        <h1 className="mt-3 text-xl font-semibold tracking-tight text-balance">{t.subject}</h1>
-        <p className="mt-1 text-sm text-ink-3">From {t.customer.company}</p>
-        <p className="preserve mt-4 leading-relaxed text-ink">{t.body}</p>
-        {t.attachment && (
-          <figure className="mt-4">
-            <figcaption className="mb-1 text-xs text-ink-3">Attached {t.attachment.kind === "http" ? "request and response" : "log"}</figcaption>
-            <pre className="preserve rounded-md border border-line bg-void p-3 font-mono text-xs text-ink-2">{t.attachment.content}</pre>
-          </figure>
-        )}
+        <div className="p-5 sm:p-6">
+          <h1 className="font-serif text-2xl font-semibold leading-tight tracking-tight text-balance sm:text-3xl">{t.subject}</h1>
+          <dl className="mt-5 grid grid-cols-2 gap-x-6 gap-y-3 text-sm sm:grid-cols-4">
+            <Field label="Filed by">{t.customer.company}</Field>
+            <Field label="Plan">
+              <span className="capitalize">{t.customer.tier}</span>
+            </Field>
+            <Field label="Contact">{t.contactCount === 1 ? "First" : `Number ${t.contactCount} about this`}</Field>
+            <Field label="Others reporting">{t.otherAccountsReporting || "None"}</Field>
+          </dl>
+          <section className="mt-6" aria-label="Customer statement">
+            <p className="case-label">Customer statement</p>
+            <blockquote className="preserve mt-2 border-l-2 border-ink-4/40 pl-4 leading-relaxed text-ink">{t.body}</blockquote>
+          </section>
+          {t.attachment && (
+            <figure className="mt-6">
+              <figcaption className="case-label mb-2">
+                Exhibit A · attached {t.attachment.kind === "http" ? "request and response" : "log"}
+              </figcaption>
+              <pre className="preserve rounded-sm border border-line bg-surface-2 p-3 font-mono text-xs leading-relaxed text-ink-2">
+                {t.attachment.content}
+              </pre>
+            </figure>
+          )}
+        </div>
       </header>
 
       <ol className="space-y-4" aria-label="What the agent did">
@@ -195,8 +217,8 @@ export default async function TicketPage({ params }: PageProps<"/tickets/[id]">)
 
         <Step n={4} title="Final decision (rules engine)">
           <div className="flex flex-wrap items-center gap-3">
-            <DecisionBadge decision={d.decision} size="lg" />
-            <span className="font-mono text-xs text-ink-3">{d.ruleId}</span>
+            <Stamp decision={d.decision} />
+            <span className="font-mono text-xs text-ink-3">Rule {d.ruleId}</span>
           </div>
           <p className="text-ink">{RULES[d.ruleId]}</p>
           {d.overrodeModel ? (
@@ -278,9 +300,9 @@ export default async function TicketPage({ params }: PageProps<"/tickets/[id]">)
       </ol>
 
       <section className="panel p-5" aria-labelledby="review-heading">
-        <h2 id="review-heading" className="text-base font-semibold">
+        <SectionTitle id="review-heading" kicker="Sign-off">
           Human review
-        </h2>
+        </SectionTitle>
         <div className="mt-3">
           <ReviewButtons key={t.id} escalate={d.decision === "escalate"} />
         </div>
@@ -289,9 +311,9 @@ export default async function TicketPage({ params }: PageProps<"/tickets/[id]">)
       <section className="panel p-5" aria-labelledby="key-heading">
         {labels ? (
           <>
-            <h2 id="key-heading" className="text-base font-semibold">
+            <SectionTitle id="key-heading" kicker="Grading">
               Answer key
-            </h2>
+            </SectionTitle>
             <p className="mt-1 text-sm text-ink-3">The label this ticket was scored against, from the labeling guide.</p>
             <dl className="mt-3 grid gap-2 text-sm sm:grid-cols-4">
               {(
@@ -318,9 +340,9 @@ export default async function TicketPage({ params }: PageProps<"/tickets/[id]">)
           </>
         ) : source ? (
           <>
-            <h2 id="key-heading" className="text-base font-semibold">
+            <SectionTitle id="key-heading" kicker="Source">
               From TechOps Command Center
-            </h2>
+            </SectionTitle>
             <p className="mt-1 text-sm leading-relaxed text-ink-2">
               This ticket comes from the {source.scenarioTitle} scenario in{" "}
               <a className="text-ink underline underline-offset-2" href="https://techops-command-center.vercel.app">

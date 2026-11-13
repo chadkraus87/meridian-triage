@@ -13,8 +13,8 @@ const DECISIONS: Decision[] = ["resolve", "needs_info", "escalate"];
 function Stat({ label, value, note }: { label: string; value: string; note?: string }) {
   return (
     <div className="rounded-lg border border-line bg-surface-2 p-4">
-      <dt className="text-sm text-ink-3">{label}</dt>
-      <dd className="mt-1 text-2xl font-semibold tabular-nums">{value}</dd>
+      <dt className="case-label">{label}</dt>
+      <dd className="mt-1 font-serif text-3xl font-semibold tabular-nums">{value}</dd>
       {note && <dd className="mt-1 text-xs text-ink-3">{note}</dd>}
     </div>
   );
@@ -23,7 +23,7 @@ function Stat({ label, value, note }: { label: string; value: string; note?: str
 function Section({ id, title, children }: { id: string; title: string; children: React.ReactNode }) {
   return (
     <section aria-labelledby={id} className="panel p-5 sm:p-6">
-      <h2 id={id} className="text-lg font-semibold tracking-tight">
+      <h2 id={id} className="font-serif text-2xl font-semibold tracking-tight">
         {title}
       </h2>
       <div className="mt-4 text-sm leading-relaxed text-ink-2">{children}</div>
@@ -67,7 +67,7 @@ export default function ResultsPage() {
   return (
     <div className="space-y-6">
       <header>
-        <h1 className="text-2xl font-semibold tracking-tight text-balance">Results</h1>
+        <h1 className="font-serif text-3xl font-semibold tracking-tight text-balance sm:text-4xl">Results</h1>
         <p className="mt-2 max-w-3xl leading-relaxed text-ink-2">
           The held-out test set: {m.n} tickets that were never used for tuning, run once on {date(run.createdAt)} with{" "}
           {run.model === MODEL ? MODEL_LABEL : run.model}. Rules and prompts were tuned only on the 70-ticket dev set. The test file is frozen by checksum, and

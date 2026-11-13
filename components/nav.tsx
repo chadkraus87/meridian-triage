@@ -9,10 +9,11 @@ const LINKS = [
   { href: "/how-it-works", label: "How it works", active: (p: string) => p.startsWith("/how-it-works") },
 ];
 
+/** Folder tabs: the active tab joins the page below it. */
 export function Nav() {
   const pathname = usePathname();
   return (
-    <nav aria-label="Main">
+    <nav aria-label="Main" className="-mb-px">
       <ul className="flex gap-1">
         {LINKS.map((l) => {
           const active = l.active(pathname);
@@ -21,8 +22,10 @@ export function Nav() {
               <Link
                 href={l.href}
                 aria-current={active ? "page" : undefined}
-                className={`block rounded-md px-3 py-2 text-sm transition-colors ${
-                  active ? "bg-surface-3 text-ink" : "text-ink-2 hover:bg-surface-2 hover:text-ink"
+                className={`block rounded-t border px-4 py-2 text-sm transition-colors ${
+                  active
+                    ? "border-line border-b-void bg-void font-medium text-ink"
+                    : "border-transparent text-ink-3 hover:border-line hover:bg-surface-2 hover:text-ink"
                 }`}
               >
                 {l.label}

@@ -9,7 +9,7 @@ export const metadata: Metadata = { title: "How it works" };
 function Section({ id, title, children }: { id: string; title: string; children: React.ReactNode }) {
   return (
     <section aria-labelledby={id} className="panel p-5 sm:p-6">
-      <h2 id={id} className="text-lg font-semibold tracking-tight">
+      <h2 id={id} className="font-serif text-2xl font-semibold tracking-tight">
         {title}
       </h2>
       <div className="mt-4 space-y-3 text-sm leading-relaxed text-ink-2">{children}</div>
@@ -89,7 +89,7 @@ export default function HowItWorks() {
   return (
     <div className="space-y-6">
       <header>
-        <h1 className="text-2xl font-semibold tracking-tight text-balance">How it works</h1>
+        <h1 className="font-serif text-3xl font-semibold tracking-tight text-balance sm:text-4xl">How it works</h1>
         <p className="mt-2 max-w-3xl leading-relaxed text-ink-2">
           Switchboard puts a language model in front of a support queue without letting it make the final call.
         </p>

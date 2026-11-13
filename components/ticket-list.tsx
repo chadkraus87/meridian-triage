@@ -63,7 +63,7 @@ export function TicketList({ items }: { items: ListItem[] }) {
               <Link
                 href={`/tickets/${t.id}`}
                 aria-current={active ? "page" : undefined}
-                className={`block px-3 py-2.5 transition-colors ${active ? "bg-surface-3" : "hover:bg-surface-2"}`}
+                className={`block border-l-2 px-3 py-2.5 transition-colors ${active ? "border-accent bg-surface-3" : "border-transparent hover:bg-surface-2"}`}
               >
                 <span className="flex items-center justify-between gap-2">
                   <span translate="no" className="font-mono text-xs text-ink-3">

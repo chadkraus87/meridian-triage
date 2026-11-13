@@ -94,6 +94,7 @@ export const stubModel: ModelClient = {
       usage: NO_USAGE,
       value: {
         reply,
+        askedFor: d.missingDetails,
         bugReport:
           d.decision === "escalate"
             ? {

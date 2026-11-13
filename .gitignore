@@ -45,3 +45,6 @@ next-env.d.ts
 /test-results/
 /playwright-report/
 /blob-report/
+
+# local Claude Code preview config
+/.claude/launch.json

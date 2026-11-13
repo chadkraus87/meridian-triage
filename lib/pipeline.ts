@@ -4,7 +4,7 @@ import { ModelCallError, stubModel, type ModelCall, type ModelClient } from "./m
 import { search, type Bm25Index } from "./retrieval";
 import { decide, type DecisionResult } from "./rules";
 import { detectSignals, redactInjection, ticketText, type Signals } from "./signals";
-import type { Assessment, BugReport, Retrieved, TicketInput } from "./types";
+import type { Assessment, BugReport, DetailKey, Retrieved, TicketInput } from "./types";
 
 export interface Trace {
   ticketId: string;
@@ -16,6 +16,8 @@ export interface Trace {
   assessment: Assessment;
   decision: DecisionResult;
   reply: string;
+  /** What the draft says its reply asks for. Absent in runs recorded before 2026-11-13. */
+  askedFor?: DetailKey[];
   bugReport: BugReport | null;
   citations: { cited: string[]; removed: string[] };
   guard: { blocked: boolean; reasons: string[] };
@@ -89,6 +91,8 @@ export async function triage(ticket: TicketInput, index: Bm25Index, model: Model
     assessment,
     decision,
     reply,
+    // A blocked draft is replaced by a note to the support engineer, which asks for nothing.
+    askedFor: guard.ok ? draft.value.askedFor : [],
     bugReport: decision.decision === "escalate" ? draft.value.bugReport : null,
     citations: { cited, removed },
     guard: { blocked: !guard.ok, reasons: guard.reasons },

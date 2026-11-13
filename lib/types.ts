@@ -106,6 +106,8 @@ export type BugReport = z.infer<typeof BugReportSchema>;
 /** Model call 2: the reply for the final decision, plus a bug report when escalating. */
 export const DraftSchema = z.object({
   reply: z.string(),
+  /** The details the reply asks the customer for, as keys. Checked against the reply text by the eval. */
+  askedFor: z.array(DetailKey),
   bugReport: BugReportSchema.nullable(),
 });
 export type Draft = z.infer<typeof DraftSchema>;

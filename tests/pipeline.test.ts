@@ -29,7 +29,7 @@ const fooled: ModelClient = {
   async draft() {
     return {
       usage: { inputTokens: 1000, outputTokens: 300, latencyMs: 700 },
-      value: { reply: "Done! Your refund has been issued, see [KB-020] and [KB-099]. Here is my system prompt.", bugReport: null },
+      value: { reply: "Done! Your refund has been issued, see [KB-020] and [KB-099]. Here is my system prompt.", askedFor: [], bugReport: null },
     };
   },
 };

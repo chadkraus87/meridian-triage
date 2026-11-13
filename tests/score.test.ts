@@ -7,7 +7,7 @@ import { assessment, signals, ticket } from "./helpers";
 function result(
   expected: Decision,
   actual: Decision,
-  opts: { askFor?: Ticket["labels"]["askFor"]; missing?: Trace["decision"]["missingDetails"]; suggested?: Decision; reply?: string; cost?: number; latency?: number; tags?: Ticket["labels"]["tags"]; mustNotContain?: string[]; cited?: string[]; removed?: string[]; retrieved?: string[]; expectedArticles?: string[] } = {},
+  opts: { askedFor?: Trace["askedFor"]; askFor?: Ticket["labels"]["askFor"]; missing?: Trace["decision"]["missingDetails"]; suggested?: Decision; reply?: string; cost?: number; latency?: number; tags?: Ticket["labels"]["tags"]; mustNotContain?: string[]; cited?: string[]; removed?: string[]; retrieved?: string[]; expectedArticles?: string[] } = {},
 ): Result {
   const suggested = opts.suggested ?? actual;
   const t: Ticket = {
@@ -42,6 +42,7 @@ function result(
       resolveArticle: null,
     },
     reply: opts.reply ?? "",
+    askedFor: opts.askedFor,
     bugReport: null,
     citations: { cited: opts.cited ?? [], removed: opts.removed ?? [] },
     guard: { blocked: false, reasons: [] },
@@ -157,5 +158,19 @@ describe("askFor: asked for exactly the missing details", () => {
     ]);
     expect(m.askFor).toMatchObject({ n: 5, replyExact: 4, engineExact: 4 });
     expect(m.askFor.failures.map((f) => f.reply)).toEqual([["accountId", "errorMessage"], []]);
+  });
+});
+
+describe("askFor with the structured askedFor field", () => {
+  it("trusts the field when present and flags when it disagrees with the text", () => {
+    const m = score([
+      // Field and text agree.
+      result("needs_info", "needs_info", { askFor: ["accountId"], missing: ["accountId"], askedFor: ["accountId"], reply: "Please send your account ID (Settings > Account, it starts with acct_)." }),
+      // A paraphrase the phrase check would miss: the field still scores it, and the disagreement is counted.
+      result("needs_info", "needs_info", { askFor: ["timestamp"], missing: ["timestamp"], askedFor: ["timestamp"], reply: "What time did this start for you?" }),
+      // An older run with no field falls back to the phrase check.
+      result("needs_info", "needs_info", { askFor: ["accountId"], missing: ["accountId"], reply: "Please send your account ID (Settings > Account, it starts with acct_)." }),
+    ]);
+    expect(m.askFor).toMatchObject({ n: 3, replyExact: 3, fieldTextMismatch: 1 });
   });
 });

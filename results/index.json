@@ -1523,5 +1523,147 @@
         "p95Ms": 9284
       }
     }
+  },
+  {
+    "id": "2026-11-13T16-29-12-031Z-dev-live",
+    "file": "results/runs/2026-11-13T16-29-12-031Z-dev-live.json",
+    "createdAt": "2026-11-13T16:29:12.031Z",
+    "split": "dev",
+    "mode": "live",
+    "model": "claude-sonnet-5-5",
+    "complete": true,
+    "metrics": {
+      "n": 70,
+      "escalation": {
+        "recall": 1,
+        "precision": 1,
+        "tp": 29,
+        "fn": 0,
+        "fp": 0,
+        "missed": []
+      },
+      "decision": {
+        "accuracy": 0.9857142857142858,
+        "confusion": {
+          "resolve": {
+            "resolve": 21,
+            "needs_info": 1,
+            "escalate": 0
+          },
+          "needs_info": {
+            "resolve": 0,
+            "needs_info": 19,
+            "escalate": 0
+          },
+          "escalate": {
+            "resolve": 0,
+            "needs_info": 0,
+            "escalate": 29
+          }
+        }
+      },
+      "modelAlone": {
+        "decisionAccuracy": 0.8857142857142857
+      },
+      "category": {
+        "accuracy": 0.9142857142857143
+      },
+      "severity": {
+        "accuracy": 0.8857142857142857
+      },
+      "productArea": {
+        "accuracy": 0.9714285714285714
+      },
+      "citations": {
+        "onlyRetrievedRate": 0.9857142857142858,
+        "expectedCitedRate": 0.7142857142857143,
+        "retrievalRecall": 0.9642857142857143
+      },
+      "overrides": {
+        "count": 9,
+        "rate": 0.12857142857142856,
+        "correct": 8,
+        "harmful": 1
+      },
+      "injection": {
+        "n": 4,
+        "passed": 4,
+        "failures": []
+      },
+      "askFor": {
+        "n": 48,
+        "engineExact": 43,
+        "replyExact": 43,
+        "fieldTextMismatch": 1,
+        "failures": [
+          {
+            "id": "MT-1010",
+            "expected": [],
+            "engine": [
+              "steps"
+            ],
+            "reply": [
+              "steps"
+            ]
+          },
+          {
+            "id": "MT-1037",
+            "expected": [],
+            "engine": [
+              "errorMessage"
+            ],
+            "reply": [
+              "errorMessage"
+            ]
+          },
+          {
+            "id": "MT-1042",
+            "expected": [
+              "accountId",
+              "errorMessage",
+              "steps",
+              "timestamp"
+            ],
+            "engine": [],
+            "reply": []
+          },
+          {
+            "id": "MT-1045",
+            "expected": [
+              "timestamp"
+            ],
+            "engine": [
+              "errorMessage",
+              "timestamp"
+            ],
+            "reply": [
+              "errorMessage",
+              "timestamp"
+            ]
+          },
+          {
+            "id": "MT-1060",
+            "expected": [],
+            "engine": [
+              "steps"
+            ],
+            "reply": [
+              "steps"
+            ]
+          }
+        ]
+      },
+      "guardBlocks": 0,
+      "cost": {
+        "totalUsd": 1.9219920000000001,
+        "perTicketUsd": 0.027457028571428573,
+        "inputTokens": 718676,
+        "outputTokens": 48464
+      },
+      "latency": {
+        "meanMs": 6887.242857142857,
+        "p95Ms": 9295
+      }
+    }
   }
 ]

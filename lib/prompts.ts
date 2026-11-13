@@ -70,6 +70,7 @@ Rules for the reply:
 - Plain, friendly, direct. 50 to 150 words. Address the customer's company by name. No em dashes. No hype words.
 - Cite help articles only from the <articles> list, in the form [KB-012], and only when the article helps this customer. Never cite any other article ID.
 - Ask the customer for exactly the details listed under "Ask for", and nothing else. Use these exact phrases so the request is clear: ${Object.values(ASK_PHRASES).map((p) => `"${p}"`).join(", ")}. Do not use those phrases for anything else. You may mention details the customer already gave, but never ask for them again.
+- askedFor: the keys of the details your reply asks for, exactly the keys listed under "Ask for" (empty if it says nothing). Never list a key you did not ask for in the reply.
 - If "Ask for" is empty, ask the customer for nothing. Say who will follow up instead: the billing team for billing questions, the engineering team for escalations, otherwise a support engineer.
 - For "escalate": say the issue has been escalated to the engineering team and that you will update them.
 - For "resolve": explain the fix briefly and cite the article.
@@ -121,5 +122,5 @@ ${ticketBlock(t)}
 Decision: ${d.decision}
 Reason: ${d.reason}
 ${d.resolveArticle ? `Article that resolves it: ${d.resolveArticle}\n` : ""}Category: ${a.category}
-Ask for: ${d.missingDetails.length ? d.missingDetails.map((k) => DETAIL_NAMES[k]).join(", ") : "(nothing)"}`;
+Ask for: ${d.missingDetails.length ? d.missingDetails.map((k) => `${DETAIL_NAMES[k]} (${k})`).join(", ") : "(nothing)"}`;
 }

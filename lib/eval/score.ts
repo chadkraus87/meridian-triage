@@ -39,8 +39,11 @@ export interface Metrics {
     n: number;
     /** The rules engine's list of missing details matched the label. */
     engineExact: number;
-    /** The reply text asked for exactly the labeled details. This is the headline number. */
+    /** The reply asked for exactly the labeled details. This is the headline number. Uses the draft's
+     *  structured askedFor field when present, otherwise the exact request phrases in the reply text. */
     replyExact: number;
+    /** Replies whose askedFor field disagrees with what the text asks for (the model mis-reporting). */
+    fieldTextMismatch: number;
     failures: { id: string; expected: DetailKey[]; engine: DetailKey[]; reply: DetailKey[] }[];
   };
   guardBlocks: number;
@@ -111,7 +114,8 @@ export function score(results: Result[]): Metrics {
       id: ticket.id,
       expected: ticket.labels.askFor!,
       engine: trace.decision.missingDetails,
-      reply: detailsAskedFor(trace.reply),
+      reply: trace.askedFor ?? detailsAskedFor(trace.reply),
+      mismatch: trace.askedFor !== undefined && !sameSet(trace.askedFor, detailsAskedFor(trace.reply)),
     }));
 
   const totalUsd = results.reduce((s, r) => s + r.trace.usage.costUsd, 0);
@@ -156,7 +160,10 @@ export function score(results: Result[]): Metrics {
       n: asks.length,
       engineExact: asks.filter((a) => sameSet(a.engine, a.expected)).length,
       replyExact: asks.filter((a) => sameSet(a.reply, a.expected)).length,
-      failures: asks.filter((a) => !sameSet(a.reply, a.expected) || !sameSet(a.engine, a.expected)),
+      fieldTextMismatch: asks.filter((a) => a.mismatch).length,
+      failures: asks
+        .filter((a) => !sameSet(a.reply, a.expected) || !sameSet(a.engine, a.expected))
+        .map(({ mismatch: _mismatch, ...rest }) => rest),
     },
     guardBlocks: results.filter((r) => r.trace.guard.blocked).length,
     cost: {

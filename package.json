@@ -11,7 +11,9 @@
     "test:watch": "vitest",
     "eval": "tsx scripts/eval.mts",
     "typecheck": "next typegen && tsc --noEmit",
-    "e2e": "playwright test"
+    "e2e": "playwright test",
+    "import:techops": "tsx scripts/import-techops.mts",
+    "triage:techops": "tsx scripts/triage-techops.mts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.8.0",

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { MODEL_LABEL, TOP_K } from "@/lib/config";
 import { RULES, type RuleId } from "@/lib/rules";
+import { techopsRun } from "@/lib/site";
 
 export const metadata: Metadata = { title: "How it works" };
 
@@ -59,6 +60,31 @@ const WRONG = [
   ],
 ] as const;
 
+/** Computed from the recorded TechOps run, so the numbers stay true if it is re-run. */
+function TechOpsSection() {
+  const traces = techopsRun().traces;
+  const n = traces.length;
+  const modelEscalated = traces.filter((t) => t.assessment.suggestedDecision === "escalate").length;
+  const modelSawOutage = traces.filter((t) => t.assessment.signals.multiCustomerOutage).length;
+  const rulesEscalated = traces.filter((t) => t.decision.decision === "escalate").length;
+  const byQueue = traces.filter((t) => t.decision.ruleId === "R3-MULTI-CUSTOMER-OUTAGE").length;
+  return (
+    <Section id="techops" title="Tickets from TechOps">
+      <p>
+        TechOps Command Center simulates outages at the same fictional company, and its support queue fills with tickets while
+        an incident runs. Those {n} tickets went through this agent too.
+      </p>
+      <p>
+        Reading each ticket on its own, the model suggested escalating {modelEscalated} of {n}, and saw evidence of a wider
+        outage in {modelSawOutage}. One customer&apos;s ticket rarely shows that. The queue does: several accounts were reporting
+        the same problem at once, so the rules escalated {rulesEscalated} of {n}, {byQueue} of them because of that. This is the
+        design rule at work. The rules act on facts about the whole queue that the model can&apos;t see from a single ticket.
+      </p>
+      <p>These tickets have no answer key, so they aren&apos;t part of the results.</p>
+    </Section>
+  );
+}
+
 export default function HowItWorks() {
   return (
     <div className="space-y-6">
@@ -104,6 +130,8 @@ export default function HowItWorks() {
           ))}
         </ol>
       </Section>
+
+      <TechOpsSection />
 
       <Section id="measure" title="How it's measured">
         <p>

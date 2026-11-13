@@ -13,16 +13,12 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { parseArgs } from "node:util";
-import Anthropic from "@anthropic-ai/sdk";
 import { claudeModel } from "../lib/claude";
-import { MAX_RUN_USD, MAX_TOKENS, MODEL, PRICE_PER_MTOK } from "../lib/config";
 import { loadArticles, loadTickets, withoutLabels, type Split } from "../lib/data";
 import { score, type Metrics, type Result } from "../lib/eval/score";
 import { stubModel, type ModelClient } from "../lib/model";
-import { triage } from "../lib/pipeline";
-import { ASSESS_SYSTEM, assessUser, DRAFT_SYSTEM, draftUser } from "../lib/prompts";
 import { buildIndex } from "../lib/retrieval";
-import { redactInjection } from "../lib/signals";
+import { estimateRun, printEstimate, runTickets } from "../lib/runner";
 
 const { values } = parseArgs({
   options: {
@@ -44,32 +40,9 @@ if (existsSync(".env.local")) process.loadEnvFile(".env.local");
 
 const index = buildIndex(loadArticles());
 const tickets = loadTickets(split).slice(0, values.limit ? Number(values.limit) : undefined);
-const usd = (input: number, output: number) => (input * PRICE_PER_MTOK.input + output * PRICE_PER_MTOK.output) / 1e6;
 
 if (values.estimate) {
-  // No paid calls. Input tokens come from the free token-counting endpoint when a key is
-  // set, otherwise from a characters-per-token approximation. Output is given as a range.
-  const client = process.env.ANTHROPIC_API_KEY ? new Anthropic() : null;
-  const count = async (system: string, user: string) =>
-    client
-      ? (await client.messages.countTokens({ model: MODEL, system, messages: [{ role: "user", content: user }] })).input_tokens
-      : Math.ceil((system.length + user.length) / 3.5);
-  let input = 0;
-  for (const ticket of tickets) {
-    const t = withoutLabels(ticket);
-    const stub = await triage(t, index, stubModel); // free: gives a realistic decision for the draft prompt
-    const clean = redactInjection(t).ticket;
-    input += await count(ASSESS_SYSTEM, assessUser(clean, stub.retrieved, index.articles));
-    input += await count(DRAFT_SYSTEM, draftUser(clean, stub.retrieved, index.articles, stub.decision, stub.assessment));
-  }
-  const n = tickets.length;
-  const typicalOut = n * (900 + 700); // assumed: JSON plus some thinking per call
-  const worstOut = n * (MAX_TOKENS.assess + MAX_TOKENS.draft);
-  console.log(`\nCost estimate: split=${split} n=${n} model=${MODEL} (${client ? "input counted by the API" : "input approximated, no API key"})`);
-  console.log(`Input tokens   ${input.toLocaleString()}  ($${usd(input, 0).toFixed(2)})`);
-  console.log(`Typical run    $${usd(input, typicalOut).toFixed(2)}  (assumes about 1,600 output tokens per ticket)`);
-  console.log(`Worst case     $${usd(input, worstOut).toFixed(2)}  (every call hits its max_tokens cap)`);
-  console.log(`Run budget     $${MAX_RUN_USD.toFixed(2)}  (the run stops before it can pass this)`);
+  printEstimate(`split=${split}`, tickets.length, await estimateRun(tickets.map(withoutLabels), index));
   process.exit(0);
 }
 
@@ -79,28 +52,9 @@ if (values.mode === "live") {
   model = claudeModel();
 }
 
-// Budget guard: before starting a batch, reserve each ticket's worst case. Stop starting
-// new tickets once spent plus reserved would pass MAX_RUN_USD.
-const WORST_TICKET_USD = usd(20_000, MAX_TOKENS.assess + MAX_TOKENS.draft);
-const CONCURRENCY = values.mode === "live" ? 4 : 1;
-let spent = 0;
-let stopped = false;
-const results: Result[] = [];
-for (let i = 0; i < tickets.length; i += CONCURRENCY) {
-  const batch = tickets.slice(i, i + CONCURRENCY);
-  if (spent + batch.length * WORST_TICKET_USD > MAX_RUN_USD) {
-    stopped = true;
-    console.log(`Budget guard: stopped after ${results.length} tickets ($${spent.toFixed(2)} spent, cap $${MAX_RUN_USD}).`);
-    break;
-  }
-  const done = await Promise.all(batch.map(async (ticket) => ({ ticket, trace: await triage(withoutLabels(ticket), index, model) })));
-  for (const r of done) {
-    spent += r.trace.usage.costUsd;
-    results.push(r);
-    if (r.trace.modelErrors.length) console.log(`  ${r.ticket.id}: ${r.trace.modelErrors.join("; ")}`);
-  }
-  if (values.mode === "live") console.log(`  ${results.length}/${tickets.length} tickets, $${spent.toFixed(3)} so far`);
-}
+const run = await runTickets(tickets.map(withoutLabels), index, model, { concurrency: values.mode === "live" ? 4 : 1 });
+const stopped = run.stopped;
+const results: Result[] = run.traces.map((trace, i) => ({ ticket: tickets[i], trace }));
 const metrics = score(results);
 
 const pct = (x: number | null) => (x === null ? "n/a" : `${(x * 100).toFixed(1)}%`);

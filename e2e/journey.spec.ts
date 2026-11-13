@@ -54,3 +54,17 @@ test("ticket pages are fully prerendered, not streamed in after load", async ({ 
   expect(html).toContain("Unrecognized API activity creating admin keys");
   expect(html).toContain("R1-SECURITY");
 });
+
+test("TechOps tickets: the tab, and the link TechOps builds", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: /TechOps/ }).click();
+  const list = page.getByRole("list", { name: "TechOps tickets" });
+  await expect(list.getByRole("listitem")).toHaveCount(29);
+
+  // TechOps links to /techops/<scenario>/<n>; it lands on the right ticket.
+  await page.goto("/techops/dns-failure/3");
+  await expect(page).toHaveURL(/\/tickets\/MT-3003$/);
+  await expect(page.getByRole("heading", { level: 1, name: "API requests timing out from our integration" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "From TechOps Command Center" })).toBeVisible();
+  await expect(page.getByText(/Not scored: TechOps tickets have no answer key/)).toBeVisible();
+});

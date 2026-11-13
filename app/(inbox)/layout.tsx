@@ -8,7 +8,8 @@ export default function InboxLayout({ children }: { children: React.ReactNode })
     company: ticket.customer.company,
     tier: ticket.customer.tier,
     decision: trace.decision.decision,
-    correct: trace.decision.decision === ticket.labels.decision,
+    // TechOps tickets have no answer key, so there is nothing to differ from.
+    correct: ticket.labels ? trace.decision.decision === ticket.labels.decision : null,
     split,
   }));
   return (

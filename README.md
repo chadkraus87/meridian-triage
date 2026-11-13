@@ -56,11 +56,17 @@ If a model call fails or is refused, a rules-only fallback stands in for that ca
 |---|---|---|
 | ![Inbox](docs/screenshots/inbox.png) | ![Results](docs/screenshots/results.png) | ![How it works](docs/screenshots/how-it-works.png) |
 
-- **Inbox**: all 100 tickets with the agent's work step by step, the rule that decided, the draft reply, the bug report, Approve and Reject buttons (local state only), and the answer key it was scored against.
+- **Inbox**: all 100 scored tickets plus the 29 from TechOps, with the agent's work step by step, the rule that decided, the draft reply, the bug report, Approve and Reject buttons (local state only), and the answer key it was scored against.
 - **Results**: the held-out numbers, confusion matrix, override stats, every miss with an explanation, and the run history.
 - **How it works**: the design rule, the flow, the rules generated from the engine itself, and what it gets wrong.
 
 The hosted site replays recorded runs from `results/`. It makes no model calls and needs no API key.
+
+## Tickets from TechOps
+
+[TechOps Command Center](https://github.com/chadkraus87/techops-command-center) simulates outages at the same fictional company, and its support queue fills with tickets while an incident runs. Those 29 scenario tickets are imported here (`npm run import:techops -- ../techops-command-center`), triaged by the same agent (`npm run triage:techops`), and shown in their own inbox tab. Each ticket in TechOps links to its recorded triage at `/techops/<scenario>/<n>`.
+
+They have no answer key, so they're never scored. They do show the design rule at work: reading each ticket on its own, the model suggested escalating 8 of the 29. The queue showed several accounts reporting the same problem at once, so the rules escalated all 29, 28 of them for that reason. That's a fact about the whole queue that no single ticket shows.
 
 ## How it was evaluated
 

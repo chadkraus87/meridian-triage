@@ -1,0 +1,553 @@
+[
+  {
+    "id": "MT-3001",
+    "subject": "Dashboard will not load",
+    "body": "I've been trying to open my dashboard for the last few minutes and it just spins, then shows a blank page with an error. I've tried two browsers and my phone.",
+    "customer": {
+      "company": "Northwind Retail",
+      "tier": "pro"
+    },
+    "contactCount": 1,
+    "otherAccountsReporting": 4,
+    "createdAt": "2026-11-13T12:00:00Z",
+    "source": {
+      "scenarioId": "dns-failure",
+      "scenarioTitle": "DNS Resolution Failure",
+      "templateNumber": 1,
+      "priority": "urgent",
+      "affectedService": "web-frontend"
+    }
+  },
+  {
+    "id": "MT-3002",
+    "subject": "Unable to log in — 'service unavailable'",
+    "body": "Every time I enter my password I get a 503 page. My team can't get in either. Nothing changed on our side.",
+    "customer": {
+      "company": "Fielding Logistics",
+      "tier": "pro"
+    },
+    "contactCount": 1,
+    "otherAccountsReporting": 4,
+    "createdAt": "2026-11-13T12:00:00Z",
+    "source": {
+      "scenarioId": "dns-failure",
+      "scenarioTitle": "DNS Resolution Failure",
+      "templateNumber": 2,
+      "priority": "urgent",
+      "affectedService": "identity-service"
+    }
+  },
+  {
+    "id": "MT-3003",
+    "subject": "API requests timing out from our integration",
+    "body": "Our nightly sync job is failing with connection errors against api.meridian.example. We're seeing 503s on roughly every request.",
+    "customer": {
+      "company": "Aster Health",
+      "tier": "pro"
+    },
+    "contactCount": 1,
+    "otherAccountsReporting": 4,
+    "createdAt": "2026-11-13T12:00:00Z",
+    "source": {
+      "scenarioId": "dns-failure",
+      "scenarioTitle": "DNS Resolution Failure",
+      "templateNumber": 3,
+      "priority": "high",
+      "affectedService": "api-gateway"
+    }
+  },
+  {
+    "id": "MT-3004",
+    "subject": "Checkout is failing for our customers",
+    "body": "We're getting an error at the payment step. This is costing us orders — please treat as urgent.",
+    "customer": {
+      "company": "Kestrel Analytics",
+      "tier": "pro"
+    },
+    "contactCount": 1,
+    "otherAccountsReporting": 4,
+    "createdAt": "2026-11-13T12:00:00Z",
+    "source": {
+      "scenarioId": "dns-failure",
+      "scenarioTitle": "DNS Resolution Failure",
+      "templateNumber": 4,
+      "priority": "urgent",
+      "affectedService": "payment-service"
+    }
+  },
+  {
+    "id": "MT-3005",
+    "subject": "Images and thumbnails not loading",
+    "body": "Product images are showing as broken placeholders across our whole storefront.",
+    "customer": {
+      "company": "Vantage Media",
+      "tier": "pro"
+    },
+    "contactCount": 1,
+    "otherAccountsReporting": 4,
+    "createdAt": "2026-11-13T12:00:00Z",
+    "source": {
+      "scenarioId": "dns-failure",
+      "scenarioTitle": "DNS Resolution Failure",
+      "templateNumber": 5,
+      "priority": "high",
+      "affectedService": "media-service"
+    }
+  },
+  {
+    "id": "MT-3006",
+    "subject": "Dashboard is extremely slow",
+    "body": "Pages that normally load instantly are taking 10+ seconds, and some eventually error out. Started about five minutes ago.",
+    "customer": {
+      "company": "Orbit Studios",
+      "tier": "pro"
+    },
+    "contactCount": 1,
+    "otherAccountsReporting": 4,
+    "createdAt": "2026-11-13T12:00:00Z",
+    "source": {
+      "scenarioId": "database-overload",
+      "scenarioTitle": "Database Connection Exhaustion",
+      "templateNumber": 1,
+      "priority": "high",
+      "affectedService": "web-frontend"
+    }
+  },
+  {
+    "id": "MT-3007",
+    "subject": "API returning 500s intermittently",
+    "body": "About one in five calls to /api/projects comes back as a 500. The rest are slow but succeed.",
+    "customer": {
+      "company": "Cedar & Co",
+      "tier": "pro"
+    },
+    "contactCount": 1,
+    "otherAccountsReporting": 4,
+    "createdAt": "2026-11-13T12:00:00Z",
+    "source": {
+      "scenarioId": "database-overload",
+      "scenarioTitle": "Database Connection Exhaustion",
+      "templateNumber": 2,
+      "priority": "urgent",
+      "affectedService": "customer-api"
+    }
+  },
+  {
+    "id": "MT-3008",
+    "subject": "Report export never finishes",
+    "body": "I clicked export on our usage report twenty minutes ago and it's still processing.",
+    "customer": {
+      "company": "Lumen Works",
+      "tier": "pro"
+    },
+    "contactCount": 1,
+    "otherAccountsReporting": 4,
+    "createdAt": "2026-11-13T12:00:00Z",
+    "source": {
+      "scenarioId": "database-overload",
+      "scenarioTitle": "Database Connection Exhaustion",
+      "templateNumber": 3,
+      "priority": "normal",
+      "affectedService": "customer-api"
+    }
+  },
+  {
+    "id": "MT-3009",
+    "subject": "Payments occasionally fail then succeed on retry",
+    "body": "Several of our customers reported a failed payment, but retrying worked. Is something wrong on your end?",
+    "customer": {
+      "company": "Braid Financial",
+      "tier": "pro"
+    },
+    "contactCount": 1,
+    "otherAccountsReporting": 4,
+    "createdAt": "2026-11-13T12:00:00Z",
+    "source": {
+      "scenarioId": "database-overload",
+      "scenarioTitle": "Database Connection Exhaustion",
+      "templateNumber": 4,
+      "priority": "high",
+      "affectedService": "payment-service"
+    }
+  },
+  {
+    "id": "MT-3010",
+    "subject": "Notification emails delayed",
+    "body": "Our invite emails are arriving 15-20 minutes late.",
+    "customer": {
+      "company": "Trailhead Outdoors",
+      "tier": "pro"
+    },
+    "contactCount": 1,
+    "otherAccountsReporting": 4,
+    "createdAt": "2026-11-13T12:00:00Z",
+    "source": {
+      "scenarioId": "database-overload",
+      "scenarioTitle": "Database Connection Exhaustion",
+      "templateNumber": 5,
+      "priority": "low",
+      "affectedService": "notification-worker"
+    }
+  },
+  {
+    "id": "MT-3011",
+    "subject": "Images aren't loading",
+    "body": "Thumbnails across my project gallery are showing as broken. Text and everything else works fine.",
+    "customer": {
+      "company": "Sable Design",
+      "tier": "pro"
+    },
+    "contactCount": 1,
+    "otherAccountsReporting": 3,
+    "createdAt": "2026-11-13T12:00:00Z",
+    "source": {
+      "scenarioId": "memory-leak",
+      "scenarioTitle": "Memory Leak in Media Service",
+      "templateNumber": 1,
+      "priority": "high",
+      "affectedService": "media-service"
+    }
+  },
+  {
+    "id": "MT-3012",
+    "subject": "Upload fails at 100%",
+    "body": "I've tried uploading the same 40MB video four times. It reaches 100% then errors out with a timeout.",
+    "customer": {
+      "company": "Harbour Freight Co",
+      "tier": "pro"
+    },
+    "contactCount": 1,
+    "otherAccountsReporting": 3,
+    "createdAt": "2026-11-13T12:00:00Z",
+    "source": {
+      "scenarioId": "memory-leak",
+      "scenarioTitle": "Memory Leak in Media Service",
+      "templateNumber": 2,
+      "priority": "high",
+      "affectedService": "media-service"
+    }
+  },
+  {
+    "id": "MT-3013",
+    "subject": "Gallery page very slow to load",
+    "body": "The page itself appears but images trickle in over about 30 seconds, and some never appear.",
+    "customer": {
+      "company": "Pinnacle Labs",
+      "tier": "pro"
+    },
+    "contactCount": 1,
+    "otherAccountsReporting": 3,
+    "createdAt": "2026-11-13T12:00:00Z",
+    "source": {
+      "scenarioId": "memory-leak",
+      "scenarioTitle": "Memory Leak in Media Service",
+      "templateNumber": 3,
+      "priority": "normal",
+      "affectedService": "media-service"
+    }
+  },
+  {
+    "id": "MT-3014",
+    "subject": "Some product photos missing on our storefront",
+    "body": "Roughly a third of our images are gone. They were all fine this morning.",
+    "customer": {
+      "company": "Rivet Software",
+      "tier": "pro"
+    },
+    "contactCount": 1,
+    "otherAccountsReporting": 3,
+    "createdAt": "2026-11-13T12:00:00Z",
+    "source": {
+      "scenarioId": "memory-leak",
+      "scenarioTitle": "Memory Leak in Media Service",
+      "templateNumber": 4,
+      "priority": "normal",
+      "affectedService": "edge-cdn"
+    }
+  },
+  {
+    "id": "MT-3015",
+    "subject": "Keep getting logged out",
+    "body": "I sign in, click around for a minute, and I'm back at the login screen. It's happened four times now.",
+    "customer": {
+      "company": "Solstice Travel",
+      "tier": "pro"
+    },
+    "contactCount": 1,
+    "otherAccountsReporting": 2,
+    "createdAt": "2026-11-13T12:00:00Z",
+    "source": {
+      "scenarioId": "redis-failure",
+      "scenarioTitle": "Redis Cache Failure",
+      "templateNumber": 1,
+      "priority": "high",
+      "affectedService": "identity-service"
+    }
+  },
+  {
+    "id": "MT-3016",
+    "subject": "Everything is slower than usual",
+    "body": "The app works but every page takes several seconds longer than normal.",
+    "customer": {
+      "company": "Ironwood Group",
+      "tier": "pro"
+    },
+    "contactCount": 1,
+    "otherAccountsReporting": 2,
+    "createdAt": "2026-11-13T12:00:00Z",
+    "source": {
+      "scenarioId": "redis-failure",
+      "scenarioTitle": "Redis Cache Failure",
+      "templateNumber": 2,
+      "priority": "normal",
+      "affectedService": "customer-api"
+    }
+  },
+  {
+    "id": "MT-3017",
+    "subject": "Login takes 10+ seconds",
+    "body": "Signing in used to be instant. Now it hangs for ages before letting me through.",
+    "customer": {
+      "company": "Northwind Retail",
+      "tier": "pro"
+    },
+    "contactCount": 1,
+    "otherAccountsReporting": 2,
+    "createdAt": "2026-11-13T12:00:00Z",
+    "source": {
+      "scenarioId": "redis-failure",
+      "scenarioTitle": "Redis Cache Failure",
+      "templateNumber": 3,
+      "priority": "high",
+      "affectedService": "identity-service"
+    }
+  },
+  {
+    "id": "MT-3018",
+    "subject": "Site looks broken — no styling",
+    "body": "The page loads but it's just unstyled text with no images. Colleague in the US says it looks fine for them.",
+    "customer": {
+      "company": "Fielding Logistics",
+      "tier": "pro"
+    },
+    "contactCount": 1,
+    "otherAccountsReporting": 2,
+    "createdAt": "2026-11-13T12:00:00Z",
+    "source": {
+      "scenarioId": "cdn-outage",
+      "scenarioTitle": "CDN Regional Outage",
+      "templateNumber": 1,
+      "priority": "urgent",
+      "affectedService": "edge-cdn"
+    }
+  },
+  {
+    "id": "MT-3019",
+    "subject": "Very slow page loads from our London office",
+    "body": "Pages take 15-20 seconds. Our New York team has no issues at all.",
+    "customer": {
+      "company": "Aster Health",
+      "tier": "pro"
+    },
+    "contactCount": 1,
+    "otherAccountsReporting": 2,
+    "createdAt": "2026-11-13T12:00:00Z",
+    "source": {
+      "scenarioId": "cdn-outage",
+      "scenarioTitle": "CDN Regional Outage",
+      "templateNumber": 2,
+      "priority": "high",
+      "affectedService": "edge-cdn"
+    }
+  },
+  {
+    "id": "MT-3020",
+    "subject": "Images not displaying",
+    "body": "Product images fail to load about half the time. Refreshing sometimes fixes it.",
+    "customer": {
+      "company": "Kestrel Analytics",
+      "tier": "pro"
+    },
+    "contactCount": 1,
+    "otherAccountsReporting": 2,
+    "createdAt": "2026-11-13T12:00:00Z",
+    "source": {
+      "scenarioId": "cdn-outage",
+      "scenarioTitle": "CDN Regional Outage",
+      "templateNumber": 3,
+      "priority": "normal",
+      "affectedService": "media-service"
+    }
+  },
+  {
+    "id": "MT-3021",
+    "subject": "Security warning when visiting your site",
+    "body": "My browser is showing a big red warning saying the connection isn't private and the certificate expired. Is this a phishing site?",
+    "customer": {
+      "company": "Vantage Media",
+      "tier": "pro"
+    },
+    "contactCount": 1,
+    "otherAccountsReporting": 2,
+    "createdAt": "2026-11-13T12:00:00Z",
+    "source": {
+      "scenarioId": "tls-expiry",
+      "scenarioTitle": "Expired TLS Certificate",
+      "templateNumber": 1,
+      "priority": "urgent",
+      "affectedService": "load-balancer"
+    }
+  },
+  {
+    "id": "MT-3022",
+    "subject": "Complete outage — nothing loads",
+    "body": "The entire application is down for our whole company. We get connection errors on every page.",
+    "customer": {
+      "company": "Orbit Studios",
+      "tier": "pro"
+    },
+    "contactCount": 1,
+    "otherAccountsReporting": 2,
+    "createdAt": "2026-11-13T12:00:00Z",
+    "source": {
+      "scenarioId": "tls-expiry",
+      "scenarioTitle": "Expired TLS Certificate",
+      "templateNumber": 2,
+      "priority": "urgent",
+      "affectedService": "web-frontend"
+    }
+  },
+  {
+    "id": "MT-3023",
+    "subject": "Our API integration stopped working suddenly",
+    "body": "All our API calls started failing at the same moment with SSL errors. Nothing changed on our end.",
+    "customer": {
+      "company": "Cedar & Co",
+      "tier": "pro"
+    },
+    "contactCount": 1,
+    "otherAccountsReporting": 2,
+    "createdAt": "2026-11-13T12:00:00Z",
+    "source": {
+      "scenarioId": "tls-expiry",
+      "scenarioTitle": "Expired TLS Certificate",
+      "templateNumber": 3,
+      "priority": "urgent",
+      "affectedService": "api-gateway"
+    }
+  },
+  {
+    "id": "MT-3024",
+    "subject": "Requests randomly hang then work on retry",
+    "body": "Maybe one in eight requests just hangs for 30 seconds and times out. If I retry immediately it works fine. Very hard to pin down.",
+    "customer": {
+      "company": "Lumen Works",
+      "tier": "pro"
+    },
+    "contactCount": 1,
+    "otherAccountsReporting": 2,
+    "createdAt": "2026-11-13T12:00:00Z",
+    "source": {
+      "scenarioId": "packet-loss",
+      "scenarioTitle": "Network Packet Loss",
+      "templateNumber": 1,
+      "priority": "high",
+      "affectedService": "customer-api"
+    }
+  },
+  {
+    "id": "MT-3025",
+    "subject": "Intermittent timeouts on our integration",
+    "body": "Our monitoring shows roughly 10% of calls timing out, but no consistent pattern by endpoint.",
+    "customer": {
+      "company": "Braid Financial",
+      "tier": "pro"
+    },
+    "contactCount": 1,
+    "otherAccountsReporting": 2,
+    "createdAt": "2026-11-13T12:00:00Z",
+    "source": {
+      "scenarioId": "packet-loss",
+      "scenarioTitle": "Network Packet Loss",
+      "templateNumber": 2,
+      "priority": "high",
+      "affectedService": "api-gateway"
+    }
+  },
+  {
+    "id": "MT-3026",
+    "subject": "App feels unreliable today",
+    "body": "Sometimes instant, sometimes it just spins. Not sure how else to describe it.",
+    "customer": {
+      "company": "Trailhead Outdoors",
+      "tier": "pro"
+    },
+    "contactCount": 1,
+    "otherAccountsReporting": 2,
+    "createdAt": "2026-11-13T12:00:00Z",
+    "source": {
+      "scenarioId": "packet-loss",
+      "scenarioTitle": "Network Packet Loss",
+      "templateNumber": 3,
+      "priority": "normal",
+      "affectedService": "web-frontend"
+    }
+  },
+  {
+    "id": "MT-3027",
+    "subject": "Checkout failing",
+    "body": "I've tried to pay three times with two different cards. It spins for about thirty seconds and then says the payment couldn't be processed.",
+    "customer": {
+      "company": "Sable Design",
+      "tier": "pro"
+    },
+    "contactCount": 1,
+    "otherAccountsReporting": 2,
+    "createdAt": "2026-11-13T12:00:00Z",
+    "source": {
+      "scenarioId": "payment-provider-outage",
+      "scenarioTitle": "Third-Party Payment Provider Outage",
+      "templateNumber": 1,
+      "priority": "urgent",
+      "affectedService": "payment-service"
+    }
+  },
+  {
+    "id": "MT-3028",
+    "subject": "Was I charged? No receipt",
+    "body": "The payment page errored but I want to be sure I wasn't double charged. I haven't received a receipt email.",
+    "customer": {
+      "company": "Harbour Freight Co",
+      "tier": "pro"
+    },
+    "contactCount": 1,
+    "otherAccountsReporting": 2,
+    "createdAt": "2026-11-13T12:00:00Z",
+    "source": {
+      "scenarioId": "payment-provider-outage",
+      "scenarioTitle": "Third-Party Payment Provider Outage",
+      "templateNumber": 2,
+      "priority": "high",
+      "affectedService": "payment-service"
+    }
+  },
+  {
+    "id": "MT-3029",
+    "subject": "Can't update our billing card",
+    "body": "Trying to swap the card on our account and it just errors every time. The rest of the app works fine.",
+    "customer": {
+      "company": "Pinnacle Labs",
+      "tier": "pro"
+    },
+    "contactCount": 1,
+    "otherAccountsReporting": 2,
+    "createdAt": "2026-11-13T12:00:00Z",
+    "source": {
+      "scenarioId": "payment-provider-outage",
+      "scenarioTitle": "Third-Party Payment Provider Outage",
+      "templateNumber": 3,
+      "priority": "normal",
+      "affectedService": "payment-service"
+    }
+  }
+]

@@ -16,6 +16,10 @@ export default function InboxHome() {
         Pick a ticket to see each step: what the checks found, which articles came back, what the model suggested, which
         rule decided, and the draft reply.
       </p>
+      <p className="mt-3 max-w-2xl leading-relaxed text-ink-2">
+        The From TechOps tab holds tickets from the outage scenarios in TechOps Command Center, the incident simulator set at
+        the same company. They go through the same agent but have no answer key, so they aren&apos;t scored.
+      </p>
 
       <dl className="mt-6 grid max-w-2xl gap-2 text-sm text-ink-2 sm:grid-cols-[auto_1fr] sm:items-center sm:gap-x-3">
         {(

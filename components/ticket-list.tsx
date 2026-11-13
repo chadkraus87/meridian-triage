@@ -12,19 +12,21 @@ export interface ListItem {
   company: string;
   tier: string;
   decision: Decision;
-  correct: boolean;
-  split: "test" | "dev";
+  /** null when the ticket has no answer key (TechOps). */
+  correct: boolean | null;
+  split: "test" | "dev" | "techops";
 }
 
 const SPLITS = [
-  { key: "test", label: "Held-out test", hint: "Never used for tuning" },
+  { key: "test", label: "Held-out", hint: "Never tuned on" },
   { key: "dev", label: "Dev", hint: "Used for tuning" },
+  { key: "techops", label: "TechOps", hint: "Not scored" },
 ] as const;
 
 export function TicketList({ items }: { items: ListItem[] }) {
   const pathname = usePathname();
   const activeId = pathname.startsWith("/tickets/") ? decodeURIComponent(pathname.split("/")[2]) : null;
-  const [split, setSplit] = useState<"test" | "dev">(() =>
+  const [split, setSplit] = useState<ListItem["split"]>(() =>
     activeId ? (items.find((i) => i.id === activeId)?.split ?? "test") : "test",
   );
   const shown = items.filter((i) => i.split === split);
@@ -32,7 +34,7 @@ export function TicketList({ items }: { items: ListItem[] }) {
   return (
     // On small screens the list gives way to the open ticket; the ticket page links back.
     <div className={`${activeId ? "hidden lg:block" : ""} panel overflow-hidden`}>
-      <div role="group" aria-label="Ticket set" className="grid grid-cols-2 gap-1 border-b border-line p-2">
+      <div role="group" aria-label="Ticket set" className="grid grid-cols-3 gap-1 border-b border-line p-2">
         {SPLITS.map((s) => {
           const count = items.filter((i) => i.split === s.key).length;
           return (
@@ -53,7 +55,7 @@ export function TicketList({ items }: { items: ListItem[] }) {
           );
         })}
       </div>
-      <ul className="max-h-[70vh] overflow-y-auto lg:max-h-[calc(100vh-14rem)]" aria-label={`${split === "test" ? "Held-out test" : "Dev"} tickets`}>
+      <ul className="max-h-[70vh] overflow-y-auto lg:max-h-[calc(100vh-14rem)]" aria-label={`${SPLITS.find((s) => s.key === split)!.label} tickets`}>
         {shown.map((t) => {
           const active = t.id === activeId;
           return (
@@ -74,7 +76,7 @@ export function TicketList({ items }: { items: ListItem[] }) {
                   <span className="min-w-0 truncate">
                     {t.company} · {t.tier}
                   </span>
-                  {!t.correct && <span className="shrink-0 text-warn">Differs from label</span>}
+                  {t.correct === false && <span className="shrink-0 text-warn">Differs from label</span>}
                 </span>
               </Link>
             </li>

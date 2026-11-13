@@ -43,7 +43,7 @@ export default function ResultsPage() {
   // Every way each held-out ticket differed from its label, computed from the recorded run.
   const misses = heldOut
     .map(({ ticket, trace }) => {
-      const l = ticket.labels;
+      const l = ticket.labels!; // held-out tickets always carry labels
       const a = trace.assessment;
       const diffs: string[] = [];
       if (trace.decision.decision !== l.decision)

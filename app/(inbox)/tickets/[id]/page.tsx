@@ -57,6 +57,7 @@ export default async function TicketPage({ params }: PageProps<"/tickets/[id]">)
   const { ticket: t, trace, split } = item;
   const { assessment: a, decision: d, signals: s } = trace;
   const labels = t.labels;
+  const source = t.source;
   const matches = new Map(a.articleMatches.map((m) => [m.id, m.confidence]));
   const asked = d.missingDetails;
 
@@ -69,7 +70,9 @@ export default async function TicketPage({ params }: PageProps<"/tickets/[id]">)
       <header className="panel p-5">
         <div className="flex flex-wrap items-center gap-2">
           <span className="font-mono text-sm text-ink-3">{t.id}</span>
-          <Tag tone={split === "test" ? "accent" : "neutral"}>{split === "test" ? "Held-out test" : "Dev set"}</Tag>
+          <Tag tone={split === "test" ? "accent" : split === "techops" ? "info" : "neutral"}>
+            {split === "test" ? "Held-out test" : split === "techops" ? "From TechOps" : "Dev set"}
+          </Tag>
           <Tag>{t.customer.tier} plan</Tag>
           {t.contactCount > 1 && <Tag>Contact #{t.contactCount} about this</Tag>}
           {t.otherAccountsReporting > 0 && <Tag tone="info">{t.otherAccountsReporting} other accounts reporting</Tag>}
@@ -284,32 +287,65 @@ export default async function TicketPage({ params }: PageProps<"/tickets/[id]">)
       </section>
 
       <section className="panel p-5" aria-labelledby="key-heading">
-        <h2 id="key-heading" className="text-base font-semibold">
-          Answer key
-        </h2>
-        <p className="mt-1 text-sm text-ink-3">The label this ticket was scored against, from the labeling guide.</p>
-        <dl className="mt-3 grid gap-2 text-sm sm:grid-cols-4">
-          {(
-            [
-              ["Decision", labels.decision.replace("_", " "), d.decision === labels.decision],
-              ["Category", CATEGORY_LABEL[labels.category], a.category === labels.category],
-              ["Severity", labels.severity, a.severity === labels.severity],
-              ["Product area", AREA_LABEL[labels.productArea], a.productArea === labels.productArea],
-            ] as const
-          ).map(([k, v, ok]) => (
-            <div key={k} className="rounded-md border border-line bg-surface-2 p-3">
-              <dt className="text-xs text-ink-3">{k}</dt>
-              <dd className="mt-1 capitalize text-ink">{v}</dd>
-              <dd className={`mt-1 text-xs ${ok ? "text-ok" : "text-warn"}`}>{ok ? "Agent matched" : "Agent differed"}</dd>
-            </div>
-          ))}
-        </dl>
-        <p className="mt-3 text-sm text-ink-2">{labels.note}</p>
-        {labels.askFor && (
-          <p className="mt-1 text-sm text-ink-3">
-            Should ask for: {labels.askFor.length ? labels.askFor.map((k) => DETAIL_LABEL[k].toLowerCase()).join(", ") : "nothing"}.
-          </p>
-        )}
+        {labels ? (
+          <>
+            <h2 id="key-heading" className="text-base font-semibold">
+              Answer key
+            </h2>
+            <p className="mt-1 text-sm text-ink-3">The label this ticket was scored against, from the labeling guide.</p>
+            <dl className="mt-3 grid gap-2 text-sm sm:grid-cols-4">
+              {(
+                [
+                  ["Decision", labels.decision.replace("_", " "), d.decision === labels.decision],
+                  ["Category", CATEGORY_LABEL[labels.category], a.category === labels.category],
+                  ["Severity", labels.severity, a.severity === labels.severity],
+                  ["Product area", AREA_LABEL[labels.productArea], a.productArea === labels.productArea],
+                ] as const
+              ).map(([k, v, ok]) => (
+                <div key={k} className="rounded-md border border-line bg-surface-2 p-3">
+                  <dt className="text-xs text-ink-3">{k}</dt>
+                  <dd className="mt-1 capitalize text-ink">{v}</dd>
+                  <dd className={`mt-1 text-xs ${ok ? "text-ok" : "text-warn"}`}>{ok ? "Agent matched" : "Agent differed"}</dd>
+                </div>
+              ))}
+            </dl>
+            <p className="mt-3 text-sm text-ink-2">{labels.note}</p>
+            {labels.askFor && (
+              <p className="mt-1 text-sm text-ink-3">
+                Should ask for: {labels.askFor.length ? labels.askFor.map((k) => DETAIL_LABEL[k].toLowerCase()).join(", ") : "nothing"}.
+              </p>
+            )}
+          </>
+        ) : source ? (
+          <>
+            <h2 id="key-heading" className="text-base font-semibold">
+              From TechOps Command Center
+            </h2>
+            <p className="mt-1 text-sm leading-relaxed text-ink-2">
+              This ticket comes from the {source.scenarioTitle} scenario in{" "}
+              <a className="text-ink underline underline-offset-2" href="https://techops-command-center.vercel.app">
+                TechOps Command Center
+              </a>
+              , the incident simulator set at the same fictional company. During that incident, {t.otherAccountsReporting} other
+              accounts write in about the same problem, which is why the queue shows them as reporting it too.
+            </p>
+            <dl className="mt-3 grid gap-2 text-sm sm:grid-cols-3">
+              {(
+                [
+                  ["TechOps scenario", source.scenarioTitle],
+                  ["TechOps priority", source.priority],
+                  ["Affected service", source.affectedService],
+                ] as const
+              ).map(([k, v]) => (
+                <div key={k} className="rounded-md border border-line bg-surface-2 p-3">
+                  <dt className="text-xs text-ink-3">{k}</dt>
+                  <dd className="mt-1 text-ink">{v}</dd>
+                </div>
+              ))}
+            </dl>
+            <p className="mt-3 text-sm text-ink-3">Not scored: TechOps tickets have no answer key, so they never count toward the results.</p>
+          </>
+        ) : null}
         <p className="mt-3 text-xs text-ink-4">
           Recorded run {item.runId}. {trace.usage.inputTokens.toLocaleString()} input and {trace.usage.outputTokens.toLocaleString()} output
           tokens, {usd(trace.usage.costUsd, 4)}, {(trace.usage.latencyMs / 1000).toFixed(1)} s across both model calls.

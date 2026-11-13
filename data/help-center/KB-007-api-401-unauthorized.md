@@ -4,7 +4,7 @@ title: 401 Unauthorized from the API
 area: api
 tags: 401, unauthorized, invalid_api_key, authorization header, bearer token, api key
 ---
-A `401 Unauthorized` response means Meridian could not authenticate the request. The response body is:
+A `401 Unauthorized` response means Vantimere could not authenticate the request. The response body is:
 
 ```
 {"error":"invalid_api_key"}
@@ -12,7 +12,7 @@ A `401 Unauthorized` response means Meridian could not authenticate the request.
 
 ## The header format
 
-Every request to `https://api.meridian.example/v2` must send the key in this header:
+Every request to `https://api.vantimere.example/v2` must send the key in this header:
 
 ```
 Authorization: Bearer <key>

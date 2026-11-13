@@ -4,23 +4,23 @@ title: Report a security concern
 area: platform
 tags: security, vulnerability, report, leaked key, unauthorized access, data exposure
 ---
-If you think you have found a security problem with Meridian Cloud, or you think your account has been compromised, report it to the Meridian security team. Security reports go to the security team, not normal support, so they are handled by the right people.
+If you think you have found a security problem with Vantimere Cloud, or you think your account has been compromised, report it to the Vantimere security team. Security reports go to the security team, not normal support, so they are handled by the right people.
 
 ## What counts as a security concern
 
-- A vulnerability in Meridian (for example a way to read data you shouldn't).
+- A vulnerability in Vantimere (for example a way to read data you shouldn't).
 - Seeing another customer's data in your dashboard, API responses, exports, or webhooks.
 - Sign-ins, API calls, or changes in your account that nobody on your team made.
-- A Meridian API key, SCIM token, or webhook secret that was leaked or exposed publicly.
+- A Vantimere API key, SCIM token, or webhook secret that was leaked or exposed publicly.
 
 ## How to report
 
-1. Email security@meridian.example, or open a ticket and choose the **Security** category.
+1. Email security@vantimere.example, or open a ticket and choose the **Security** category.
 2. Describe what you saw and how to reproduce it.
 3. Include your account ID (from Settings > Account), the time it happened, affected users or resources, and any `X-Request-Id` values.
 4. Attach screenshots or log lines if they help, with secrets removed.
 
-Meridian acknowledges security reports within 1 business day.
+Vantimere acknowledges security reports within 1 business day.
 
 ## Do not post secrets
 

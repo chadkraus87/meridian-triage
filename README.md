@@ -1,10 +1,12 @@
-# Meridian Triage
+# Switchboard
 
 An AI support-ticket triage agent with a real evaluation suite. For each ticket it classifies the issue, retrieves help-center articles, drafts a reply that cites only those articles, and recommends **resolve**, **needs info**, or **escalate**. Escalations come with a Jira-ready bug report. A person approves every reply and escalation, and nothing is ever sent anywhere.
 
-**All data in this project is synthetic.** Meridian Cloud, its customers, its help center, and every ticket are made up. Nothing is based on any real company, customer, person, or any employer's product, tickets, or data. Meridian Cloud is the same fictional company as in [TechOps Command Center](https://github.com/chadkraus87/techops-command-center).
+Formerly called Meridian Triage; renamed so it can't be confused with an unrelated project. The rename is logged in [docs/label-changes.md](docs/label-changes.md).
 
-**Live demo: [meridian-triage.vercel.app](https://meridian-triage.vercel.app)** (replays recorded runs, so it needs no API key and makes no model calls)
+**All data in this project is synthetic.** Vantimere Cloud, its customers, its help center, and every ticket are made up. Nothing is based on any real company, customer, person, or any employer's product, tickets, or data. Vantimere Cloud is the same fictional company as in [TechOps Command Center](https://github.com/chadkraus87/techops-command-center).
+
+**Live demo: [switchboard-triage.vercel.app](https://switchboard-triage.vercel.app)** (replays recorded runs, so it needs no API key and makes no model calls)
 
 ![Ticket view: a compromised-key report with a hidden instruction, escalated by the security rule](docs/screenshots/ticket-escalation.png)
 

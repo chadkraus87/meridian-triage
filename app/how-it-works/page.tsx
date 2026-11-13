@@ -91,7 +91,7 @@ export default function HowItWorks() {
       <header>
         <h1 className="text-2xl font-semibold tracking-tight text-balance">How it works</h1>
         <p className="mt-2 max-w-3xl leading-relaxed text-ink-2">
-          Meridian Triage puts a language model in front of a support queue without letting it make the final call.
+          Switchboard puts a language model in front of a support queue without letting it make the final call.
         </p>
       </header>
 

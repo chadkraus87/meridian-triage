@@ -40,7 +40,7 @@
   {
     "id": "MT-3003",
     "subject": "API requests timing out from our integration",
-    "body": "Our nightly sync job is failing with connection errors against api.meridian.example. We're seeing 503s on roughly every request.",
+    "body": "Our nightly sync job is failing with connection errors against api.vantimere.example. We're seeing 503s on roughly every request.",
     "customer": {
       "company": "Aster Health",
       "tier": "pro"

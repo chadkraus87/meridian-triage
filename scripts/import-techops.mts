@@ -1,5 +1,5 @@
 /**
- * Import TechOps Command Center's scenario ticket templates as Meridian tickets.
+ * Import TechOps Command Center's scenario ticket templates as Switchboard tickets.
  *
  *   npm run import:techops -- ../techops-command-center
  *

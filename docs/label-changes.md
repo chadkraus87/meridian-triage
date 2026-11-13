@@ -44,3 +44,14 @@ Six test tickets were read in the main working session during label review, befo
 ## Test set freeze
 
 On 2026-11-12, after the review above and before any model run against it, `data/tickets/test.json` was frozen. Its SHA-256 is in `data/tickets/test.json.sha256`, and `tests/freeze.test.ts` fails (locally and in CI) if the file changes. Tuning happens on the dev set only. The test set is run once, after dev tuning is done.
+
+## Rename (2026-11-13)
+
+The project was renamed from Meridian Triage to **Switchboard**, and the fictional company from Meridian Cloud to
+**Vantimere Cloud** (hostnames `vantimere.example`), so it can't be confused with an unrelated project of Chad's that
+is also called Meridian. "Vantimere" was chosen because no company, product or registered domain uses it.
+
+This was a find-and-replace of names only, applied to the help center, both ticket sets, the prompts, and the text
+inside every recorded run (model replies, rationales and bug reports). No label, no wording and no decision changed,
+and no run was repeated: the held-out set still ran exactly once, before the rename. `data/tickets/test.json` was
+re-frozen with a new checksum after the substitution, which changed 22 words and nothing else.

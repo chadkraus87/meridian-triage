@@ -4,7 +4,7 @@ title: Invite users and assign roles
 area: user_management
 tags: invite user, roles, seats, seat limit, invitation expired, permissions
 ---
-You can invite teammates to your Meridian workspace and give each one a role.
+You can invite teammates to your Vantimere workspace and give each one a role.
 
 ## Roles
 

@@ -8,7 +8,7 @@ const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: { default: "Meridian Triage", template: "%s | Meridian Triage" },
+  title: { default: "Switchboard", template: "%s | Switchboard" },
   description:
     "An AI support-ticket triage agent with an evaluation suite. The model proposes; a rules engine decides. All data is synthetic.",
 };
@@ -29,7 +29,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6">
             <Link href="/" className="flex items-baseline gap-2">
               <span translate="no" className="font-semibold tracking-tight">
-                Meridian Triage
+                Switchboard
               </span>
               <span className="hidden text-sm text-ink-3 sm:inline">AI ticket triage, with the rules in charge</span>
             </Link>
@@ -41,9 +41,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </main>
         <footer className="border-t border-line">
           <div className="mx-auto max-w-7xl px-4 py-5 text-sm text-ink-3 sm:px-6">
-            All data here is synthetic. Meridian Cloud, its customers, and every ticket are made up, and nothing is based on
+            All data here is synthetic. Vantimere Cloud, its customers, and every ticket are made up, and nothing is based on
             any real company, customer, or employer. The hosted site replays recorded runs, so no model is called when you
-            visit. Meridian Cloud also appears in{" "}
+            visit. Vantimere Cloud also appears in{" "}
             <a className="text-ink-2 underline underline-offset-2 hover:text-ink" href="https://github.com/chadkraus87/techops-command-center">
               TechOps Command Center
             </a>

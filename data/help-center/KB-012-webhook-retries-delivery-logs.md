@@ -4,7 +4,7 @@ title: Webhook retries, timeouts, and delivery logs
 area: webhooks
 tags: webhook retries, timeout, delivery logs, endpoint disabled, failed delivery, missing webhooks
 ---
-This article explains what Meridian does when a webhook delivery fails, and how to find out what happened.
+This article explains what Vantimere does when a webhook delivery fails, and how to find out what happened.
 
 ## What counts as a failure
 
@@ -22,7 +22,7 @@ Your endpoint may receive the same event more than once. Use the event ID to ign
 
 ## Endpoint disabled after repeated failures
 
-After 3 days of failures, the endpoint is disabled and Meridian stops sending to it. The endpoint shows as **Disabled** in Settings > Webhooks and Owners get an email.
+After 3 days of failures, the endpoint is disabled and Vantimere stops sending to it. The endpoint shows as **Disabled** in Settings > Webhooks and Owners get an email.
 
 To turn it back on:
 
@@ -40,7 +40,7 @@ Go to Settings > Webhooks and open an endpoint to see its delivery logs. Each at
 
 - Slow handlers that do heavy work before responding (respond first, then process).
 - Signature checks rejecting valid requests (see KB-013).
-- Expired TLS certificates or firewall rules blocking Meridian.
+- Expired TLS certificates or firewall rules blocking Vantimere.
 
 If deliveries in eu-west are arriving late but not failing, see KB-024.
 

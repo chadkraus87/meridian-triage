@@ -28,7 +28,7 @@ export interface TechOpsScenario {
 const REAL_DOMAINS = /meridiancloud\.io|meridian\.io\b/i;
 
 /**
- * Convert TechOps scenario ticket templates into Meridian tickets, MT-3001 upward.
+ * Convert TechOps scenario ticket templates into Switchboard tickets, MT-3001 upward.
  * TechOps incidents hit many customers at once, so each ticket counts the other
  * templates in its scenario as other accounts reporting. TechOps has no plan tiers,
  * so every ticket is on the pro plan.

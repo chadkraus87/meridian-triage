@@ -4,7 +4,7 @@ title: Plans, invoices, and billing details
 area: billing
 tags: invoice, billing, plan, vat id, billing email, credit card
 ---
-Meridian Cloud has three plans: Free, Pro, and Enterprise. You manage your plan and billing details in the dashboard.
+Vantimere Cloud has three plans: Free, Pro, and Enterprise. You manage your plan and billing details in the dashboard.
 
 ## Find your invoices
 

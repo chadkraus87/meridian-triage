@@ -39,7 +39,7 @@
       "retrieved": [
         {
           "id": "KB-014",
-          "title": "5xx errors from Meridian",
+          "title": "5xx errors from Vantimere",
           "score": 8.88
         },
         {
@@ -103,7 +103,7 @@
             "confidence": "low"
           }
         ],
-        "rationale": "The dashboard fails to load across two browsers and a phone, and the ticket metadata shows 4 other accounts reporting the same issue in the last hour, which indicates a broad Meridian outage. Engineering needs to investigate; KB-015 (status page) is only a partial match since it does not fix the problem."
+        "rationale": "The dashboard fails to load across two browsers and a phone, and the ticket metadata shows 4 other accounts reporting the same issue in the last hour, which indicates a broad Vantimere outage. Engineering needs to investigate; KB-015 (status page) is only a partial match since it does not fix the problem."
       },
       "decision": {
         "decision": "escalate",
@@ -121,12 +121,12 @@
         ],
         "resolveArticle": null
       },
-      "reply": "Hi Northwind Retail, thanks for reporting this, and for trying two browsers and your phone. That helps rule out a problem on your device. We have escalated this to the engineering team, and I will update you as soon as I hear more. To help them find your account in the logs, please send your account ID (Settings > Account, it starts with acct_) and when it happened, with time zone. You can also watch status.meridian.example for incident updates [KB-015].",
+      "reply": "Hi Northwind Retail, thanks for reporting this, and for trying two browsers and your phone. That helps rule out a problem on your device. We have escalated this to the engineering team, and I will update you as soon as I hear more. To help them find your account in the logs, please send your account ID (Settings > Account, it starts with acct_) and when it happened, with time zone. You can also watch status.vantimere.example for incident updates [KB-015].",
       "bugReport": {
         "summary": "Dashboard fails to load (spins, then blank page with error) for Northwind Retail; 4 other accounts reported the same in the last hour.",
         "impact": "Northwind Retail (pro plan) cannot open the dashboard at all. Four other accounts reported the same issue in the last hour, so this looks like a multi-customer outage. This is the customer's first contact on the issue.",
         "stepsToReproduce": [
-          "Open the Meridian dashboard in a browser.",
+          "Open the Vantimere dashboard in a browser.",
           "The page spins, then shows a blank page with an error.",
           "Same result on a second browser and on a phone."
         ],
@@ -176,7 +176,7 @@
       "retrieved": [
         {
           "id": "KB-014",
-          "title": "5xx errors from Meridian",
+          "title": "5xx errors from Vantimere",
           "score": 13.6
         },
         {
@@ -258,7 +258,7 @@
         ],
         "resolveArticle": null
       },
-      "reply": "Hi Fielding Logistics, thanks for reporting this. A 503 at login for you and your team, with nothing changed on your side, is something we are treating seriously. I have escalated this to the engineering team and I will update you as soon as there is news. To help them find your sessions in the logs, please send your account ID (Settings > Account, it starts with acct_) and when it happened, with time zone. You can also check status.meridian.example for any incident in your region while you wait.",
+      "reply": "Hi Fielding Logistics, thanks for reporting this. A 503 at login for you and your team, with nothing changed on your side, is something we are treating seriously. I have escalated this to the engineering team and I will update you as soon as there is news. To help them find your sessions in the logs, please send your account ID (Settings > Account, it starts with acct_) and when it happened, with time zone. You can also check status.vantimere.example for any incident in your region while you wait.",
       "bugReport": {
         "summary": "Login returns 503 Service Unavailable after password entry for Fielding Logistics; 4 other accounts reported the same in the last hour.",
         "impact": "Fielding Logistics (pro plan) and their whole team cannot log in. Four other accounts reported the same issue in the last hour, so this looks like a multi-customer outage affecting login.",
@@ -375,7 +375,7 @@
             "confidence": "low"
           }
         ],
-        "rationale": "Roughly every API request returns 503, and the ticket metadata shows 4 other accounts reporting the same issue in the last hour, which points to a broad Meridian outage. KB-015 covers status checks and reporting, but Engineering needs to act, so this should be escalated."
+        "rationale": "Roughly every API request returns 503, and the ticket metadata shows 4 other accounts reporting the same issue in the last hour, which points to a broad Vantimere outage. KB-015 covers status checks and reporting, but Engineering needs to act, so this should be escalated."
       },
       "decision": {
         "decision": "escalate",
@@ -393,15 +393,15 @@
         ],
         "resolveArticle": null
       },
-      "reply": "Hi Aster Health, thanks for reporting this. We have escalated the issue to the engineering team, and I will update you as soon as we learn more. To help them investigate, please send your account ID (Settings > Account, it starts with acct_) and when it happened, with time zone. You already told us the nightly sync is getting 503s on nearly every request, so no need to repeat that. You can also follow incident updates on status.meridian.example [KB-015].",
+      "reply": "Hi Aster Health, thanks for reporting this. We have escalated the issue to the engineering team, and I will update you as soon as we learn more. To help them investigate, please send your account ID (Settings > Account, it starts with acct_) and when it happened, with time zone. You already told us the nightly sync is getting 503s on nearly every request, so no need to repeat that. You can also follow incident updates on status.vantimere.example [KB-015].",
       "bugReport": {
-        "summary": "Widespread 503s and connection errors from api.meridian.example affecting a nightly sync integration; 5 accounts reported in the last hour.",
+        "summary": "Widespread 503s and connection errors from api.vantimere.example affecting a nightly sync integration; 5 accounts reported in the last hour.",
         "impact": "Aster Health (pro plan) has a nightly sync job failing on roughly every request. 4 other accounts reported the same issue in the last hour, which points to a multi-customer outage.",
         "stepsToReproduce": [
-          "Not provided yet. Customer reports their nightly sync job calls api.meridian.example and gets 503s on roughly every request."
+          "Not provided yet. Customer reports their nightly sync job calls api.vantimere.example and gets 503s on roughly every request."
         ],
         "evidence": [
-          "\"Our nightly sync job is failing with connection errors against api.meridian.example.\"",
+          "\"Our nightly sync job is failing with connection errors against api.vantimere.example.\"",
           "\"We're seeing 503s on roughly every request.\"",
           "Subject: API requests timing out from our integration",
           "Other accounts reporting the same issue in the last hour: 4"
@@ -454,7 +454,7 @@
         },
         {
           "id": "KB-014",
-          "title": "5xx errors from Meridian",
+          "title": "5xx errors from Vantimere",
           "score": 5.23
         },
         {
@@ -508,7 +508,7 @@
             "confidence": "low"
           }
         ],
-        "rationale": "The ticket is vague: an unspecified error at a payment step of the customer's own checkout, with no error text, account ID, steps, or timestamp, so it is unclear whether Meridian is involved. The 'other accounts' metadata line is not evidence from the customer of a multi-customer outage, so key details are needed first (KB-015 lists what to provide)."
+        "rationale": "The ticket is vague: an unspecified error at a payment step of the customer's own checkout, with no error text, account ID, steps, or timestamp, so it is unclear whether Vantimere is involved. The 'other accounts' metadata line is not evidence from the customer of a multi-customer outage, so key details are needed first (KB-015 lists what to provide)."
       },
       "decision": {
         "decision": "escalate",
@@ -527,7 +527,7 @@
         ],
         "resolveArticle": null
       },
-      "reply": "Hi Kestrel Analytics, thanks for flagging this, and we understand the urgency. This has been escalated to the engineering team, and I will update you as soon as there is news. To help them investigate, please send us your account ID (Settings > Account, it starts with acct_), the exact error message or status code, the steps to reproduce, and when it happened, with time zone. You can also watch status.meridian.example for incident updates in the meantime [KB-015].",
+      "reply": "Hi Kestrel Analytics, thanks for flagging this, and we understand the urgency. This has been escalated to the engineering team, and I will update you as soon as there is news. To help them investigate, please send us your account ID (Settings > Account, it starts with acct_), the exact error message or status code, the steps to reproduce, and when it happened, with time zone. You can also watch status.vantimere.example for incident updates in the meantime [KB-015].",
       "bugReport": {
         "summary": "Customers of Kestrel Analytics (Pro) see an error at the payment step of checkout; 4 other accounts reported the same in the last hour.",
         "impact": "Kestrel Analytics (Pro plan) says its customers cannot complete checkout and it is losing orders. 4 other accounts reported the same issue in the last hour, which suggests a multi-customer outage. Customer asked for urgent handling.",
@@ -595,7 +595,7 @@
           "timestamp": false
         },
         "articleMatches": [],
-        "rationale": "Customer's storefront images are broken everywhere, and metadata shows 4 other accounts reported the same issue in the last hour, which is evidence of a broad Meridian-side problem. Multi-customer outage evidence suggests critical, but impact is image loading rather than production down, so high; Engineering needs to investigate."
+        "rationale": "Customer's storefront images are broken everywhere, and metadata shows 4 other accounts reported the same issue in the last hour, which is evidence of a broad Vantimere-side problem. Multi-customer outage evidence suggests critical, but impact is image loading rather than production down, so high; Engineering needs to investigate."
       },
       "decision": {
         "decision": "escalate",
@@ -725,7 +725,7 @@
             "confidence": "low"
           }
         ],
-        "rationale": "Dashboard pages are slow or erroring, and the ticket metadata shows 4 other accounts reporting the same issue in the last hour, which points to a broad Meridian-side outage. Engineering should investigate; KB-015 is only a general status-page pointer and does not resolve this."
+        "rationale": "Dashboard pages are slow or erroring, and the ticket metadata shows 4 other accounts reporting the same issue in the last hour, which points to a broad Vantimere-side outage. Engineering should investigate; KB-015 is only a general status-page pointer and does not resolve this."
       },
       "decision": {
         "decision": "escalate",
@@ -797,7 +797,7 @@
         },
         {
           "id": "KB-014",
-          "title": "5xx errors from Meridian",
+          "title": "5xx errors from Vantimere",
           "score": 8.21
         },
         {
@@ -856,7 +856,7 @@
             "confidence": "low"
           }
         ],
-        "rationale": "About 20% of calls to /api/projects return 500s and the rest are slow, and 4 other accounts reported the same issue in the last hour, which points to a broad Meridian-side failure. Engineering should look at it; KB-014 only partly applies since it advises retries for transient errors and this looks like a multi-customer problem."
+        "rationale": "About 20% of calls to /api/projects return 500s and the rest are slow, and 4 other accounts reported the same issue in the last hour, which points to a broad Vantimere-side failure. Engineering should look at it; KB-014 only partly applies since it advises retries for transient errors and this looks like a multi-customer problem."
       },
       "decision": {
         "decision": "escalate",
@@ -1118,7 +1118,7 @@
             "confidence": "low"
           }
         ],
-        "rationale": "Braid Financial says its own customers saw intermittent failed payments that worked on retry, which is vague about which Meridian service is involved (likely its own payment flow through the API, not Meridian billing). There is no account ID, error text, steps, or timestamp, so more information is needed; the 4 other accounts reporting is a hint but not clear evidence of a multi-customer outage."
+        "rationale": "Braid Financial says its own customers saw intermittent failed payments that worked on retry, which is vague about which Vantimere service is involved (likely its own payment flow through the API, not Vantimere billing). There is no account ID, error text, steps, or timestamp, so more information is needed; the 4 other accounts reporting is a hint but not clear evidence of a multi-customer outage."
       },
       "decision": {
         "decision": "escalate",
@@ -1137,7 +1137,7 @@
         ],
         "resolveArticle": null
       },
-      "reply": "Hi Braid Financial, thanks for flagging this. We have escalated the issue to the engineering team, and I will update you as we learn more. To help them investigate, please send: your account ID (Settings > Account, it starts with acct_), the exact error message or status code, the steps to reproduce, and when it happened, with time zone. You can also watch status.meridian.example for incident updates [KB-015].",
+      "reply": "Hi Braid Financial, thanks for flagging this. We have escalated the issue to the engineering team, and I will update you as we learn more. To help them investigate, please send: your account ID (Settings > Account, it starts with acct_), the exact error message or status code, the steps to reproduce, and when it happened, with time zone. You can also watch status.vantimere.example for incident updates [KB-015].",
       "bugReport": {
         "summary": "Payments intermittently fail and then succeed on retry; 5 accounts reporting in the last hour.",
         "impact": "Braid Financial (Pro plan) says several of their customers saw failed payments that worked on retry. 4 other accounts reported the same issue in the last hour, so this looks multi-customer. Severity is not yet confirmed.",
@@ -1382,7 +1382,7 @@
             "confidence": "low"
           }
         ],
-        "rationale": "Thumbnails in the gallery fail to load while the rest of the product works, and 3 other accounts reported the same issue in the last hour, which suggests a broader Meridian-side problem. None of the retrieved articles relate to image loading, so Engineering should look into it."
+        "rationale": "Thumbnails in the gallery fail to load while the rest of the product works, and 3 other accounts reported the same issue in the last hour, which suggests a broader Vantimere-side problem. None of the retrieved articles relate to image loading, so Engineering should look into it."
       },
       "decision": {
         "decision": "escalate",
@@ -1663,7 +1663,7 @@
         ],
         "resolveArticle": null
       },
-      "reply": "Hi Pinnacle Labs, thanks for reporting the slow gallery page. We know other accounts have reported something similar recently, so I have escalated this to the engineering team, and I will update you as we learn more. To help them investigate, please send us your account ID (Settings > Account, it starts with acct_), the exact error message or status code, the steps to reproduce, and when it happened, with time zone. You can also check status.meridian.example for live incident updates [KB-015].",
+      "reply": "Hi Pinnacle Labs, thanks for reporting the slow gallery page. We know other accounts have reported something similar recently, so I have escalated this to the engineering team, and I will update you as we learn more. To help them investigate, please send us your account ID (Settings > Account, it starts with acct_), the exact error message or status code, the steps to reproduce, and when it happened, with time zone. You can also check status.vantimere.example for live incident updates [KB-015].",
       "bugReport": {
         "summary": "Gallery page loads very slowly; images trickle in over about 30 seconds and some never load.",
         "impact": "Pinnacle Labs (Pro plan) is affected, and 3 other accounts reported the same issue in the last hour, so this looks like a multi-customer outage. Gallery images load slowly or not at all, which makes the page badly degraded.",
@@ -1931,7 +1931,7 @@
         "summary": "Users repeatedly logged out about a minute after signing in; multiple accounts reporting in the last hour.",
         "impact": "Solstice Travel (Pro plan) is logged out repeatedly, 4 times so far. 2 other accounts reported the same issue in the last hour, which suggests a wider outage affecting sign-in sessions.",
         "stepsToReproduce": [
-          "Sign in to the Meridian dashboard.",
+          "Sign in to the Vantimere dashboard.",
           "Click around for about a minute.",
           "User is returned to the login screen. Exact steps are not fully provided yet."
         ],
@@ -2253,7 +2253,7 @@
         },
         {
           "id": "KB-014",
-          "title": "5xx errors from Meridian",
+          "title": "5xx errors from Vantimere",
           "score": 4.12
         },
         {
@@ -2321,7 +2321,7 @@
         ],
         "resolveArticle": null
       },
-      "reply": "Hi Fielding Logistics, thanks for reporting this. Since your colleague in the US sees the page normally, this may be tied to a specific region, and we know other accounts have reported something similar. The issue has been escalated to the engineering team, and I will update you as we learn more. You can also watch status.meridian.example for incident updates [KB-015]. To help engineering investigate, please send us your account ID (Settings > Account, it starts with acct_), the exact error message or status code, the steps to reproduce, and when it happened, with time zone.",
+      "reply": "Hi Fielding Logistics, thanks for reporting this. Since your colleague in the US sees the page normally, this may be tied to a specific region, and we know other accounts have reported something similar. The issue has been escalated to the engineering team, and I will update you as we learn more. You can also watch status.vantimere.example for incident updates [KB-015]. To help engineering investigate, please send us your account ID (Settings > Account, it starts with acct_), the exact error message or status code, the steps to reproduce, and when it happened, with time zone.",
       "bugReport": {
         "summary": "Site loads as unstyled text with no images for a Fielding Logistics user; a US colleague sees it normally; multiple accounts reporting.",
         "impact": "Fielding Logistics (pro plan) is affected, with the page rendering unstyled and without images. Two other accounts reported the same issue in the last hour, so this looks like a multi-customer outage, possibly region-specific. This is the customer's first contact about it.",
@@ -2456,7 +2456,7 @@
         ],
         "resolveArticle": null
       },
-      "reply": "Hi Aster Health, thanks for reporting this. Slow page loads from London while New York is fine, plus other reports we are seeing, point to something that needs a closer look. I have escalated this to the engineering team and I will update you as soon as I hear back. To help them investigate, please send your account ID (Settings > Account, it starts with acct_), the exact error message or status code, the steps to reproduce, and when it happened, with time zone. You can also watch status.meridian.example for incident updates [KB-015].",
+      "reply": "Hi Aster Health, thanks for reporting this. Slow page loads from London while New York is fine, plus other reports we are seeing, point to something that needs a closer look. I have escalated this to the engineering team and I will update you as soon as I hear back. To help them investigate, please send your account ID (Settings > Account, it starts with acct_), the exact error message or status code, the steps to reproduce, and when it happened, with time zone. You can also watch status.vantimere.example for incident updates [KB-015].",
       "bugReport": {
         "summary": "Pages take 15-20 seconds to load from London office while New York is unaffected; 2 other accounts reported the same in the last hour.",
         "impact": "Aster Health (Pro plan) has London users facing 15-20 second page loads. New York users are unaffected. Two other accounts reported the same issue in the last hour, so multiple customers may be affected.",
@@ -2702,7 +2702,7 @@
             "confidence": "low"
           }
         ],
-        "rationale": "The ticket is vague: a browser certificate warning on 'your site' with no domain, account ID, error code, or timestamp. It is unclear whether this concerns the customer's custom domain or a Meridian site, so more info is needed; KB-018 is only a weak possible match since it mentions a certificate name mismatch but not expiry or CERT_PENDING_CAA."
+        "rationale": "The ticket is vague: a browser certificate warning on 'your site' with no domain, account ID, error code, or timestamp. It is unclear whether this concerns the customer's custom domain or a Vantimere site, so more info is needed; KB-018 is only a weak possible match since it mentions a certificate name mismatch but not expiry or CERT_PENDING_CAA."
       },
       "decision": {
         "decision": "escalate",
@@ -2718,7 +2718,7 @@
       },
       "reply": "Hi Vantage Media, thanks for flagging this, and it was smart to check before proceeding. We can't confirm from your message what is causing the warning, and we are treating it as a possible service issue because other customers have reported something similar. We have escalated this to the engineering team, and I will update you as soon as we know more. Until then, please don't enter any sensitive information on the page that shows the warning. You don't need to send anything else right now. The engineering team will follow up with you.",
       "bugReport": {
-        "summary": "Browser shows 'connection isn't private' and expired certificate warning when visiting the Meridian site; 3 accounts reporting within the last hour.",
+        "summary": "Browser shows 'connection isn't private' and expired certificate warning when visiting the Vantimere site; 3 accounts reporting within the last hour.",
         "impact": "Vantage Media (Pro plan) is seeing the warning, and 2 other accounts reported the same in the last hour, so this looks like a multi-customer outage. Severity is high because visitors are told the site may be unsafe.",
         "stepsToReproduce": [
           "Not provided yet. The customer only says they get the warning when visiting the site."
@@ -2779,7 +2779,7 @@
         },
         {
           "id": "KB-014",
-          "title": "5xx errors from Meridian",
+          "title": "5xx errors from Vantimere",
           "score": 4.84
         },
         {
@@ -2845,7 +2845,7 @@
         ],
         "resolveArticle": null
       },
-      "reply": "Hi Orbit Studios, thank you for reporting this. I'm sorry your whole company is blocked. This has been escalated to the engineering team, and I will update you as soon as I have more information. To help them investigate, please send your account ID (Settings > Account, it starts with acct_) and when it happened, with time zone. You can also check live status per region at status.meridian.example [KB-015].",
+      "reply": "Hi Orbit Studios, thank you for reporting this. I'm sorry your whole company is blocked. This has been escalated to the engineering team, and I will update you as soon as I have more information. To help them investigate, please send your account ID (Settings > Account, it starts with acct_) and when it happened, with time zone. You can also check live status per region at status.vantimere.example [KB-015].",
       "bugReport": {
         "summary": "Full application outage for Orbit Studios, connection errors on every page; 2 other accounts reported the same in the last hour.",
         "impact": "Orbit Studios (Pro plan) reports the entire application is down for the whole company. At least 2 other accounts reported the same issue in the last hour, so this may be a wider outage. Severity is high.",
@@ -2978,7 +2978,7 @@
         ],
         "resolveArticle": null
       },
-      "reply": "Hi Cedar & Co, thanks for reporting this. We have escalated the issue to the engineering team, and I will update you as soon as I hear more. To help them investigate, please send us your account ID (Settings > Account, it starts with acct_), the exact error message or status code, the steps to reproduce, and when it happened, with time zone. You can also check live status for each region at status.meridian.example, as described in [KB-015].",
+      "reply": "Hi Cedar & Co, thanks for reporting this. We have escalated the issue to the engineering team, and I will update you as soon as I hear more. To help them investigate, please send us your account ID (Settings > Account, it starts with acct_), the exact error message or status code, the steps to reproduce, and when it happened, with time zone. You can also check live status for each region at status.vantimere.example, as described in [KB-015].",
       "bugReport": {
         "summary": "Pro customer's API calls all failing at once with SSL errors; 2 other accounts reported the same in the last hour.",
         "impact": "Cedar & Co (Pro plan) has a fully broken API integration. Two other accounts reported the same issue in the last hour, so this looks like a multi-customer outage.",
@@ -3112,7 +3112,7 @@
         ],
         "resolveArticle": null
       },
-      "reply": "Hi Lumen Works, thanks for reporting this. Requests that hang for 30 seconds and then work on an immediate retry is a useful pattern, and we have seen similar reports from other accounts. I have escalated this to the engineering team and I will update you as soon as I hear back. To help them investigate, please send us your account ID (Settings > Account, it starts with acct_), the exact error message or status code, the steps to reproduce, and when it happened, with time zone. You can also watch status.meridian.example for incident updates [KB-015].",
+      "reply": "Hi Lumen Works, thanks for reporting this. Requests that hang for 30 seconds and then work on an immediate retry is a useful pattern, and we have seen similar reports from other accounts. I have escalated this to the engineering team and I will update you as soon as I hear back. To help them investigate, please send us your account ID (Settings > Account, it starts with acct_), the exact error message or status code, the steps to reproduce, and when it happened, with time zone. You can also watch status.vantimere.example for incident updates [KB-015].",
       "bugReport": {
         "summary": "About 1 in 8 API requests hang for 30 seconds and time out, then succeed on immediate retry; 2 other accounts reported the same in the last hour.",
         "impact": "Lumen Works (Pro plan) sees intermittent request timeouts, roughly 12% of requests. Two other accounts reported the same issue in the last hour, so this may be a wider outage.",
@@ -3247,7 +3247,7 @@
         ],
         "resolveArticle": null
       },
-      "reply": "Hi Braid Financial, thanks for reporting the intermittent timeouts. We have escalated this to the engineering team, and I will update you as soon as I have news. To help them investigate, please send us your account ID (Settings > Account, it starts with acct_), the exact error message or status code, the steps to reproduce, and when it happened, with time zone. You mentioned roughly 10% of calls are timing out with no consistent pattern by endpoint, so you do not need to resend that. You can also watch status.meridian.example for incident updates [KB-015].",
+      "reply": "Hi Braid Financial, thanks for reporting the intermittent timeouts. We have escalated this to the engineering team, and I will update you as soon as I have news. To help them investigate, please send us your account ID (Settings > Account, it starts with acct_), the exact error message or status code, the steps to reproduce, and when it happened, with time zone. You mentioned roughly 10% of calls are timing out with no consistent pattern by endpoint, so you do not need to resend that. You can also watch status.vantimere.example for incident updates [KB-015].",
       "bugReport": {
         "summary": "Intermittent timeouts (~10% of calls) on customer integration, no pattern by endpoint; multiple accounts reporting.",
         "impact": "Braid Financial (pro plan) sees roughly 10% of calls timing out. 2 other accounts reported the same issue in the last hour, so this looks like a multi-customer problem. Severity is not yet confirmed.",
@@ -3442,7 +3442,7 @@
         },
         {
           "id": "KB-014",
-          "title": "5xx errors from Meridian",
+          "title": "5xx errors from Vantimere",
           "score": 5.79
         },
         {
@@ -3572,7 +3572,7 @@
         },
         {
           "id": "KB-014",
-          "title": "5xx errors from Meridian",
+          "title": "5xx errors from Vantimere",
           "score": 3.26
         },
         {
@@ -3749,7 +3749,7 @@
             "confidence": "low"
           }
         ],
-        "rationale": "Customer says updating the billing card fails every time, but gives no error text, account ID, steps, or timestamp, so the cause is unclear and could be a Meridian defect. Metadata shows 2 other accounts reporting in the last hour, which is not clear evidence of a multi-customer outage. No retrieved article covers a failing card update, so more info is needed."
+        "rationale": "Customer says updating the billing card fails every time, but gives no error text, account ID, steps, or timestamp, so the cause is unclear and could be a Vantimere defect. Metadata shows 2 other accounts reporting in the last hour, which is not clear evidence of a multi-customer outage. No retrieved article covers a failing card update, so more info is needed."
       },
       "decision": {
         "decision": "escalate",

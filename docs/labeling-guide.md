@@ -1,18 +1,18 @@
 # Labeling guide
 
-Everything in this project is synthetic. Meridian Cloud, its customers, and every ticket are made up.
+Everything in this project is synthetic. Vantimere Cloud, its customers, and every ticket are made up.
 
 This guide is the single policy that both the labels and the rules engine follow. The tickets were labeled from this document, not from the code.
 
-## Meridian Cloud in one paragraph
+## Vantimere Cloud in one paragraph
 
-Meridian Cloud is a SaaS platform that teams use to run internal apps and APIs. Customers sign in with SSO, call the Meridian REST API (`https://api.meridian.example/v2`), receive webhooks, serve their apps on custom domains, and manage users and billing in the dashboard. Account IDs look like `acct_` followed by 8 lowercase letters or digits (for example `acct_7f3k9q2m`). Workspace IDs look like `ws_` followed by 6 characters. Regions: `us-east`, `us-west`, `eu-west`. Plans: Free, Pro, Enterprise.
+Vantimere Cloud is a SaaS platform that teams use to run internal apps and APIs. Customers sign in with SSO, call the Vantimere REST API (`https://api.vantimere.example/v2`), receive webhooks, serve their apps on custom domains, and manage users and billing in the dashboard. Account IDs look like `acct_` followed by 8 lowercase letters or digits (for example `acct_7f3k9q2m`). Workspace IDs look like `ws_` followed by 6 characters. Regions: `us-east`, `us-west`, `eu-west`. Plans: Free, Pro, Enterprise.
 
 ## Help-center catalog
 
 | ID | Area | Title | Key facts the article states |
 |---|---|---|---|
-| KB-001 | sso | Set up SAML SSO with your identity provider | Settings > Security > SSO. Entity ID / audience is `https://sso.meridian.example/saml/<workspace_id>`. ACS URL `https://sso.meridian.example/saml/acs`. Supports Okta, Entra ID, Google Workspace, generic SAML 2.0. |
+| KB-001 | sso | Set up SAML SSO with your identity provider | Settings > Security > SSO. Entity ID / audience is `https://sso.vantimere.example/saml/<workspace_id>`. ACS URL `https://sso.vantimere.example/saml/acs`. Supports Okta, Entra ID, Google Workspace, generic SAML 2.0. |
 | KB-002 | sso | SAML error: SAML_INVALID_AUDIENCE | Audience in the IdP must exactly match the entity ID including the workspace ID. Common cause: copied the entity ID from another workspace, or trailing slash. |
 | KB-003 | sso | SAML error: SAML_SIGNATURE_INVALID | Usually the IdP signing certificate was rotated. Upload the new certificate in Settings > Security > SSO. Certificates must be X.509, PEM. |
 | KB-004 | sso | Users can't sign in after SSO: provisioning and SCIM | Just-in-time provisioning must be on, or users must be provisioned via SCIM. Error `SSO_USER_NOT_PROVISIONED`. SCIM token is in Settings > Security > SCIM. |
@@ -21,13 +21,13 @@ Meridian Cloud is a SaaS platform that teams use to run internal apps and APIs. 
 | KB-007 | api | 401 Unauthorized from the API | Header must be `Authorization: Bearer <key>`. Causes: missing header, revoked or expired key, test key against live endpoint. Error body `{"error":"invalid_api_key"}`. |
 | KB-008 | api | 403 Forbidden from the API | The key is valid but lacks a scope (`read`, `write`, `admin`) or belongs to a different workspace. Error body `{"error":"insufficient_scope"}`. |
 | KB-009 | api | 429 Too Many Requests and rate limits | Limits per key: Free 60 requests/min, Pro 600/min, Enterprise 3,000/min. Response has a `Retry-After` header in seconds. Retry with exponential backoff and jitter. |
-| KB-010 | platform | Report a security concern | Security reports go to the security team, not normal support. Do not post secrets in tickets. Meridian acknowledges security reports within 1 business day. |
-| KB-011 | webhooks | Set up webhooks | Settings > Webhooks. Endpoint must be HTTPS and return 2xx within 10 seconds. Each delivery has a `Meridian-Signature` header (HMAC-SHA256 of the raw body with the endpoint secret). |
+| KB-010 | platform | Report a security concern | Security reports go to the security team, not normal support. Do not post secrets in tickets. Vantimere acknowledges security reports within 1 business day. |
+| KB-011 | webhooks | Set up webhooks | Settings > Webhooks. Endpoint must be HTTPS and return 2xx within 10 seconds. Each delivery has a `Vantimere-Signature` header (HMAC-SHA256 of the raw body with the endpoint secret). |
 | KB-012 | webhooks | Webhook retries, timeouts, and delivery logs | Failed deliveries retry 8 times over about 24 hours with exponential backoff. Non-2xx or no response in 10 seconds counts as a failure. After 3 days of failures the endpoint is disabled. Delivery logs keep 14 days. |
 | KB-013 | webhooks | Webhook signature verification fails | Verify against the raw request body, not parsed JSON. Timestamps older than 5 minutes are rejected, so check server clock. Each endpoint has its own secret. |
-| KB-014 | platform | 5xx errors from Meridian | 500 and 502 are usually transient: retry with backoff. 503 means maintenance or overload. Include the `X-Request-Id` header value, time, and region when contacting support. Persistent 5xx on one endpoint is a bug worth reporting. |
-| KB-015 | platform | Check service status and incident updates | status.meridian.example shows live status per region. Subscribe by email or RSS. Incidents are posted within 15 minutes of detection. |
-| KB-016 | dns_domains | Connect a custom domain | Add a CNAME to `edge.meridian.example` and a TXT record `_meridian-verify` with the token shown in the dashboard. Apex domains need an ALIAS/ANAME record. |
+| KB-014 | platform | 5xx errors from Vantimere | 500 and 502 are usually transient: retry with backoff. 503 means maintenance or overload. Include the `X-Request-Id` header value, time, and region when contacting support. Persistent 5xx on one endpoint is a bug worth reporting. |
+| KB-015 | platform | Check service status and incident updates | status.vantimere.example shows live status per region. Subscribe by email or RSS. Incidents are posted within 15 minutes of detection. |
+| KB-016 | dns_domains | Connect a custom domain | Add a CNAME to `edge.vantimere.example` and a TXT record `_vantimere-verify` with the token shown in the dashboard. Apex domains need an ALIAS/ANAME record. |
 | KB-017 | dns_domains | Custom domain stuck on "Pending verification" | Usually the TXT record is missing, on the wrong host, or DNS has not propagated (up to 48 hours). Proxied CNAMEs (for example orange-cloud) block verification. |
 | KB-018 | dns_domains | SSL certificate not issued for a custom domain | Certificates are issued by Let's Encrypt. A CAA record that doesn't allow `letsencrypt.org` blocks issuance. Status shows `CERT_PENDING_CAA`. |
 | KB-019 | billing | Plans, invoices, and billing details | Invoices are in Settings > Billing. Change plan, billing email, VAT ID, or card there. Invoices are issued on the 1st of each month. |
@@ -76,9 +76,9 @@ Meridian Cloud is a SaaS platform that teams use to run internal apps and APIs. 
 
 - `how_to`: asks how to do something. Nothing is broken.
 - `configuration`: something fails because of how the customer set it up (wrong audience URI, missing scope, bad DNS record, wrong signature check). An article explains the fix.
-- `defect`: Meridian behaves wrongly even though the customer's setup is correct. Evidence points at Meridian.
-- `outage`: a Meridian service is down or failing broadly (many requests, many users, or a region).
-- `security`: vulnerability reports, unauthorized access, one customer seeing another customer's data, leaked Meridian credentials, suspected account compromise.
+- `defect`: Vantimere behaves wrongly even though the customer's setup is correct. Evidence points at Vantimere.
+- `outage`: a Vantimere service is down or failing broadly (many requests, many users, or a region).
+- `security`: vulnerability reports, unauthorized access, one customer seeing another customer's data, leaked Vantimere credentials, suspected account compromise.
 - `billing`: invoices, plans, charges, refunds, payment failures.
 
 ## Severity

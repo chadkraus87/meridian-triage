@@ -3,7 +3,7 @@ import { techopsTicketFor, techopsTickets } from "@/lib/site";
 
 /**
  * TechOps Command Center links each scenario ticket here as /techops/<scenario>/<n>,
- * so it never needs to know Meridian's ticket IDs. This forwards to the ticket page.
+ * so it never needs to know Switchboard's ticket IDs. This forwards to the ticket page.
  */
 
 // Every link TechOps can build is known at build time (see the ticket page for why

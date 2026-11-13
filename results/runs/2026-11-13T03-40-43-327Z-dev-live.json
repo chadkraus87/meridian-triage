@@ -121,7 +121,7 @@
         },
         {
           "id": "KB-014",
-          "title": "5xx errors from Meridian",
+          "title": "5xx errors from Vantimere",
           "score": 13.72
         }
       ],
@@ -304,7 +304,7 @@
         "impact": "Reporter says any valid key can read full app records (owner email, environment variable names) from other workspaces, a potential cross-tenant data exposure affecting all customers. Reporter is on the free plan and tested only with two workspaces they own. 1 report, 0 other accounts in the last hour.",
         "stepsToReproduce": [
           "Create a live key scoped to workspace ws_q7m2ka.",
-          "Send GET https://api.meridian.example/v2/apps/app_r4t9bn01 with Authorization: Bearer <that key>. The app belongs to a different workspace, ws_r4t9bn.",
+          "Send GET https://api.vantimere.example/v2/apps/app_r4t9bn01 with Authorization: Bearer <that key>. The app belongs to a different workspace, ws_r4t9bn.",
           "Observe a 200 OK with the full app record instead of a denial."
         ],
         "evidence": [
@@ -536,7 +536,7 @@
             "confidence": "low"
           }
         ],
-        "rationale": "The customer's Okta Audience URI ends with a trailing slash (https://sso.meridian.example/saml/ws_h8d3lm/), which KB-002 lists as a cause of SAML_INVALID_AUDIENCE, so this is a setup issue rather than a Meridian defect. Removing the trailing slash should fix it."
+        "rationale": "The customer's Okta Audience URI ends with a trailing slash (https://sso.vantimere.example/saml/ws_h8d3lm/), which KB-002 lists as a cause of SAML_INVALID_AUDIENCE, so this is a setup issue rather than a Vantimere defect. Removing the trailing slash should fix it."
       },
       "decision": {
         "decision": "resolve",
@@ -550,7 +550,7 @@
         "missingDetails": [],
         "resolveArticle": "KB-002"
       },
-      "reply": "Hi Harborline Dental Group, thanks for the details and the log. The Audience URI in your Okta app ends with a trailing slash: https://sso.meridian.example/saml/ws_h8d3lm/. Meridian needs an exact match, so the slash causes SAML_INVALID_AUDIENCE. To fix it, open the Meridian SAML app in Okta and set the Audience URI to https://sso.meridian.example/saml/ws_h8d3lm with no trailing slash or spaces. Your ACS URL looks correct. Save the change, then run Test sign-in again in Settings > Security > SSO. Full steps are in [KB-002]. If it still fails after that, a support engineer will follow up with you.",
+      "reply": "Hi Harborline Dental Group, thanks for the details and the log. The Audience URI in your Okta app ends with a trailing slash: https://sso.vantimere.example/saml/ws_h8d3lm/. Vantimere needs an exact match, so the slash causes SAML_INVALID_AUDIENCE. To fix it, open the Vantimere SAML app in Okta and set the Audience URI to https://sso.vantimere.example/saml/ws_h8d3lm with no trailing slash or spaces. Your ACS URL looks correct. Save the change, then run Test sign-in again in Settings > Security > SSO. Full steps are in [KB-002]. If it still fails after that, a support engineer will follow up with you.",
       "bugReport": null,
       "citations": {
         "cited": [
@@ -588,7 +588,7 @@
       "retrieved": [
         {
           "id": "KB-014",
-          "title": "5xx errors from Meridian",
+          "title": "5xx errors from Vantimere",
           "score": 42.81
         },
         {
@@ -667,21 +667,21 @@
         "missingDetails": [],
         "resolveArticle": null
       },
-      "reply": "Hi Copperleaf Payments Studio, I'm sorry about the impact on your checkout. We've escalated this to the engineering team as a possible eu-west outage, and I will update you as soon as I have news. The account ID, request ID (req_8f2a91c0d3), region, and 503 response you included are already attached to the escalation, so you don't need to send anything more. Other accounts are reporting similar problems, which is part of why this was escalated. Status updates are posted at status.meridian.example [KB-015]. Retrying with exponential backoff and honoring the Retry-After header may help if your application can safely retry [KB-014].",
+      "reply": "Hi Copperleaf Payments Studio, I'm sorry about the impact on your checkout. We've escalated this to the engineering team as a possible eu-west outage, and I will update you as soon as I have news. The account ID, request ID (req_8f2a91c0d3), region, and 503 response you included are already attached to the escalation, so you don't need to send anything more. Other accounts are reporting similar problems, which is part of why this was escalated. Status updates are posted at status.vantimere.example [KB-015]. Retrying with exponential backoff and honoring the Retry-After header may help if your application can safely retry [KB-014].",
       "bugReport": {
         "summary": "Persistent 503 on all API calls from eu-west workspace since 14:05 UTC, status page shows green",
         "impact": "Copperleaf Payments Studio (pro plan) reports all API calls from its eu-west workspace fail, and its checkout is down. 5 other accounts reported the same issue in the last hour, so this looks like a multi-customer eu-west outage.",
         "stepsToReproduce": [
-          "Send POST /v2/charges to https://api.meridian.example with a live key from the eu-west workspace (acct_c0pp3r1f)",
+          "Send POST /v2/charges to https://api.vantimere.example with a live key from the eu-west workspace (acct_c0pp3r1f)",
           "Observe 503 Service Unavailable",
           "Customer says every call fails, not just this endpoint"
         ],
         "evidence": [
-          "\"Since 14:05 UTC every single call to api.meridian.example from our eu-west workspace returns 503.\"",
+          "\"Since 14:05 UTC every single call to api.vantimere.example from our eu-west workspace returns 503.\"",
           "Account: acct_c0pp3r1f",
           "HTTP/1.1 503 Service Unavailable",
           "X-Request-Id: req_8f2a91c0d3",
-          "X-Meridian-Region: eu-west",
+          "X-Vantimere-Region: eu-west",
           "Retry-After: 30",
           "{\"error\":\"service_unavailable\"}",
           "\"Your status page still says everything is green.\"",
@@ -926,7 +926,7 @@
         "missingDetails": [],
         "resolveArticle": null
       },
-      "reply": "Hi Saltmarsh Media, thanks for reaching out. A support engineer will follow up with you directly about rotating your live API key. In the meantime, the rotation steps are in [KB-006]. In short, go to Settings > API keys and click Rotate next to the key. Meridian creates a new key with the same scopes, and the old key keeps working for 24 hours so you can deploy the new one without downtime. After that window the old key stops working. Remember to store the new key in a secrets manager or environment variable.",
+      "reply": "Hi Saltmarsh Media, thanks for reaching out. A support engineer will follow up with you directly about rotating your live API key. In the meantime, the rotation steps are in [KB-006]. In short, go to Settings > API keys and click Rotate next to the key. Vantimere creates a new key with the same scopes, and the old key keeps working for 24 hours so you can deploy the new one without downtime. After that window the old key stops working. Remember to store the new key in a secrets manager or environment variable.",
       "bugReport": null,
       "citations": {
         "cited": [
@@ -1028,7 +1028,7 @@
             "confidence": "low"
           }
         ],
-        "rationale": "About 3,400 datastore records disappeared without any customer delete action, backed by an audit log with zero delete calls and nightly record counts, which indicates possible data loss on Meridian's side that Engineering must investigate. No retrieved article addresses missing records, and only this customer reports it, so there is no multi-customer outage evidence."
+        "rationale": "About 3,400 datastore records disappeared without any customer delete action, backed by an audit log with zero delete calls and nightly record counts, which indicates possible data loss on Vantimere's side that Engineering must investigate. No retrieved article addresses missing records, and only this customer reports it, so there is no multi-customer outage evidence."
       },
       "decision": {
         "decision": "escalate",

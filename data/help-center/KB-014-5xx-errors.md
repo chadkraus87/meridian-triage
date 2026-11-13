@@ -1,20 +1,20 @@
 ---
 id: KB-014
-title: 5xx errors from Meridian
+title: 5xx errors from Vantimere
 area: platform
 tags: 500, 502, 503, server error, x-request-id, internal server error
 ---
-A 5xx status code means something went wrong on Meridian's side while handling your request.
+A 5xx status code means something went wrong on Vantimere's side while handling your request.
 
 ## What each code means
 
 - **500 Internal Server Error** and **502 Bad Gateway:** usually transient. Retry with exponential backoff and jitter.
-- **503 Service Unavailable:** Meridian is in maintenance or overloaded. Check the `Retry-After` header if present, and check status.meridian.example (see KB-015).
+- **503 Service Unavailable:** Vantimere is in maintenance or overloaded. Check the `Retry-After` header if present, and check status.vantimere.example (see KB-015).
 
 ## What to do
 
 1. Retry the request with exponential backoff (for example 1s, 2s, 4s, 8s, plus a random delay). Make sure `POST` requests are safe to retry in your application.
-2. Check status.meridian.example for an incident in your region (`us-east`, `us-west`, or `eu-west`).
+2. Check status.vantimere.example for an incident in your region (`us-east`, `us-west`, or `eu-west`).
 3. If the errors stop after a retry or two, no action is needed.
 
 ## When to contact support

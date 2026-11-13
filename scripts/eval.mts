@@ -59,7 +59,7 @@ const metrics = score(results);
 
 const pct = (x: number | null) => (x === null ? "n/a" : `${(x * 100).toFixed(1)}%`);
 const m = metrics;
-console.log(`\nMeridian Triage eval: split=${split} mode=${values.mode} model=${model.name} n=${m.n}${stopped ? " (INCOMPLETE: budget guard)" : ""}\n`);
+console.log(`\nSwitchboard eval: split=${split} mode=${values.mode} model=${model.name} n=${m.n}${stopped ? " (INCOMPLETE: budget guard)" : ""}\n`);
 console.log(`Escalation recall     ${pct(m.escalation.recall)}  (missed: ${m.escalation.missed.join(", ") || "none"})`);
 console.log(`Escalation precision  ${pct(m.escalation.precision)}  (false escalations: ${m.escalation.fp})`);
 console.log(`Decision accuracy     ${pct(m.decision.accuracy)}  (model suggestion alone: ${pct(m.modelAlone.decisionAccuracy)})`);

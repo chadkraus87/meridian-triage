@@ -89,7 +89,7 @@ export const inbox = memo((): InboxItem[] => {
   return [...scored, ...techops];
 });
 
-/** TechOps links to /techops/<scenario>/<n>; this finds the Meridian ticket for it. */
+/** TechOps links to /techops/<scenario>/<n>; this finds the Switchboard ticket for it. */
 export const techopsTicketFor = (scenarioId: string, templateNumber: number) =>
   techopsTickets().find((t) => t.source.scenarioId === scenarioId && t.source.templateNumber === templateNumber);
 

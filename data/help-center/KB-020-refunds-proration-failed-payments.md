@@ -30,7 +30,7 @@ The billing team will reply with a decision.
 
 If a card payment fails (for example the card is declined or expired):
 
-1. Meridian emails the billing email address.
+1. Vantimere emails the billing email address.
 2. Failed payments retry 3 times over 7 days.
 3. If all retries fail, the workspace becomes read-only. Your data is kept, but you can't make changes until payment succeeds.
 

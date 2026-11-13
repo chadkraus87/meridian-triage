@@ -2,9 +2,9 @@
 id: KB-013
 title: Webhook signature verification fails
 area: webhooks
-tags: webhook signature, meridian-signature, hmac, verification failed, raw body, timestamp
+tags: webhook signature, vantimere-signature, hmac, verification failed, raw body, timestamp
 ---
-If your server rejects Meridian webhooks because the `Meridian-Signature` header doesn't match, the cause is almost always in how the signature is checked. The signature is an HMAC-SHA256 of the raw request body with the endpoint secret (see KB-011).
+If your server rejects Vantimere webhooks because the `Vantimere-Signature` header doesn't match, the cause is almost always in how the signature is checked. The signature is an HMAC-SHA256 of the raw request body with the endpoint secret (see KB-011).
 
 ## What you see
 
@@ -23,7 +23,7 @@ Timestamps older than 5 minutes are rejected, so check your server clock. If you
 Each endpoint has its own secret. If you have several endpoints (for example staging and production), make sure each server uses the secret for its own endpoint. If you rolled the secret in Settings > Webhooks, update your server.
 
 **4. Encoding and comparison errors.**
-- Compare the hex digest the same way Meridian sends it.
+- Compare the hex digest the same way Vantimere sends it.
 - Strip whitespace or newlines from the secret when you load it.
 - Use a constant-time comparison.
 
@@ -31,6 +31,6 @@ Each endpoint has its own secret. If you have several endpoints (for example sta
 
 1. Go to Settings > Webhooks and click **Send test event**.
 2. Log the raw body length and your computed signature (never log the secret).
-3. Compare with the `Meridian-Signature` header.
+3. Compare with the `Vantimere-Signature` header.
 
 If it still fails, contact support with your account ID (from Settings > Account), the endpoint URL, and the time of a failed delivery. Do not include the endpoint secret.

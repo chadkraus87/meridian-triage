@@ -2,9 +2,9 @@
 id: KB-011
 title: Set up webhooks
 area: webhooks
-tags: webhooks, endpoint, meridian-signature, hmac, https, events
+tags: webhooks, endpoint, vantimere-signature, hmac, https, events
 ---
-Webhooks send an HTTP `POST` to your server when something happens in your Meridian workspace, so you don't have to poll the API.
+Webhooks send an HTTP `POST` to your server when something happens in your Vantimere workspace, so you don't have to poll the API.
 
 ## Requirements for your endpoint
 
@@ -19,18 +19,18 @@ Do slow work after you respond. Store the event, return `200`, then process it i
 1. Go to Settings > Webhooks.
 2. Click **Add endpoint** and enter your HTTPS URL.
 3. Choose the event types you want to receive.
-4. Save. Meridian shows the endpoint secret. Store it securely.
+4. Save. Vantimere shows the endpoint secret. Store it securely.
 5. Click **Send test event** and check that your endpoint returns 2xx.
 
 ## Verify every delivery
 
-Each delivery has a `Meridian-Signature` header. It is an HMAC-SHA256 of the raw request body, computed with your endpoint secret.
+Each delivery has a `Vantimere-Signature` header. It is an HMAC-SHA256 of the raw request body, computed with your endpoint secret.
 
 To verify:
 
 1. Read the raw request body as bytes, before any JSON parsing.
 2. Compute HMAC-SHA256 of the raw body using the endpoint secret.
-3. Compare your result with the `Meridian-Signature` header using a constant-time comparison.
+3. Compare your result with the `Vantimere-Signature` header using a constant-time comparison.
 4. Reject the request if they don't match.
 
 Each endpoint has its own secret. If verification fails, see KB-013.

@@ -4,11 +4,11 @@ title: Check service status and incident updates
 area: platform
 tags: status page, outage, incident, service status, down, region
 ---
-If Meridian seems slow or down, check the status page first.
+If Vantimere seems slow or down, check the status page first.
 
 ## Status page
 
-status.meridian.example shows live status per region:
+status.vantimere.example shows live status per region:
 
 - `us-east`
 - `us-west`
@@ -22,7 +22,7 @@ Incidents are posted within 15 minutes of detection. Each incident shows the aff
 
 ## Subscribe to updates
 
-On status.meridian.example you can subscribe by email or RSS. You can choose to get updates only for the regions and components you use.
+On status.vantimere.example you can subscribe by email or RSS. You can choose to get updates only for the regions and components you use.
 
 ## If you see problems but the status page is green
 

@@ -8,7 +8,7 @@ Support often needs your account ID to find your account quickly. This article s
 
 ## Where to find them
 
-1. Sign in to the Meridian dashboard.
+1. Sign in to the Vantimere dashboard.
 2. Go to Settings > Account.
 
 Settings > Account shows:
@@ -20,7 +20,7 @@ Click the copy icon next to each ID to copy it.
 
 ## What each ID is for
 
-- The **account ID** identifies your organization's Meridian account, including billing.
+- The **account ID** identifies your organization's Vantimere account, including billing.
 - The **workspace ID** identifies one workspace. An account can have more than one workspace (for example production and staging). The workspace ID is used in your SAML entity ID (see KB-001).
 
 ## Include your account ID in support tickets

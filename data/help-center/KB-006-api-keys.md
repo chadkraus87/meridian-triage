@@ -4,7 +4,7 @@ title: Create, scope, and rotate API keys
 area: api
 tags: api key, create key, rotate key, scopes, mk_live, mk_test
 ---
-API keys let your code call the Meridian REST API at `https://api.meridian.example/v2`. Each key belongs to one workspace and has one or more scopes.
+API keys let your code call the Vantimere REST API at `https://api.vantimere.example/v2`. Each key belongs to one workspace and has one or more scopes.
 
 ## Key types
 
@@ -30,7 +30,7 @@ Give each key the smallest set of scopes it needs. A key missing a scope gets `4
 Rotate keys on a schedule, and right away if a key may have leaked.
 
 1. Go to Settings > API keys and click **Rotate** next to the key.
-2. Meridian creates a new key with the same scopes.
+2. Vantimere creates a new key with the same scopes.
 3. The old key keeps working for 24 hours, so you can deploy the new key without downtime.
 4. After 24 hours the old key stops working and returns `401 Unauthorized` (see KB-007).
 

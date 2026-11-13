@@ -8,7 +8,7 @@ export default function InboxHome() {
     <div className="panel p-6 sm:p-8">
       <h1 className="text-2xl font-semibold tracking-tight text-balance">Support inbox</h1>
       <p className="mt-3 max-w-2xl leading-relaxed text-ink-2">
-        These are support tickets for Meridian Cloud, a made-up SaaS company. For each one, the agent classifies it, finds
+        These are support tickets for Vantimere Cloud, a made-up SaaS company. For each one, the agent classifies it, finds
         help-center articles, drafts a reply, and recommends a decision. A rules engine you can read makes the final call,
         and a person approves every reply before anything would go out. Nothing is ever sent.
       </p>

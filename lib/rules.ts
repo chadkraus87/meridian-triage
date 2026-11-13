@@ -97,7 +97,9 @@ export function decide({ ticket, signals, assessment: a, retrieved }: RuleInput)
 
   if (security) return result("escalate", "R1-SECURITY");
   if (dataLoss) return result("escalate", "R2-DATA-LOSS", null, DATA_LOSS_DETAILS.filter(isMissing));
-  if (multiOutage) return result("escalate", "R3-MULTI-CUSTOMER-OUTAGE");
+  // An outage escalation asks only what's needed to find the customer and the time window,
+  // whatever category the model gave the ticket. Steps to reproduce don't apply mid-outage.
+  if (multiOutage) return result("escalate", "R3-MULTI-CUSTOMER-OUTAGE", null, REQUIRED_DETAILS.outage.filter(isMissing));
   if (ticket.contactCount >= 3) {
     evidence.push(`Contact number ${ticket.contactCount} about this issue`);
     return result("escalate", "R4-REPEAT-CONTACT");

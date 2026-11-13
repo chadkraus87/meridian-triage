@@ -1,0 +1,3775 @@
+{
+  "id": "2026-11-13T15-42-30-112Z-techops-live",
+  "createdAt": "2026-11-13T15:42:30.112Z",
+  "split": "techops",
+  "mode": "live",
+  "model": "claude-sonnet-5-5",
+  "complete": true,
+  "summary": {
+    "n": 29,
+    "decisions": {
+      "escalate": 29
+    },
+    "modelErrors": 0,
+    "cost": {
+      "totalUsd": 0.7663500000000002,
+      "perTicketUsd": 0.026425862068965526
+    },
+    "latency": {
+      "meanMs": 6974.379310344828,
+      "p95Ms": 7714
+    }
+  },
+  "traces": [
+    {
+      "ticketId": "MT-3001",
+      "model": "claude-sonnet-5-5",
+      "signals": {
+        "security": [],
+        "dataLoss": [],
+        "injection": [],
+        "present": {
+          "accountId": false,
+          "timestamp": false,
+          "errorMessage": false,
+          "steps": false
+        }
+      },
+      "redacted": [],
+      "retrieved": [
+        {
+          "id": "KB-014",
+          "title": "5xx errors from Meridian",
+          "score": 8.88
+        },
+        {
+          "id": "KB-016",
+          "title": "Connect a custom domain",
+          "score": 8.86
+        },
+        {
+          "id": "KB-015",
+          "title": "Check service status and incident updates",
+          "score": 7.36
+        },
+        {
+          "id": "KB-025",
+          "title": "Known issue: CSV export times out for large workspaces",
+          "score": 6.58
+        },
+        {
+          "id": "KB-010",
+          "title": "Report a security concern",
+          "score": 6.15
+        }
+      ],
+      "assessment": {
+        "category": "outage",
+        "severity": "critical",
+        "productArea": "platform",
+        "suggestedDecision": "escalate",
+        "signals": {
+          "security": false,
+          "dataLoss": false,
+          "multiCustomerOutage": true,
+          "reproducible": true,
+          "injectionSuspected": false
+        },
+        "detailsPresent": {
+          "accountId": false,
+          "errorMessage": false,
+          "steps": false,
+          "timestamp": false
+        },
+        "articleMatches": [
+          {
+            "id": "KB-014",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-016",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-015",
+            "confidence": "medium"
+          },
+          {
+            "id": "KB-025",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-010",
+            "confidence": "low"
+          }
+        ],
+        "rationale": "The dashboard fails to load across two browsers and a phone, and the ticket metadata shows 4 other accounts reporting the same issue in the last hour, which points to a broad Meridian outage. KB-015 (status page) is relevant but does not resolve the problem, so Engineering should be engaged."
+      },
+      "decision": {
+        "decision": "escalate",
+        "ruleId": "R3-MULTI-CUSTOMER-OUTAGE",
+        "reason": "An outage affecting multiple customers always escalates.",
+        "evidence": [
+          "4 other accounts reporting the same issue",
+          "Model flagged an outage affecting multiple customers"
+        ],
+        "modelSuggestion": "escalate",
+        "overrodeModel": false,
+        "missingDetails": [
+          "accountId",
+          "timestamp"
+        ],
+        "resolveArticle": null
+      },
+      "reply": "Hi Northwind Retail, thanks for reporting this, and for trying two browsers and your phone, which helps rule out your device. We have escalated this to the engineering team, and I will update you as soon as I have news. To help them find your requests, please send your account ID (Settings > Account, it starts with acct_) and when it happened, with time zone. You can also watch status.meridian.example for incident updates [KB-015].",
+      "bugReport": {
+        "summary": "Dashboard fails to load (spins, then blank page with error); 5 accounts reporting in the last hour.",
+        "impact": "Northwind Retail (pro plan) cannot open the dashboard. 4 other accounts reported the same issue in the last hour, so this looks like a multi-customer outage. Severity is high because the dashboard is fully unusable for the reporting customer.",
+        "stepsToReproduce": [
+          "Open the Meridian dashboard in a browser.",
+          "The page spins, then shows a blank page with an error.",
+          "Same result in a second browser and on a phone."
+        ],
+        "evidence": [
+          "\"it just spins, then shows a blank page with an error\"",
+          "\"I've been trying to open my dashboard for the last few minutes\"",
+          "Other accounts reporting the same issue in the last hour: 4"
+        ],
+        "ruledOut": [
+          "Single browser problem: tried two browsers",
+          "Single device problem: also tried on a phone"
+        ]
+      },
+      "citations": {
+        "cited": [
+          "KB-015"
+        ],
+        "removed": []
+      },
+      "guard": {
+        "blocked": false,
+        "reasons": []
+      },
+      "usage": {
+        "inputTokens": 9451,
+        "outputTokens": 774,
+        "costUsd": 0.026642,
+        "latencyMs": 8327
+      },
+      "modelErrors": []
+    },
+    {
+      "ticketId": "MT-3002",
+      "model": "claude-sonnet-5-5",
+      "signals": {
+        "security": [],
+        "dataLoss": [],
+        "injection": [],
+        "present": {
+          "accountId": false,
+          "timestamp": false,
+          "errorMessage": false,
+          "steps": true
+        }
+      },
+      "redacted": [],
+      "retrieved": [
+        {
+          "id": "KB-014",
+          "title": "5xx errors from Meridian",
+          "score": 13.6
+        },
+        {
+          "id": "KB-010",
+          "title": "Report a security concern",
+          "score": 7.7
+        },
+        {
+          "id": "KB-024",
+          "title": "Known issue: delayed webhook deliveries in eu-west",
+          "score": 7.4
+        },
+        {
+          "id": "KB-025",
+          "title": "Known issue: CSV export times out for large workspaces",
+          "score": 5.94
+        },
+        {
+          "id": "KB-011",
+          "title": "Set up webhooks",
+          "score": 5.47
+        }
+      ],
+      "assessment": {
+        "category": "outage",
+        "severity": "critical",
+        "productArea": "platform",
+        "suggestedDecision": "escalate",
+        "signals": {
+          "security": false,
+          "dataLoss": false,
+          "multiCustomerOutage": true,
+          "reproducible": true,
+          "injectionSuspected": false
+        },
+        "detailsPresent": {
+          "accountId": false,
+          "errorMessage": true,
+          "steps": true,
+          "timestamp": false
+        },
+        "articleMatches": [
+          {
+            "id": "KB-014",
+            "confidence": "medium"
+          },
+          {
+            "id": "KB-010",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-024",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-025",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-011",
+            "confidence": "low"
+          }
+        ],
+        "rationale": "Login consistently returns a 503 for the whole team, and the ticket metadata shows 4 other accounts reporting the same issue in the last hour, which points to a multi-customer outage needing Engineering. KB-014 covers 503s but only advises retrying and checking the status page, so it is a partial match."
+      },
+      "decision": {
+        "decision": "escalate",
+        "ruleId": "R3-MULTI-CUSTOMER-OUTAGE",
+        "reason": "An outage affecting multiple customers always escalates.",
+        "evidence": [
+          "4 other accounts reporting the same issue",
+          "Model flagged an outage affecting multiple customers"
+        ],
+        "modelSuggestion": "escalate",
+        "overrodeModel": false,
+        "missingDetails": [
+          "accountId",
+          "timestamp"
+        ],
+        "resolveArticle": null
+      },
+      "reply": "Hi Fielding Logistics, thanks for reporting this. A 503 on login for you and your team is something we are treating seriously, and other accounts have reported similar problems. I have escalated this to the engineering team, and I will update you as soon as I hear back. To help them find your requests in our logs, please send your account ID (Settings > Account, it starts with acct_) and when it happened, with time zone. You can also check status.meridian.example for any incident updates while you wait.",
+      "bugReport": {
+        "summary": "Users get a 503 page after entering their password at login; multiple accounts affected.",
+        "impact": "Fielding Logistics (pro plan) and their whole team cannot log in. 4 other accounts reported the same issue in the last hour, so this looks like a broader outage.",
+        "stepsToReproduce": [
+          "Go to the Meridian login page.",
+          "Enter a valid password.",
+          "Submit and observe a 503 'service unavailable' page."
+        ],
+        "evidence": [
+          "Subject: \"Unable to log in — 'service unavailable'\"",
+          "\"Every time I enter my password I get a 503 page.\"",
+          "\"My team can't get in either. Nothing changed on our side.\"",
+          "Other accounts reporting the same issue in the last hour: 4"
+        ],
+        "ruledOut": [
+          "Customer reports no changes on their side."
+        ]
+      },
+      "citations": {
+        "cited": [],
+        "removed": []
+      },
+      "guard": {
+        "blocked": false,
+        "reasons": []
+      },
+      "usage": {
+        "inputTokens": 9633,
+        "outputTokens": 756,
+        "costUsd": 0.026826,
+        "latencyMs": 7550
+      },
+      "modelErrors": []
+    },
+    {
+      "ticketId": "MT-3003",
+      "model": "claude-sonnet-5-5",
+      "signals": {
+        "security": [],
+        "dataLoss": [],
+        "injection": [],
+        "present": {
+          "accountId": false,
+          "timestamp": false,
+          "errorMessage": true,
+          "steps": false
+        }
+      },
+      "redacted": [],
+      "retrieved": [
+        {
+          "id": "KB-007",
+          "title": "401 Unauthorized from the API",
+          "score": 8.94
+        },
+        {
+          "id": "KB-013",
+          "title": "Webhook signature verification fails",
+          "score": 8.7
+        },
+        {
+          "id": "KB-015",
+          "title": "Check service status and incident updates",
+          "score": 7.89
+        },
+        {
+          "id": "KB-006",
+          "title": "Create, scope, and rotate API keys",
+          "score": 6.89
+        },
+        {
+          "id": "KB-012",
+          "title": "Webhook retries, timeouts, and delivery logs",
+          "score": 6.76
+        }
+      ],
+      "assessment": {
+        "category": "outage",
+        "severity": "critical",
+        "productArea": "platform",
+        "suggestedDecision": "escalate",
+        "signals": {
+          "security": false,
+          "dataLoss": false,
+          "multiCustomerOutage": true,
+          "reproducible": false,
+          "injectionSuspected": false
+        },
+        "detailsPresent": {
+          "accountId": false,
+          "errorMessage": true,
+          "steps": false,
+          "timestamp": false
+        },
+        "articleMatches": [
+          {
+            "id": "KB-007",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-013",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-015",
+            "confidence": "medium"
+          },
+          {
+            "id": "KB-006",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-012",
+            "confidence": "low"
+          }
+        ],
+        "rationale": "Roughly every API request returns 503, and the ticket metadata says 4 other accounts reported the same issue in the last hour, which points to a broad Meridian outage. KB-015 covers status checks and what to send support, but it does not resolve a platform-side 5xx outage, so Engineering needs to act."
+      },
+      "decision": {
+        "decision": "escalate",
+        "ruleId": "R3-MULTI-CUSTOMER-OUTAGE",
+        "reason": "An outage affecting multiple customers always escalates.",
+        "evidence": [
+          "4 other accounts reporting the same issue",
+          "Model flagged an outage affecting multiple customers"
+        ],
+        "modelSuggestion": "escalate",
+        "overrodeModel": false,
+        "missingDetails": [
+          "accountId",
+          "timestamp"
+        ],
+        "resolveArticle": null
+      },
+      "reply": "Hi Aster Health, thanks for reporting this. We have escalated the issue to the engineering team, and I will update you as soon as there is news. Other customers have reported similar problems recently, so it is being treated seriously. To help the engineers investigate, please send us your account ID (Settings > Account, it starts with acct_) and when it happened, with time zone. You can also watch status.meridian.example for live incident updates [KB-015].",
+      "bugReport": {
+        "summary": "Nightly sync against api.meridian.example returning 503 on roughly every request, with connection errors and timeouts",
+        "impact": "Aster Health (pro plan) has a failing nightly sync job with 503s on nearly all requests. 4 other accounts reported the same issue in the last hour, which points to a wider outage. This is the customer's first contact on the issue.",
+        "stepsToReproduce": [
+          "Not provided yet. The customer runs a nightly sync job that calls api.meridian.example and receives 503s on roughly every request."
+        ],
+        "evidence": [
+          "\"Our nightly sync job is failing with connection errors against api.meridian.example.\"",
+          "\"We're seeing 503s on roughly every request.\"",
+          "Subject: API requests timing out from our integration",
+          "Other accounts reporting the same issue in the last hour: 4"
+        ],
+        "ruledOut": []
+      },
+      "citations": {
+        "cited": [
+          "KB-015"
+        ],
+        "removed": []
+      },
+      "guard": {
+        "blocked": false,
+        "reasons": []
+      },
+      "usage": {
+        "inputTokens": 9989,
+        "outputTokens": 764,
+        "costUsd": 0.027618,
+        "latencyMs": 7563
+      },
+      "modelErrors": []
+    },
+    {
+      "ticketId": "MT-3004",
+      "model": "claude-sonnet-5-5",
+      "signals": {
+        "security": [],
+        "dataLoss": [],
+        "injection": [],
+        "present": {
+          "accountId": false,
+          "timestamp": false,
+          "errorMessage": false,
+          "steps": false
+        }
+      },
+      "redacted": [],
+      "retrieved": [
+        {
+          "id": "KB-015",
+          "title": "Check service status and incident updates",
+          "score": 11.16
+        },
+        {
+          "id": "KB-013",
+          "title": "Webhook signature verification fails",
+          "score": 5.62
+        },
+        {
+          "id": "KB-014",
+          "title": "5xx errors from Meridian",
+          "score": 5.23
+        },
+        {
+          "id": "KB-020",
+          "title": "Refunds, proration, and failed payments",
+          "score": 4.64
+        },
+        {
+          "id": "KB-010",
+          "title": "Report a security concern",
+          "score": 4.19
+        }
+      ],
+      "assessment": {
+        "category": "defect",
+        "severity": "medium",
+        "productArea": "platform",
+        "suggestedDecision": "needs_info",
+        "signals": {
+          "security": false,
+          "dataLoss": false,
+          "multiCustomerOutage": false,
+          "reproducible": false,
+          "injectionSuspected": false
+        },
+        "detailsPresent": {
+          "accountId": false,
+          "errorMessage": false,
+          "steps": false,
+          "timestamp": false
+        },
+        "articleMatches": [
+          {
+            "id": "KB-015",
+            "confidence": "medium"
+          },
+          {
+            "id": "KB-013",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-014",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-020",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-010",
+            "confidence": "low"
+          }
+        ],
+        "rationale": "The ticket is vague: an unspecified error at a payment step of the customer's own checkout, with no error text, account ID, steps, or time. The metadata says 4 other accounts reported the same issue, but the ticket itself gives no clear evidence of a multi-customer outage, so key details are needed. KB-015 is only a partial match, as it covers the status page and what to include when reporting."
+      },
+      "decision": {
+        "decision": "escalate",
+        "ruleId": "R3-MULTI-CUSTOMER-OUTAGE",
+        "reason": "An outage affecting multiple customers always escalates.",
+        "evidence": [
+          "4 other accounts reporting the same issue"
+        ],
+        "modelSuggestion": "needs_info",
+        "overrodeModel": true,
+        "missingDetails": [
+          "accountId",
+          "timestamp"
+        ],
+        "resolveArticle": null
+      },
+      "reply": "Hi Kestrel Analytics, thanks for flagging this, and we understand the impact on your orders. This has been escalated to the engineering team, and I will update you as soon as there is news. To help them investigate, please send us your account ID (Settings > Account, it starts with acct_) and when it happened, with time zone. In the meantime, you can check live status for your region at status.meridian.example [KB-015].",
+      "bugReport": {
+        "summary": "Payment step of checkout failing for Kestrel Analytics; 4 other accounts reported the same issue in the last hour.",
+        "impact": "Kestrel Analytics (Pro plan) says their customers cannot complete checkout, costing them orders. They marked it urgent. Four other accounts reported the same issue within the last hour, so this looks like a multi-customer outage.",
+        "stepsToReproduce": [
+          "Not provided yet."
+        ],
+        "evidence": [
+          "\"We're getting an error at the payment step.\"",
+          "\"This is costing us orders\"",
+          "Other accounts reporting the same issue in the last hour: 4"
+        ],
+        "ruledOut": []
+      },
+      "citations": {
+        "cited": [
+          "KB-015"
+        ],
+        "removed": []
+      },
+      "guard": {
+        "blocked": false,
+        "reasons": []
+      },
+      "usage": {
+        "inputTokens": 9407,
+        "outputTokens": 714,
+        "costUsd": 0.025954,
+        "latencyMs": 6903
+      },
+      "modelErrors": []
+    },
+    {
+      "ticketId": "MT-3005",
+      "model": "claude-sonnet-5-5",
+      "signals": {
+        "security": [],
+        "dataLoss": [],
+        "injection": [],
+        "present": {
+          "accountId": false,
+          "timestamp": false,
+          "errorMessage": false,
+          "steps": false
+        }
+      },
+      "redacted": [],
+      "retrieved": [],
+      "assessment": {
+        "category": "outage",
+        "severity": "high",
+        "productArea": "platform",
+        "suggestedDecision": "escalate",
+        "signals": {
+          "security": false,
+          "dataLoss": false,
+          "multiCustomerOutage": true,
+          "reproducible": false,
+          "injectionSuspected": false
+        },
+        "detailsPresent": {
+          "accountId": false,
+          "errorMessage": false,
+          "steps": false,
+          "timestamp": false
+        },
+        "articleMatches": [],
+        "rationale": "Customer's whole storefront shows broken images, and the ticket metadata reports 4 other accounts with the same issue in the last hour, which indicates a broad Meridian-side failure. Engineering should investigate; no articles were retrieved."
+      },
+      "decision": {
+        "decision": "escalate",
+        "ruleId": "R3-MULTI-CUSTOMER-OUTAGE",
+        "reason": "An outage affecting multiple customers always escalates.",
+        "evidence": [
+          "4 other accounts reporting the same issue",
+          "Model flagged an outage affecting multiple customers"
+        ],
+        "modelSuggestion": "escalate",
+        "overrodeModel": false,
+        "missingDetails": [
+          "accountId",
+          "timestamp"
+        ],
+        "resolveArticle": null
+      },
+      "reply": "Hi Vantage Media, thanks for reporting this. Broken product images across your whole storefront is serious, and we can see other accounts reporting similar problems. We have escalated the issue to the engineering team and I will update you as soon as I have more information. To help them investigate, please send your account ID (Settings > Account, it starts with acct_) and when it happened, with time zone. No help article applies here yet, so I have not linked one.",
+      "bugReport": {
+        "summary": "Product images and thumbnails fail to load (broken placeholders) across a Pro customer's storefront; 4 other accounts reported the same in the last hour.",
+        "impact": "Vantage Media (Pro plan) has broken images across its entire storefront. At least 4 other accounts reported the same issue in the last hour, which suggests a multi-customer outage.",
+        "stepsToReproduce": [
+          "Not provided yet."
+        ],
+        "evidence": [
+          "\"Product images are showing as broken placeholders across our whole storefront.\"",
+          "Subject: \"Images and thumbnails not loading\"",
+          "Other accounts reporting the same issue in the last hour: 4"
+        ],
+        "ruledOut": []
+      },
+      "citations": {
+        "cited": [],
+        "removed": []
+      },
+      "guard": {
+        "blocked": false,
+        "reasons": []
+      },
+      "usage": {
+        "inputTokens": 3927,
+        "outputTokens": 593,
+        "costUsd": 0.013784,
+        "latencyMs": 5984
+      },
+      "modelErrors": []
+    },
+    {
+      "ticketId": "MT-3006",
+      "model": "claude-sonnet-5-5",
+      "signals": {
+        "security": [],
+        "dataLoss": [],
+        "injection": [],
+        "present": {
+          "accountId": false,
+          "timestamp": false,
+          "errorMessage": false,
+          "steps": false
+        }
+      },
+      "redacted": [],
+      "retrieved": [
+        {
+          "id": "KB-015",
+          "title": "Check service status and incident updates",
+          "score": 11.98
+        },
+        {
+          "id": "KB-025",
+          "title": "Known issue: CSV export times out for large workspaces",
+          "score": 9.87
+        },
+        {
+          "id": "KB-012",
+          "title": "Webhook retries, timeouts, and delivery logs",
+          "score": 9.02
+        },
+        {
+          "id": "KB-024",
+          "title": "Known issue: delayed webhook deliveries in eu-west",
+          "score": 8.09
+        },
+        {
+          "id": "KB-007",
+          "title": "401 Unauthorized from the API",
+          "score": 6.32
+        }
+      ],
+      "assessment": {
+        "category": "outage",
+        "severity": "critical",
+        "productArea": "platform",
+        "suggestedDecision": "escalate",
+        "signals": {
+          "security": false,
+          "dataLoss": false,
+          "multiCustomerOutage": true,
+          "reproducible": false,
+          "injectionSuspected": false
+        },
+        "detailsPresent": {
+          "accountId": false,
+          "errorMessage": false,
+          "steps": false,
+          "timestamp": true
+        },
+        "articleMatches": [
+          {
+            "id": "KB-015",
+            "confidence": "medium"
+          },
+          {
+            "id": "KB-025",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-012",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-024",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-007",
+            "confidence": "low"
+          }
+        ],
+        "rationale": "Dashboard pages are slow and erroring for this customer, and 4 other accounts reported the same issue within the last hour, indicating a broad Meridian-side outage affecting multiple customers. Engineering should investigate; KB-015 only partly applies (status page check), and no known-issue article matches the symptoms."
+      },
+      "decision": {
+        "decision": "escalate",
+        "ruleId": "R3-MULTI-CUSTOMER-OUTAGE",
+        "reason": "An outage affecting multiple customers always escalates.",
+        "evidence": [
+          "4 other accounts reporting the same issue",
+          "Model flagged an outage affecting multiple customers"
+        ],
+        "modelSuggestion": "escalate",
+        "overrodeModel": false,
+        "missingDetails": [
+          "accountId"
+        ],
+        "resolveArticle": null
+      },
+      "reply": "Hi Orbit Studios, thanks for reporting this. Other customers have reported similar slowness in the last hour, so we have escalated the issue to the engineering team and I will update you as soon as we learn more. You can also follow live incident updates on the status page [KB-015]. To help the engineers look into your case, please send your account ID (Settings > Account, it starts with acct_).",
+      "bugReport": {
+        "summary": "Dashboard pages loading 10+ seconds or erroring, started about 5 minutes before the report; multiple accounts affected.",
+        "impact": "Orbit Studios (pro plan) sees severely slow dashboard loads and some errors. 4 other accounts reported the same issue in the last hour, so this looks like a possible multi-customer outage.",
+        "stepsToReproduce": [
+          "Not provided yet. The customer reports opening dashboard pages, which normally load instantly."
+        ],
+        "evidence": [
+          "\"Pages that normally load instantly are taking 10+ seconds, and some eventually error out.\"",
+          "\"Started about five minutes ago.\"",
+          "4 other accounts reporting the same issue in the last hour"
+        ],
+        "ruledOut": []
+      },
+      "citations": {
+        "cited": [
+          "KB-015"
+        ],
+        "removed": []
+      },
+      "guard": {
+        "blocked": false,
+        "reasons": []
+      },
+      "usage": {
+        "inputTokens": 9802,
+        "outputTokens": 715,
+        "costUsd": 0.026754,
+        "latencyMs": 7106
+      },
+      "modelErrors": []
+    },
+    {
+      "ticketId": "MT-3007",
+      "model": "claude-sonnet-5-5",
+      "signals": {
+        "security": [],
+        "dataLoss": [],
+        "injection": [],
+        "present": {
+          "accountId": false,
+          "timestamp": false,
+          "errorMessage": true,
+          "steps": false
+        }
+      },
+      "redacted": [],
+      "retrieved": [
+        {
+          "id": "KB-012",
+          "title": "Webhook retries, timeouts, and delivery logs",
+          "score": 8.6
+        },
+        {
+          "id": "KB-014",
+          "title": "5xx errors from Meridian",
+          "score": 8.21
+        },
+        {
+          "id": "KB-024",
+          "title": "Known issue: delayed webhook deliveries in eu-west",
+          "score": 7.93
+        },
+        {
+          "id": "KB-001",
+          "title": "Set up SAML SSO with your identity provider",
+          "score": 5.95
+        },
+        {
+          "id": "KB-006",
+          "title": "Create, scope, and rotate API keys",
+          "score": 5.78
+        }
+      ],
+      "assessment": {
+        "category": "outage",
+        "severity": "high",
+        "productArea": "platform",
+        "suggestedDecision": "escalate",
+        "signals": {
+          "security": false,
+          "dataLoss": false,
+          "multiCustomerOutage": true,
+          "reproducible": false,
+          "injectionSuspected": false
+        },
+        "detailsPresent": {
+          "accountId": false,
+          "errorMessage": true,
+          "steps": false,
+          "timestamp": false
+        },
+        "articleMatches": [
+          {
+            "id": "KB-014",
+            "confidence": "medium"
+          },
+          {
+            "id": "KB-012",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-024",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-001",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-006",
+            "confidence": "low"
+          }
+        ],
+        "rationale": "About 20% of calls to /api/projects return 500 and the ticket header says 4 other accounts reported the same issue in the last hour, which points to a broad Meridian-side failure that Engineering needs to look at. KB-014 covers 5xx errors but only partially applies, since it advises retries for transient errors while this looks like a multi-customer problem."
+      },
+      "decision": {
+        "decision": "escalate",
+        "ruleId": "R3-MULTI-CUSTOMER-OUTAGE",
+        "reason": "An outage affecting multiple customers always escalates.",
+        "evidence": [
+          "4 other accounts reporting the same issue",
+          "Model flagged an outage affecting multiple customers"
+        ],
+        "modelSuggestion": "escalate",
+        "overrodeModel": false,
+        "missingDetails": [
+          "accountId",
+          "timestamp"
+        ],
+        "resolveArticle": null
+      },
+      "reply": "Hi Cedar & Co, thanks for reporting the intermittent 500s on /api/projects. We've escalated this to the engineering team, and I will update you as soon as there is news. To help them find your requests in the logs, please send your account ID (Settings > Account, it starts with acct_) and when it happened, with time zone. KB-014 covers retrying with exponential backoff and jitter, which may reduce the impact on your side in the meantime [KB-014].",
+      "bugReport": {
+        "summary": "Intermittent HTTP 500s (about 1 in 5 calls) on /api/projects, with slow responses on the successful calls.",
+        "impact": "Cedar & Co (pro plan) sees roughly 20% of calls to /api/projects fail with 500, and the rest are slow. 4 other accounts reported the same issue in the last hour, so this looks like a multi-customer outage.",
+        "stepsToReproduce": [
+          "Not provided yet. The customer only reports repeated calls to /api/projects, with about one in five returning 500."
+        ],
+        "evidence": [
+          "\"About one in five calls to /api/projects comes back as a 500. The rest are slow but succeed.\"",
+          "Other accounts reporting the same issue in the last hour: 4"
+        ],
+        "ruledOut": []
+      },
+      "citations": {
+        "cited": [
+          "KB-014"
+        ],
+        "removed": []
+      },
+      "guard": {
+        "blocked": false,
+        "reasons": []
+      },
+      "usage": {
+        "inputTokens": 10295,
+        "outputTokens": 761,
+        "costUsd": 0.0282,
+        "latencyMs": 7308
+      },
+      "modelErrors": []
+    },
+    {
+      "ticketId": "MT-3008",
+      "model": "claude-sonnet-5-5",
+      "signals": {
+        "security": [],
+        "dataLoss": [],
+        "injection": [],
+        "present": {
+          "accountId": false,
+          "timestamp": false,
+          "errorMessage": false,
+          "steps": false
+        }
+      },
+      "redacted": [],
+      "retrieved": [
+        {
+          "id": "KB-010",
+          "title": "Report a security concern",
+          "score": 6.92
+        },
+        {
+          "id": "KB-025",
+          "title": "Known issue: CSV export times out for large workspaces",
+          "score": 5.58
+        },
+        {
+          "id": "KB-007",
+          "title": "401 Unauthorized from the API",
+          "score": 4.07
+        },
+        {
+          "id": "KB-015",
+          "title": "Check service status and incident updates",
+          "score": 3.61
+        },
+        {
+          "id": "KB-024",
+          "title": "Known issue: delayed webhook deliveries in eu-west",
+          "score": 3.31
+        }
+      ],
+      "assessment": {
+        "category": "defect",
+        "severity": "medium",
+        "productArea": "platform",
+        "suggestedDecision": "needs_info",
+        "signals": {
+          "security": false,
+          "dataLoss": false,
+          "multiCustomerOutage": false,
+          "reproducible": false,
+          "injectionSuspected": false
+        },
+        "detailsPresent": {
+          "accountId": false,
+          "errorMessage": false,
+          "steps": false,
+          "timestamp": false
+        },
+        "articleMatches": [
+          {
+            "id": "KB-025",
+            "confidence": "medium"
+          },
+          {
+            "id": "KB-015",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-024",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-007",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-010",
+            "confidence": "low"
+          }
+        ],
+        "rationale": "The customer's usage report export has been processing for 20 minutes, which may match the known CSV export timeout issue (KB-025). However, the ticket gives no row count, no EXPORT_TIMEOUT error, no account ID, and no timestamp, so the match is only medium. Four other accounts reporting in the last hour is not clear evidence of a multi-customer outage, so I am asking for details."
+      },
+      "decision": {
+        "decision": "escalate",
+        "ruleId": "R3-MULTI-CUSTOMER-OUTAGE",
+        "reason": "An outage affecting multiple customers always escalates.",
+        "evidence": [
+          "4 other accounts reporting the same issue"
+        ],
+        "modelSuggestion": "needs_info",
+        "overrodeModel": true,
+        "missingDetails": [
+          "accountId",
+          "timestamp"
+        ],
+        "resolveArticle": null
+      },
+      "reply": "Hi Lumen Works, thanks for reporting this. We have escalated the issue to the engineering team, and I will update you as soon as I hear back from them. To help them investigate, please send your account ID (Settings > Account, it starts with acct_) and when it happened, with time zone. If you need to get the report out in the meantime, [KB-025] describes exporting in smaller date ranges or using the async exports API, though your export may not be the issue described there.",
+      "bugReport": {
+        "summary": "Usage report export stays in processing state for 20+ minutes; 4 other accounts reported the same in the last hour.",
+        "impact": "Lumen Works (pro plan) cannot get its usage report. Four other accounts reported the same issue in the last hour, so this looks like a multi-customer outage.",
+        "stepsToReproduce": [
+          "Click export on the usage report in the dashboard.",
+          "Wait; the export remains in processing state and does not finish."
+        ],
+        "evidence": [
+          "\"I clicked export on our usage report twenty minutes ago and it's still processing.\"",
+          "Other accounts reporting the same issue in the last hour: 4"
+        ],
+        "ruledOut": []
+      },
+      "citations": {
+        "cited": [
+          "KB-025"
+        ],
+        "removed": []
+      },
+      "guard": {
+        "blocked": false,
+        "reasons": []
+      },
+      "usage": {
+        "inputTokens": 9553,
+        "outputTokens": 735,
+        "costUsd": 0.026456,
+        "latencyMs": 6766
+      },
+      "modelErrors": []
+    },
+    {
+      "ticketId": "MT-3009",
+      "model": "claude-sonnet-5-5",
+      "signals": {
+        "security": [],
+        "dataLoss": [],
+        "injection": [],
+        "present": {
+          "accountId": false,
+          "timestamp": false,
+          "errorMessage": false,
+          "steps": false
+        }
+      },
+      "redacted": [],
+      "retrieved": [
+        {
+          "id": "KB-020",
+          "title": "Refunds, proration, and failed payments",
+          "score": 15.67
+        },
+        {
+          "id": "KB-015",
+          "title": "Check service status and incident updates",
+          "score": 6.86
+        },
+        {
+          "id": "KB-013",
+          "title": "Webhook signature verification fails",
+          "score": 6.59
+        },
+        {
+          "id": "KB-012",
+          "title": "Webhook retries, timeouts, and delivery logs",
+          "score": 6.47
+        },
+        {
+          "id": "KB-019",
+          "title": "Plans, invoices, and billing details",
+          "score": 6.13
+        }
+      ],
+      "assessment": {
+        "category": "defect",
+        "severity": "medium",
+        "productArea": "platform",
+        "suggestedDecision": "needs_info",
+        "signals": {
+          "security": false,
+          "dataLoss": false,
+          "multiCustomerOutage": false,
+          "reproducible": false,
+          "injectionSuspected": false
+        },
+        "detailsPresent": {
+          "accountId": false,
+          "errorMessage": false,
+          "steps": false,
+          "timestamp": false
+        },
+        "articleMatches": [
+          {
+            "id": "KB-020",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-015",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-013",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-012",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-019",
+            "confidence": "low"
+          }
+        ],
+        "rationale": "Ambiguous report: Braid Financial's own customers see intermittent payment failures that succeed on retry, and it is unclear whether this involves Meridian's services or Braid's own payment flow. No account ID, error text, timestamps, or region are given. \"Other accounts reporting\" is a ticket metadata count, not clear evidence of a Meridian-wide outage, so more information is needed."
+      },
+      "decision": {
+        "decision": "escalate",
+        "ruleId": "R3-MULTI-CUSTOMER-OUTAGE",
+        "reason": "An outage affecting multiple customers always escalates.",
+        "evidence": [
+          "4 other accounts reporting the same issue"
+        ],
+        "modelSuggestion": "needs_info",
+        "overrodeModel": true,
+        "missingDetails": [
+          "accountId",
+          "timestamp"
+        ],
+        "resolveArticle": null
+      },
+      "reply": "Hi Braid Financial, thanks for flagging this. Since other accounts have reported the same behavior recently, we have escalated the issue to the engineering team, and I will update you as soon as I have more information. To help them investigate, please send us your account ID (Settings > Account, it starts with acct_) and when it happened, with time zone. You can also check live status per region at status.meridian.example [KB-015].",
+      "bugReport": {
+        "summary": "Payments intermittently fail and then succeed on retry; reported by Braid Financial and 4 other accounts in the last hour.",
+        "impact": "Braid Financial (Pro plan) says several of its customers saw failed payments that worked on retry. Four other accounts reported the same issue in the last hour, so this looks like a multi-customer problem. Severity is intermittent, with retries succeeding.",
+        "stepsToReproduce": [
+          "Not provided yet. The customer has not given steps, only that payments occasionally fail and succeed on retry."
+        ],
+        "evidence": [
+          "Subject: \"Payments occasionally fail then succeed on retry\"",
+          "\"Several of our customers reported a failed payment, but retrying worked.\"",
+          "Other accounts reporting the same issue in the last hour: 4"
+        ],
+        "ruledOut": []
+      },
+      "citations": {
+        "cited": [
+          "KB-015"
+        ],
+        "removed": []
+      },
+      "guard": {
+        "blocked": false,
+        "reasons": []
+      },
+      "usage": {
+        "inputTokens": 9675,
+        "outputTokens": 773,
+        "costUsd": 0.02708,
+        "latencyMs": 7251
+      },
+      "modelErrors": []
+    },
+    {
+      "ticketId": "MT-3010",
+      "model": "claude-sonnet-5-5",
+      "signals": {
+        "security": [],
+        "dataLoss": [],
+        "injection": [],
+        "present": {
+          "accountId": false,
+          "timestamp": false,
+          "errorMessage": false,
+          "steps": false
+        }
+      },
+      "redacted": [],
+      "retrieved": [
+        {
+          "id": "KB-024",
+          "title": "Known issue: delayed webhook deliveries in eu-west",
+          "score": 13.79
+        },
+        {
+          "id": "KB-021",
+          "title": "Invite users and assign roles",
+          "score": 8.4
+        },
+        {
+          "id": "KB-015",
+          "title": "Check service status and incident updates",
+          "score": 5.37
+        },
+        {
+          "id": "KB-012",
+          "title": "Webhook retries, timeouts, and delivery logs",
+          "score": 5.23
+        },
+        {
+          "id": "KB-022",
+          "title": "Remove users and transfer ownership",
+          "score": 3.83
+        }
+      ],
+      "assessment": {
+        "category": "defect",
+        "severity": "medium",
+        "productArea": "platform",
+        "suggestedDecision": "needs_info",
+        "signals": {
+          "security": false,
+          "dataLoss": false,
+          "multiCustomerOutage": false,
+          "reproducible": false,
+          "injectionSuspected": false
+        },
+        "detailsPresent": {
+          "accountId": false,
+          "errorMessage": false,
+          "steps": false,
+          "timestamp": false
+        },
+        "articleMatches": [
+          {
+            "id": "KB-024",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-021",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-015",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-012",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-022",
+            "confidence": "low"
+          }
+        ],
+        "rationale": "Invite emails are arriving 15-20 minutes late; this is email delivery, not webhooks, so KB-024 does not apply. KB-021 only says to check spam and resend for invites that never arrive, which does not address delay. The ticket metadata mentions 4 other accounts, but the ticket text itself gives no clear evidence of a broad outage, and no account ID, timestamp, or invited address is given."
+      },
+      "decision": {
+        "decision": "escalate",
+        "ruleId": "R3-MULTI-CUSTOMER-OUTAGE",
+        "reason": "An outage affecting multiple customers always escalates.",
+        "evidence": [
+          "4 other accounts reporting the same issue"
+        ],
+        "modelSuggestion": "needs_info",
+        "overrodeModel": true,
+        "missingDetails": [
+          "accountId",
+          "timestamp"
+        ],
+        "resolveArticle": null
+      },
+      "reply": "Hi Trailhead Outdoors, thanks for reporting the delayed invite emails. Because other accounts are seeing the same thing, this has been escalated to the engineering team, and I will update you as soon as there is news. To help them investigate, please send us your account ID (Settings > Account, it starts with acct_) and when it happened, with time zone. You already told us the delay is about 15 to 20 minutes, so no need to repeat that.",
+      "bugReport": {
+        "summary": "Invite emails arriving 15-20 minutes late; 5 accounts reporting in the last hour",
+        "impact": "Trailhead Outdoors (Pro plan) reports invite emails delayed by 15-20 minutes. Four other accounts reported the same issue in the last hour, so this looks like a multi-customer outage affecting email delivery.",
+        "stepsToReproduce": [
+          "Not provided yet. Customer only reports that invite emails arrive late."
+        ],
+        "evidence": [
+          "\"Our invite emails are arriving 15-20 minutes late.\"",
+          "Other accounts reporting the same issue in the last hour: 4"
+        ],
+        "ruledOut": []
+      },
+      "citations": {
+        "cited": [],
+        "removed": []
+      },
+      "guard": {
+        "blocked": false,
+        "reasons": []
+      },
+      "usage": {
+        "inputTokens": 9729,
+        "outputTokens": 738,
+        "costUsd": 0.026838,
+        "latencyMs": 6818
+      },
+      "modelErrors": []
+    },
+    {
+      "ticketId": "MT-3011",
+      "model": "claude-sonnet-5-5",
+      "signals": {
+        "security": [],
+        "dataLoss": [],
+        "injection": [],
+        "present": {
+          "accountId": false,
+          "timestamp": false,
+          "errorMessage": false,
+          "steps": false
+        }
+      },
+      "redacted": [],
+      "retrieved": [
+        {
+          "id": "KB-003",
+          "title": "SAML error: SAML_SIGNATURE_INVALID",
+          "score": 5.84
+        },
+        {
+          "id": "KB-005",
+          "title": "Enforce SSO and keep break-glass admin access",
+          "score": 3.02
+        },
+        {
+          "id": "KB-006",
+          "title": "Create, scope, and rotate API keys",
+          "score": 2.87
+        },
+        {
+          "id": "KB-011",
+          "title": "Set up webhooks",
+          "score": 2.69
+        },
+        {
+          "id": "KB-022",
+          "title": "Remove users and transfer ownership",
+          "score": 2.47
+        }
+      ],
+      "assessment": {
+        "category": "defect",
+        "severity": "high",
+        "productArea": "platform",
+        "suggestedDecision": "escalate",
+        "signals": {
+          "security": false,
+          "dataLoss": false,
+          "multiCustomerOutage": true,
+          "reproducible": false,
+          "injectionSuspected": false
+        },
+        "detailsPresent": {
+          "accountId": false,
+          "errorMessage": false,
+          "steps": false,
+          "timestamp": false
+        },
+        "articleMatches": [
+          {
+            "id": "KB-003",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-005",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-006",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-011",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-022",
+            "confidence": "low"
+          }
+        ],
+        "rationale": "Thumbnails fail to load across the project gallery while the rest of the platform works, and 3 other accounts reported the same issue in the last hour, which points to a Meridian-side problem affecting multiple customers. None of the retrieved articles relate to image or thumbnail loading, so Engineering needs to investigate."
+      },
+      "decision": {
+        "decision": "escalate",
+        "ruleId": "R3-MULTI-CUSTOMER-OUTAGE",
+        "reason": "An outage affecting multiple customers always escalates.",
+        "evidence": [
+          "3 other accounts reporting the same issue",
+          "Model flagged an outage affecting multiple customers"
+        ],
+        "modelSuggestion": "escalate",
+        "overrodeModel": false,
+        "missingDetails": [
+          "accountId",
+          "timestamp"
+        ],
+        "resolveArticle": null
+      },
+      "reply": "Hi Sable Design, thanks for reporting the broken thumbnails in your project gallery. We have escalated this to the engineering team, and I will update you as soon as there is news. To help them investigate, please send us your account ID (Settings > Account, it starts with acct_) and when it happened, with time zone. Other parts of your workspace working normally is useful to know, thank you for including that.",
+      "bugReport": {
+        "summary": "Thumbnails in project gallery show as broken images; text and other features work. Multiple accounts reporting.",
+        "impact": "Sable Design (pro plan) cannot see thumbnails across its project gallery. Three other accounts reported the same issue in the last hour, which suggests a wider outage. Rest of the product reportedly works.",
+        "stepsToReproduce": [
+          "Not provided yet. Customer only states that thumbnails across the project gallery appear broken."
+        ],
+        "evidence": [
+          "\"Thumbnails across my project gallery are showing as broken.\"",
+          "\"Text and everything else works fine.\"",
+          "Other accounts reporting the same issue in the last hour: 3"
+        ],
+        "ruledOut": []
+      },
+      "citations": {
+        "cited": [],
+        "removed": []
+      },
+      "guard": {
+        "blocked": false,
+        "reasons": []
+      },
+      "usage": {
+        "inputTokens": 9593,
+        "outputTokens": 701,
+        "costUsd": 0.026196,
+        "latencyMs": 6168
+      },
+      "modelErrors": []
+    },
+    {
+      "ticketId": "MT-3012",
+      "model": "claude-sonnet-5-5",
+      "signals": {
+        "security": [],
+        "dataLoss": [],
+        "injection": [],
+        "present": {
+          "accountId": false,
+          "timestamp": false,
+          "errorMessage": false,
+          "steps": false
+        }
+      },
+      "redacted": [],
+      "retrieved": [
+        {
+          "id": "KB-025",
+          "title": "Known issue: CSV export times out for large workspaces",
+          "score": 8.51
+        },
+        {
+          "id": "KB-003",
+          "title": "SAML error: SAML_SIGNATURE_INVALID",
+          "score": 7.94
+        },
+        {
+          "id": "KB-012",
+          "title": "Webhook retries, timeouts, and delivery logs",
+          "score": 7.92
+        },
+        {
+          "id": "KB-001",
+          "title": "Set up SAML SSO with your identity provider",
+          "score": 5.95
+        },
+        {
+          "id": "KB-004",
+          "title": "Users can't sign in after SSO: provisioning and SCIM",
+          "score": 4.67
+        }
+      ],
+      "assessment": {
+        "category": "defect",
+        "severity": "medium",
+        "productArea": "platform",
+        "suggestedDecision": "needs_info",
+        "signals": {
+          "security": false,
+          "dataLoss": false,
+          "multiCustomerOutage": false,
+          "reproducible": true,
+          "injectionSuspected": false
+        },
+        "detailsPresent": {
+          "accountId": false,
+          "errorMessage": false,
+          "steps": true,
+          "timestamp": false
+        },
+        "articleMatches": [
+          {
+            "id": "KB-025",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-003",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-012",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-001",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-004",
+            "confidence": "low"
+          }
+        ],
+        "rationale": "A 40MB video upload consistently times out at 100% (four attempts), but the ticket gives no account ID, exact error text, or time, and no retrieved article covers uploads. The note that 3 other accounts reported the same thing in the last hour is metadata, not clear evidence of a multi-customer outage, so more details are needed."
+      },
+      "decision": {
+        "decision": "escalate",
+        "ruleId": "R3-MULTI-CUSTOMER-OUTAGE",
+        "reason": "An outage affecting multiple customers always escalates.",
+        "evidence": [
+          "3 other accounts reporting the same issue"
+        ],
+        "modelSuggestion": "needs_info",
+        "overrodeModel": true,
+        "missingDetails": [
+          "accountId",
+          "timestamp"
+        ],
+        "resolveArticle": null
+      },
+      "reply": "Hi Harbour Freight Co, thanks for the report. Four failed attempts with the same 40MB video, each timing out at 100%, is useful to know. We've escalated this to the engineering team and I will update you as we learn more. To help them investigate, please send your account ID (Settings > Account, it starts with acct_) and when it happened, with time zone.",
+      "bugReport": {
+        "summary": "Video upload (40MB) reaches 100% then fails with a timeout; multiple accounts reporting in the last hour.",
+        "impact": "Harbour Freight Co (pro plan) cannot upload a 40MB video after four attempts. 3 other accounts reported the same issue in the last hour, which points to a wider outage.",
+        "stepsToReproduce": [
+          "Upload a 40MB video file.",
+          "Wait for the upload progress to reach 100%.",
+          "Observe the timeout error."
+        ],
+        "evidence": [
+          "\"It reaches 100% then errors out with a timeout.\"",
+          "\"I've tried uploading the same 40MB video four times.\"",
+          "Other accounts reporting the same issue in the last hour: 3"
+        ],
+        "ruledOut": [
+          "Not a one-off failure: the customer retried the same upload four times with the same result."
+        ]
+      },
+      "citations": {
+        "cited": [],
+        "removed": []
+      },
+      "guard": {
+        "blocked": false,
+        "reasons": []
+      },
+      "usage": {
+        "inputTokens": 10319,
+        "outputTokens": 735,
+        "costUsd": 0.027988,
+        "latencyMs": 6566
+      },
+      "modelErrors": []
+    },
+    {
+      "ticketId": "MT-3013",
+      "model": "claude-sonnet-5-5",
+      "signals": {
+        "security": [],
+        "dataLoss": [],
+        "injection": [],
+        "present": {
+          "accountId": false,
+          "timestamp": false,
+          "errorMessage": false,
+          "steps": false
+        }
+      },
+      "redacted": [],
+      "retrieved": [
+        {
+          "id": "KB-025",
+          "title": "Known issue: CSV export times out for large workspaces",
+          "score": 6.76
+        },
+        {
+          "id": "KB-012",
+          "title": "Webhook retries, timeouts, and delivery logs",
+          "score": 6.53
+        },
+        {
+          "id": "KB-015",
+          "title": "Check service status and incident updates",
+          "score": 6
+        },
+        {
+          "id": "KB-009",
+          "title": "429 Too Many Requests and rate limits",
+          "score": 4.93
+        },
+        {
+          "id": "KB-024",
+          "title": "Known issue: delayed webhook deliveries in eu-west",
+          "score": 4.69
+        }
+      ],
+      "assessment": {
+        "category": "defect",
+        "severity": "medium",
+        "productArea": "platform",
+        "suggestedDecision": "needs_info",
+        "signals": {
+          "security": false,
+          "dataLoss": false,
+          "multiCustomerOutage": false,
+          "reproducible": false,
+          "injectionSuspected": false
+        },
+        "detailsPresent": {
+          "accountId": false,
+          "errorMessage": false,
+          "steps": false,
+          "timestamp": false
+        },
+        "articleMatches": [
+          {
+            "id": "KB-025",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-012",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-015",
+            "confidence": "medium"
+          },
+          {
+            "id": "KB-009",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-024",
+            "confidence": "low"
+          }
+        ],
+        "rationale": "The customer reports slow image loading on a gallery page with no account ID, error text, region, steps, or time. Three other accounts reporting in the last hour is suggestive but not clear evidence of a multi-customer outage, so more details are needed; KB-015 (status page and what to send support) is the closest match but doesn't resolve it."
+      },
+      "decision": {
+        "decision": "escalate",
+        "ruleId": "R3-MULTI-CUSTOMER-OUTAGE",
+        "reason": "An outage affecting multiple customers always escalates.",
+        "evidence": [
+          "3 other accounts reporting the same issue"
+        ],
+        "modelSuggestion": "needs_info",
+        "overrodeModel": true,
+        "missingDetails": [
+          "accountId",
+          "timestamp"
+        ],
+        "resolveArticle": null
+      },
+      "reply": "Hi Pinnacle Labs, thanks for reporting the slow gallery page. Other accounts have reported something similar in the last hour, so this has been escalated to the engineering team, and I will update you as soon as I hear back. To help them investigate, please send us your account ID (Settings > Account, it starts with acct_) and when it happened, with time zone. You can also watch status.meridian.example for incident updates in the meantime.",
+      "bugReport": {
+        "summary": "Gallery page loads slowly; images trickle in over ~30 seconds and some never load.",
+        "impact": "Pinnacle Labs (Pro plan) is affected, and 3 other accounts reported the same issue in the last hour. Gallery images are slow or missing, which suggests a possible multi-customer outage.",
+        "stepsToReproduce": [
+          "Not provided yet. Customer only said the gallery page is very slow to load."
+        ],
+        "evidence": [
+          "\"The page itself appears but images trickle in over about 30 seconds, and some never appear.\"",
+          "Other accounts reporting the same issue in the last hour: 3"
+        ],
+        "ruledOut": []
+      },
+      "citations": {
+        "cited": [],
+        "removed": []
+      },
+      "guard": {
+        "blocked": false,
+        "reasons": []
+      },
+      "usage": {
+        "inputTokens": 9643,
+        "outputTokens": 705,
+        "costUsd": 0.026336,
+        "latencyMs": 6418
+      },
+      "modelErrors": []
+    },
+    {
+      "ticketId": "MT-3014",
+      "model": "claude-sonnet-5-5",
+      "signals": {
+        "security": [],
+        "dataLoss": [],
+        "injection": [],
+        "present": {
+          "accountId": false,
+          "timestamp": false,
+          "errorMessage": false,
+          "steps": false
+        }
+      },
+      "redacted": [],
+      "retrieved": [
+        {
+          "id": "KB-004",
+          "title": "Users can't sign in after SSO: provisioning and SCIM",
+          "score": 3.91
+        },
+        {
+          "id": "KB-007",
+          "title": "401 Unauthorized from the API",
+          "score": 3.04
+        },
+        {
+          "id": "KB-003",
+          "title": "SAML error: SAML_SIGNATURE_INVALID",
+          "score": 2.95
+        },
+        {
+          "id": "KB-022",
+          "title": "Remove users and transfer ownership",
+          "score": 2.49
+        },
+        {
+          "id": "KB-020",
+          "title": "Refunds, proration, and failed payments",
+          "score": 2.09
+        }
+      ],
+      "assessment": {
+        "category": "defect",
+        "severity": "critical",
+        "productArea": "platform",
+        "suggestedDecision": "escalate",
+        "signals": {
+          "security": false,
+          "dataLoss": true,
+          "multiCustomerOutage": true,
+          "reproducible": false,
+          "injectionSuspected": false
+        },
+        "detailsPresent": {
+          "accountId": false,
+          "errorMessage": false,
+          "steps": false,
+          "timestamp": false
+        },
+        "articleMatches": [
+          {
+            "id": "KB-004",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-007",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-003",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-022",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-020",
+            "confidence": "low"
+          }
+        ],
+        "rationale": "About a third of the customer's images disappeared without any action by them, which suggests data loss, and 3 other accounts reported the same issue in the last hour, which points to a multi-customer problem. None of the retrieved articles address missing stored files, so Engineering needs to investigate."
+      },
+      "decision": {
+        "decision": "escalate",
+        "ruleId": "R2-DATA-LOSS",
+        "reason": "Possible data loss always escalates.",
+        "evidence": [
+          "Model flagged possible data loss",
+          "3 other accounts reporting the same issue",
+          "Model flagged an outage affecting multiple customers"
+        ],
+        "modelSuggestion": "escalate",
+        "overrodeModel": false,
+        "missingDetails": [
+          "accountId",
+          "timestamp"
+        ],
+        "resolveArticle": null
+      },
+      "reply": "Hi Rivet Software, thanks for reporting this. Missing images that were fine this morning is serious, and we have escalated the issue to the engineering team. I will update you as soon as I hear back from them. To help them investigate, please send your account ID (Settings > Account, it starts with acct_) and when it happened, with time zone.",
+      "bugReport": {
+        "summary": "Roughly a third of a customer's storefront product images missing since earlier today; possible data loss.",
+        "impact": "Rivet Software (Pro plan) reports about one third of product images gone, affecting their live storefront. 3 other accounts reported the same issue in the last hour, so this may be widespread. Contact number about this issue: 1.",
+        "stepsToReproduce": [
+          "Not provided yet."
+        ],
+        "evidence": [
+          "\"Roughly a third of our images are gone. They were all fine this morning.\"",
+          "Subject: \"Some product photos missing on our storefront\"",
+          "Other accounts reporting the same issue in the last hour: 3"
+        ],
+        "ruledOut": []
+      },
+      "citations": {
+        "cited": [],
+        "removed": []
+      },
+      "guard": {
+        "blocked": false,
+        "reasons": []
+      },
+      "usage": {
+        "inputTokens": 9686,
+        "outputTokens": 658,
+        "costUsd": 0.025952,
+        "latencyMs": 5987
+      },
+      "modelErrors": []
+    },
+    {
+      "ticketId": "MT-3015",
+      "model": "claude-sonnet-5-5",
+      "signals": {
+        "security": [],
+        "dataLoss": [],
+        "injection": [],
+        "present": {
+          "accountId": false,
+          "timestamp": false,
+          "errorMessage": false,
+          "steps": false
+        }
+      },
+      "redacted": [],
+      "retrieved": [
+        {
+          "id": "KB-005",
+          "title": "Enforce SSO and keep break-glass admin access",
+          "score": 10.38
+        },
+        {
+          "id": "KB-009",
+          "title": "429 Too Many Requests and rate limits",
+          "score": 6.59
+        },
+        {
+          "id": "KB-012",
+          "title": "Webhook retries, timeouts, and delivery logs",
+          "score": 6.31
+        },
+        {
+          "id": "KB-002",
+          "title": "SAML error: SAML_INVALID_AUDIENCE",
+          "score": 5.61
+        },
+        {
+          "id": "KB-023",
+          "title": "Find your account ID and workspace ID",
+          "score": 5.61
+        }
+      ],
+      "assessment": {
+        "category": "defect",
+        "severity": "medium",
+        "productArea": "user_management",
+        "suggestedDecision": "needs_info",
+        "signals": {
+          "security": false,
+          "dataLoss": false,
+          "multiCustomerOutage": false,
+          "reproducible": false,
+          "injectionSuspected": false
+        },
+        "detailsPresent": {
+          "accountId": false,
+          "errorMessage": false,
+          "steps": false,
+          "timestamp": false
+        },
+        "articleMatches": [
+          {
+            "id": "KB-005",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-009",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-012",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-002",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-023",
+            "confidence": "low"
+          }
+        ],
+        "rationale": "Customer is repeatedly logged out shortly after signing in, with no error text, account ID, SSO details, or timestamp, so the cause is unclear and none of the retrieved articles apply directly. The ticket metadata says 2 other accounts reported the same issue, but that is not clear evidence of a broad multi-customer outage, so more info is needed (login method, account ID, when it started)."
+      },
+      "decision": {
+        "decision": "escalate",
+        "ruleId": "R3-MULTI-CUSTOMER-OUTAGE",
+        "reason": "An outage affecting multiple customers always escalates.",
+        "evidence": [
+          "2 other accounts reporting the same issue"
+        ],
+        "modelSuggestion": "needs_info",
+        "overrodeModel": true,
+        "missingDetails": [
+          "accountId",
+          "timestamp"
+        ],
+        "resolveArticle": null
+      },
+      "reply": "Hi Solstice Travel, thanks for reporting this. Being signed out repeatedly after a minute of use is not expected behavior, and we have seen similar reports from other accounts. I have escalated this to the engineering team and I will update you as soon as I hear back. To help them investigate, please send us your account ID (Settings > Account, it starts with acct_) and when it happened, with time zone. You do not need to resend anything else about the logouts, as your description is clear.",
+      "bugReport": {
+        "summary": "Users are logged out of the dashboard about a minute after signing in; multiple accounts affected.",
+        "impact": "Solstice Travel (Pro plan) is affected, having been logged out four times. Two other accounts reported the same issue in the last hour, so this looks like a multi-customer outage. Users cannot stay signed in.",
+        "stepsToReproduce": [
+          "Sign in to the Meridian dashboard.",
+          "Click around for about a minute.",
+          "Observe a redirect back to the login screen."
+        ],
+        "evidence": [
+          "\"I sign in, click around for a minute, and I'm back at the login screen.\"",
+          "\"It's happened four times now.\"",
+          "Other accounts reporting the same issue in the last hour: 2"
+        ],
+        "ruledOut": []
+      },
+      "citations": {
+        "cited": [],
+        "removed": []
+      },
+      "guard": {
+        "blocked": false,
+        "reasons": []
+      },
+      "usage": {
+        "inputTokens": 9991,
+        "outputTokens": 765,
+        "costUsd": 0.027632,
+        "latencyMs": 6837
+      },
+      "modelErrors": []
+    },
+    {
+      "ticketId": "MT-3016",
+      "model": "claude-sonnet-5-5",
+      "signals": {
+        "security": [],
+        "dataLoss": [],
+        "injection": [],
+        "present": {
+          "accountId": false,
+          "timestamp": false,
+          "errorMessage": false,
+          "steps": false
+        }
+      },
+      "redacted": [],
+      "retrieved": [
+        {
+          "id": "KB-024",
+          "title": "Known issue: delayed webhook deliveries in eu-west",
+          "score": 9.42
+        },
+        {
+          "id": "KB-020",
+          "title": "Refunds, proration, and failed payments",
+          "score": 6.22
+        },
+        {
+          "id": "KB-009",
+          "title": "429 Too Many Requests and rate limits",
+          "score": 6.17
+        },
+        {
+          "id": "KB-002",
+          "title": "SAML error: SAML_INVALID_AUDIENCE",
+          "score": 5.77
+        },
+        {
+          "id": "KB-016",
+          "title": "Connect a custom domain",
+          "score": 5.75
+        }
+      ],
+      "assessment": {
+        "category": "defect",
+        "severity": "medium",
+        "productArea": "platform",
+        "suggestedDecision": "needs_info",
+        "signals": {
+          "security": false,
+          "dataLoss": false,
+          "multiCustomerOutage": false,
+          "reproducible": false,
+          "injectionSuspected": false
+        },
+        "detailsPresent": {
+          "accountId": false,
+          "errorMessage": false,
+          "steps": false,
+          "timestamp": false
+        },
+        "articleMatches": [
+          {
+            "id": "KB-024",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-020",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-009",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-002",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-016",
+            "confidence": "low"
+          }
+        ],
+        "rationale": "The customer reports general slowness (several seconds per page) while the app still works, which is partial impairment with no account ID, error text, timestamp, or steps. Metadata shows only 2 other accounts reporting, which is not clear evidence of a multi-customer outage, and no retrieved article addresses general slowness."
+      },
+      "decision": {
+        "decision": "escalate",
+        "ruleId": "R3-MULTI-CUSTOMER-OUTAGE",
+        "reason": "An outage affecting multiple customers always escalates.",
+        "evidence": [
+          "2 other accounts reporting the same issue"
+        ],
+        "modelSuggestion": "needs_info",
+        "overrodeModel": true,
+        "missingDetails": [
+          "accountId",
+          "timestamp"
+        ],
+        "resolveArticle": null
+      },
+      "reply": "Hi Ironwood Group, thanks for reporting the slowdown. We have escalated this to the engineering team, and I will update you as soon as there is news. Other customers have reported similar slowness recently, so it is being treated seriously. To help the engineers investigate, please send your account ID (Settings > Account, it starts with acct_) and when it happened, with time zone. Thank you for your patience.",
+      "bugReport": {
+        "summary": "Ironwood Group (Pro) reports all app pages loading several seconds slower than normal; 2 other accounts reported the same in the last hour.",
+        "impact": "Ironwood Group on the Pro plan sees every page take several seconds longer than usual, though the app still works. Two other accounts reported the same issue in the last hour, so this may be a wider performance degradation.",
+        "stepsToReproduce": [
+          "Not provided yet. Customer only states that every page in the app loads several seconds slower than normal."
+        ],
+        "evidence": [
+          "Subject: \"Everything is slower than usual\"",
+          "\"The app works but every page takes several seconds longer than normal.\"",
+          "Other accounts reporting the same issue in the last hour: 2"
+        ],
+        "ruledOut": []
+      },
+      "citations": {
+        "cited": [],
+        "removed": []
+      },
+      "guard": {
+        "blocked": false,
+        "reasons": []
+      },
+      "usage": {
+        "inputTokens": 10065,
+        "outputTokens": 720,
+        "costUsd": 0.02733,
+        "latencyMs": 6572
+      },
+      "modelErrors": []
+    },
+    {
+      "ticketId": "MT-3017",
+      "model": "claude-sonnet-5-5",
+      "signals": {
+        "security": [],
+        "dataLoss": [],
+        "injection": [],
+        "present": {
+          "accountId": false,
+          "timestamp": false,
+          "errorMessage": false,
+          "steps": false
+        }
+      },
+      "redacted": [],
+      "retrieved": [
+        {
+          "id": "KB-005",
+          "title": "Enforce SSO and keep break-glass admin access",
+          "score": 5.46
+        },
+        {
+          "id": "KB-011",
+          "title": "Set up webhooks",
+          "score": 5.14
+        },
+        {
+          "id": "KB-003",
+          "title": "SAML error: SAML_SIGNATURE_INVALID",
+          "score": 4.96
+        },
+        {
+          "id": "KB-012",
+          "title": "Webhook retries, timeouts, and delivery logs",
+          "score": 4.83
+        },
+        {
+          "id": "KB-016",
+          "title": "Connect a custom domain",
+          "score": 4.4
+        }
+      ],
+      "assessment": {
+        "category": "defect",
+        "severity": "medium",
+        "productArea": "platform",
+        "suggestedDecision": "needs_info",
+        "signals": {
+          "security": false,
+          "dataLoss": false,
+          "multiCustomerOutage": false,
+          "reproducible": false,
+          "injectionSuspected": false
+        },
+        "detailsPresent": {
+          "accountId": false,
+          "errorMessage": false,
+          "steps": false,
+          "timestamp": false
+        },
+        "articleMatches": [
+          {
+            "id": "KB-005",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-011",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-003",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-012",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-016",
+            "confidence": "low"
+          }
+        ],
+        "rationale": "Customer reports slow sign-in (10+ seconds) with no error, account ID, timestamp, or login method (SSO vs password), so none of the retrieved articles apply. Metadata shows only 2 other accounts reporting, which is not clear evidence of a multi-customer outage; impact is degraded performance, so medium, and more details are needed."
+      },
+      "decision": {
+        "decision": "escalate",
+        "ruleId": "R3-MULTI-CUSTOMER-OUTAGE",
+        "reason": "An outage affecting multiple customers always escalates.",
+        "evidence": [
+          "2 other accounts reporting the same issue"
+        ],
+        "modelSuggestion": "needs_info",
+        "overrodeModel": true,
+        "missingDetails": [
+          "accountId",
+          "timestamp"
+        ],
+        "resolveArticle": null
+      },
+      "reply": "Hi Northwind Retail, thanks for reporting the slow sign-in. We have escalated this to the engineering team, and I will update you as soon as there is news. To help them investigate, please send us your account ID (Settings > Account, it starts with acct_) and when it happened, with time zone. You mentioned that signing in used to be instant and now hangs for 10+ seconds, so you don't need to repeat that.",
+      "bugReport": {
+        "summary": "Login takes 10+ seconds for Northwind Retail; two other accounts reported the same in the last hour.",
+        "impact": "Northwind Retail (pro plan) sees sign-in delays of 10+ seconds. Two other accounts reported the same issue in the last hour, which suggests a wider outage. Severity of the delay for other accounts is unknown.",
+        "stepsToReproduce": [
+          "Not provided yet. Customer only states that signing in now hangs for a long time before letting them through."
+        ],
+        "evidence": [
+          "Subject: \"Login takes 10+ seconds\"",
+          "\"Signing in used to be instant. Now it hangs for ages before letting me through.\"",
+          "Other accounts reporting the same issue in the last hour: 2"
+        ],
+        "ruledOut": []
+      },
+      "citations": {
+        "cited": [],
+        "removed": []
+      },
+      "guard": {
+        "blocked": false,
+        "reasons": []
+      },
+      "usage": {
+        "inputTokens": 10079,
+        "outputTokens": 744,
+        "costUsd": 0.027598,
+        "latencyMs": 6781
+      },
+      "modelErrors": []
+    },
+    {
+      "ticketId": "MT-3018",
+      "model": "claude-sonnet-5-5",
+      "signals": {
+        "security": [],
+        "dataLoss": [],
+        "injection": [],
+        "present": {
+          "accountId": false,
+          "timestamp": false,
+          "errorMessage": false,
+          "steps": false
+        }
+      },
+      "redacted": [],
+      "retrieved": [
+        {
+          "id": "KB-015",
+          "title": "Check service status and incident updates",
+          "score": 8.87
+        },
+        {
+          "id": "KB-003",
+          "title": "SAML error: SAML_SIGNATURE_INVALID",
+          "score": 4.91
+        },
+        {
+          "id": "KB-013",
+          "title": "Webhook signature verification fails",
+          "score": 4.28
+        },
+        {
+          "id": "KB-014",
+          "title": "5xx errors from Meridian",
+          "score": 4.12
+        },
+        {
+          "id": "KB-002",
+          "title": "SAML error: SAML_INVALID_AUDIENCE",
+          "score": 2.73
+        }
+      ],
+      "assessment": {
+        "category": "defect",
+        "severity": "medium",
+        "productArea": "platform",
+        "suggestedDecision": "needs_info",
+        "signals": {
+          "security": false,
+          "dataLoss": false,
+          "multiCustomerOutage": false,
+          "reproducible": false,
+          "injectionSuspected": false
+        },
+        "detailsPresent": {
+          "accountId": false,
+          "errorMessage": false,
+          "steps": false,
+          "timestamp": false
+        },
+        "articleMatches": [
+          {
+            "id": "KB-015",
+            "confidence": "medium"
+          },
+          {
+            "id": "KB-003",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-013",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-014",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-002",
+            "confidence": "low"
+          }
+        ],
+        "rationale": "Customer reports an unstyled page with no images that looks fine for a US colleague, suggesting a regional or asset-delivery problem, but the ticket lacks account ID, region, timestamp, and error details. The '2 other accounts' metadata is not clear evidence of a multi-customer outage, so more info is needed; KB-015 (status page and what to include) is the most relevant article."
+      },
+      "decision": {
+        "decision": "escalate",
+        "ruleId": "R3-MULTI-CUSTOMER-OUTAGE",
+        "reason": "An outage affecting multiple customers always escalates.",
+        "evidence": [
+          "2 other accounts reporting the same issue"
+        ],
+        "modelSuggestion": "needs_info",
+        "overrodeModel": true,
+        "missingDetails": [
+          "accountId",
+          "timestamp"
+        ],
+        "resolveArticle": null
+      },
+      "reply": "Hi Fielding Logistics, thanks for reporting this. Other customers have reported something similar recently, so we have escalated the issue to the engineering team, and I will update you as soon as I hear back. You can also check regional status at status.meridian.example [KB-015]. To help them investigate, please send us your account ID (Settings > Account, it starts with acct_) and when it happened, with time zone. It is useful that your colleague in the US sees the page normally, so that detail has been passed along too.",
+      "bugReport": {
+        "summary": "Site loads unstyled with no images for a Fielding Logistics user outside the US; a US colleague sees it fine. Two other accounts report the same in the last hour.",
+        "impact": "Fielding Logistics (pro plan) has at least one user seeing a broken, unstyled site. Two other accounts reported the same issue in the last hour, which suggests a multi-customer, possibly region-specific outage affecting static assets (CSS and images).",
+        "stepsToReproduce": [
+          "Not provided yet. Customer only reports loading the site and seeing unstyled text with no images."
+        ],
+        "evidence": [
+          "\"The page loads but it's just unstyled text with no images.\"",
+          "\"Colleague in the US says it looks fine for them.\"",
+          "Other accounts reporting the same issue in the last hour: 2"
+        ],
+        "ruledOut": [
+          "Not a problem for all users: a colleague in the US sees the site normally."
+        ]
+      },
+      "citations": {
+        "cited": [
+          "KB-015"
+        ],
+        "removed": []
+      },
+      "guard": {
+        "blocked": false,
+        "reasons": []
+      },
+      "usage": {
+        "inputTokens": 9807,
+        "outputTokens": 823,
+        "costUsd": 0.027844,
+        "latencyMs": 7570
+      },
+      "modelErrors": []
+    },
+    {
+      "ticketId": "MT-3019",
+      "model": "claude-sonnet-5-5",
+      "signals": {
+        "security": [],
+        "dataLoss": [],
+        "injection": [],
+        "present": {
+          "accountId": false,
+          "timestamp": false,
+          "errorMessage": false,
+          "steps": false
+        }
+      },
+      "redacted": [],
+      "retrieved": [
+        {
+          "id": "KB-020",
+          "title": "Refunds, proration, and failed payments",
+          "score": 10.84
+        },
+        {
+          "id": "KB-024",
+          "title": "Known issue: delayed webhook deliveries in eu-west",
+          "score": 9.2
+        },
+        {
+          "id": "KB-015",
+          "title": "Check service status and incident updates",
+          "score": 8.85
+        },
+        {
+          "id": "KB-010",
+          "title": "Report a security concern",
+          "score": 4.83
+        },
+        {
+          "id": "KB-009",
+          "title": "429 Too Many Requests and rate limits",
+          "score": 4.73
+        }
+      ],
+      "assessment": {
+        "category": "defect",
+        "severity": "medium",
+        "productArea": "platform",
+        "suggestedDecision": "needs_info",
+        "signals": {
+          "security": false,
+          "dataLoss": false,
+          "multiCustomerOutage": false,
+          "reproducible": false,
+          "injectionSuspected": false
+        },
+        "detailsPresent": {
+          "accountId": false,
+          "errorMessage": false,
+          "steps": false,
+          "timestamp": false
+        },
+        "articleMatches": [
+          {
+            "id": "KB-020",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-024",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-015",
+            "confidence": "medium"
+          },
+          {
+            "id": "KB-010",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-009",
+            "confidence": "low"
+          }
+        ],
+        "rationale": "Slow page loads (15-20s) only from the London office while New York is fine suggest a possible eu-west region issue, but the ticket lacks account ID, region, timestamps, and error details, and only 3 accounts total (not clear multi-customer evidence) are reported. KB-015 is a partial match for checking status and gathering diagnostic details; KB-024 concerns webhook delays, not page loads."
+      },
+      "decision": {
+        "decision": "escalate",
+        "ruleId": "R3-MULTI-CUSTOMER-OUTAGE",
+        "reason": "An outage affecting multiple customers always escalates.",
+        "evidence": [
+          "2 other accounts reporting the same issue"
+        ],
+        "modelSuggestion": "needs_info",
+        "overrodeModel": true,
+        "missingDetails": [
+          "accountId",
+          "timestamp"
+        ],
+        "resolveArticle": null
+      },
+      "reply": "Hi Aster Health, thanks for reporting this. Slow page loads of 15 to 20 seconds from London while New York is fine is something we want engineering to look at, and other customers have reported similar problems recently. I have escalated this to the engineering team and I will update you as soon as I hear more. To help them investigate, please send your account ID (Settings > Account, it starts with acct_) and when it happened, with time zone. You can also watch status.meridian.example for incident updates for your region [KB-015].",
+      "bugReport": {
+        "summary": "Pages take 15-20 seconds to load from a London office while New York users are unaffected.",
+        "impact": "Aster Health (Pro plan) reports severe slowness for its London office; New York is fine. Two other accounts reported the same issue in the last hour, so this may be a wider regional problem. This is the first contact from this customer.",
+        "stepsToReproduce": [
+          "Not provided yet. Customer reports loading pages from the London office is slow while New York is not."
+        ],
+        "evidence": [
+          "\"Pages take 15-20 seconds. Our New York team has no issues at all.\"",
+          "Subject: \"Very slow page loads from our London office\"",
+          "Other accounts reporting the same issue in the last hour: 2"
+        ],
+        "ruledOut": []
+      },
+      "citations": {
+        "cited": [
+          "KB-015"
+        ],
+        "removed": []
+      },
+      "guard": {
+        "blocked": false,
+        "reasons": []
+      },
+      "usage": {
+        "inputTokens": 9431,
+        "outputTokens": 779,
+        "costUsd": 0.026652,
+        "latencyMs": 7714
+      },
+      "modelErrors": []
+    },
+    {
+      "ticketId": "MT-3020",
+      "model": "claude-sonnet-5-5",
+      "signals": {
+        "security": [],
+        "dataLoss": [],
+        "injection": [],
+        "present": {
+          "accountId": false,
+          "timestamp": false,
+          "errorMessage": false,
+          "steps": false
+        }
+      },
+      "redacted": [],
+      "retrieved": [
+        {
+          "id": "KB-013",
+          "title": "Webhook signature verification fails",
+          "score": 7.52
+        },
+        {
+          "id": "KB-025",
+          "title": "Known issue: CSV export times out for large workspaces",
+          "score": 4.63
+        },
+        {
+          "id": "KB-012",
+          "title": "Webhook retries, timeouts, and delivery logs",
+          "score": 3.47
+        },
+        {
+          "id": "KB-024",
+          "title": "Known issue: delayed webhook deliveries in eu-west",
+          "score": 3.16
+        },
+        {
+          "id": "KB-019",
+          "title": "Plans, invoices, and billing details",
+          "score": 1.84
+        }
+      ],
+      "assessment": {
+        "category": "defect",
+        "severity": "medium",
+        "productArea": "platform",
+        "suggestedDecision": "needs_info",
+        "signals": {
+          "security": false,
+          "dataLoss": false,
+          "multiCustomerOutage": false,
+          "reproducible": false,
+          "injectionSuspected": false
+        },
+        "detailsPresent": {
+          "accountId": false,
+          "errorMessage": false,
+          "steps": false,
+          "timestamp": false
+        },
+        "articleMatches": [
+          {
+            "id": "KB-013",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-025",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-012",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-024",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-019",
+            "confidence": "low"
+          }
+        ],
+        "rationale": "Product images intermittently fail to load, which is a partial impairment with a workaround (refresh), and none of the retrieved articles relate to it. The ticket has no account ID, error text, steps, or timestamp, and 2 other accounts reporting in the last hour is not clear evidence of a multi-customer outage, so more information is needed."
+      },
+      "decision": {
+        "decision": "escalate",
+        "ruleId": "R3-MULTI-CUSTOMER-OUTAGE",
+        "reason": "An outage affecting multiple customers always escalates.",
+        "evidence": [
+          "2 other accounts reporting the same issue"
+        ],
+        "modelSuggestion": "needs_info",
+        "overrodeModel": true,
+        "missingDetails": [
+          "accountId",
+          "timestamp"
+        ],
+        "resolveArticle": null
+      },
+      "reply": "Hi Kestrel Analytics, thanks for reporting that product images fail to load about half the time, and that refreshing sometimes helps. We have escalated this to the engineering team, and I will update you as soon as we have news. To help them investigate, please send us your account ID (Settings > Account, it starts with acct_) and when it happened, with time zone.",
+      "bugReport": {
+        "summary": "Product images intermittently fail to load (about 50% of requests); refresh sometimes fixes it; 2 other accounts reported in the last hour.",
+        "impact": "Kestrel Analytics (Pro plan) sees roughly half of product image loads fail. Two other accounts reported the same issue in the last hour, which suggests a wider outage. This is the customer's first contact on the issue.",
+        "stepsToReproduce": [
+          "Not provided yet. The customer only says product images fail to load about half the time."
+        ],
+        "evidence": [
+          "Subject: \"Images not displaying\"",
+          "\"Product images fail to load about half the time. Refreshing sometimes fixes it.\"",
+          "Other accounts reporting the same issue in the last hour: 2"
+        ],
+        "ruledOut": []
+      },
+      "citations": {
+        "cited": [],
+        "removed": []
+      },
+      "guard": {
+        "blocked": false,
+        "reasons": []
+      },
+      "usage": {
+        "inputTokens": 9939,
+        "outputTokens": 717,
+        "costUsd": 0.027048,
+        "latencyMs": 5879
+      },
+      "modelErrors": []
+    },
+    {
+      "ticketId": "MT-3021",
+      "model": "claude-sonnet-5-5",
+      "signals": {
+        "security": [],
+        "dataLoss": [],
+        "injection": [],
+        "present": {
+          "accountId": false,
+          "timestamp": false,
+          "errorMessage": false,
+          "steps": false
+        }
+      },
+      "redacted": [],
+      "retrieved": [
+        {
+          "id": "KB-018",
+          "title": "SSL certificate not issued for a custom domain",
+          "score": 11.95
+        },
+        {
+          "id": "KB-003",
+          "title": "SAML error: SAML_SIGNATURE_INVALID",
+          "score": 5.7
+        },
+        {
+          "id": "KB-012",
+          "title": "Webhook retries, timeouts, and delivery logs",
+          "score": 5.08
+        },
+        {
+          "id": "KB-005",
+          "title": "Enforce SSO and keep break-glass admin access",
+          "score": 4.36
+        },
+        {
+          "id": "KB-002",
+          "title": "SAML error: SAML_INVALID_AUDIENCE",
+          "score": 4.06
+        }
+      ],
+      "assessment": {
+        "category": "configuration",
+        "severity": "medium",
+        "productArea": "dns_domains",
+        "suggestedDecision": "needs_info",
+        "signals": {
+          "security": false,
+          "dataLoss": false,
+          "multiCustomerOutage": false,
+          "reproducible": false,
+          "injectionSuspected": false
+        },
+        "detailsPresent": {
+          "accountId": false,
+          "errorMessage": false,
+          "steps": false,
+          "timestamp": false
+        },
+        "articleMatches": [
+          {
+            "id": "KB-018",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-003",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-012",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-005",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-002",
+            "confidence": "low"
+          }
+        ],
+        "rationale": "The customer sees a browser certificate warning but does not say which site or domain, whether it is their custom domain, or give an account ID, error text, or time. KB-018 is a possible cause (SSL cert not issued) but the ticket mentions an expired certificate and has no evidence of CAA or CERT_PENDING_CAA, so more information is needed. The 'other accounts' count is vague and not clear evidence of a multi-customer outage."
+      },
+      "decision": {
+        "decision": "escalate",
+        "ruleId": "R3-MULTI-CUSTOMER-OUTAGE",
+        "reason": "An outage affecting multiple customers always escalates.",
+        "evidence": [
+          "2 other accounts reporting the same issue"
+        ],
+        "modelSuggestion": "needs_info",
+        "overrodeModel": true,
+        "missingDetails": [
+          "accountId",
+          "timestamp"
+        ],
+        "resolveArticle": null
+      },
+      "reply": "Hi Vantage Media, thanks for reporting this. A certificate warning like that is worth checking, and we have escalated the issue to the engineering team. We will update you as soon as we hear back from them. To help them investigate, please send us your account ID (Settings > Account, it starts with acct_) and when it happened, with time zone. Until we confirm what is going on, please avoid entering any sensitive information on the page that shows the warning.",
+      "bugReport": {
+        "summary": "Browser shows 'connection isn't private' / expired certificate warning when visiting Meridian site; multiple accounts reporting.",
+        "impact": "Vantage Media (pro plan) is affected, and 2 other accounts reported the same issue in the last hour. Visitors see a full-page browser security warning, which may block access and raises trust concerns. Scope is not yet confirmed.",
+        "stepsToReproduce": [
+          "Not provided yet. Customer only says they visit the site in a browser and see the warning."
+        ],
+        "evidence": [
+          "\"My browser is showing a big red warning saying the connection isn't private and the certificate expired.\"",
+          "Other accounts reporting the same issue in the last hour: 2",
+          "Customer asked: \"Is this a phishing site?\""
+        ],
+        "ruledOut": []
+      },
+      "citations": {
+        "cited": [],
+        "removed": []
+      },
+      "guard": {
+        "blocked": false,
+        "reasons": []
+      },
+      "usage": {
+        "inputTokens": 10228,
+        "outputTokens": 790,
+        "costUsd": 0.028356,
+        "latencyMs": 7634
+      },
+      "modelErrors": []
+    },
+    {
+      "ticketId": "MT-3022",
+      "model": "claude-sonnet-5-5",
+      "signals": {
+        "security": [],
+        "dataLoss": [],
+        "injection": [],
+        "present": {
+          "accountId": false,
+          "timestamp": false,
+          "errorMessage": false,
+          "steps": false
+        }
+      },
+      "redacted": [],
+      "retrieved": [
+        {
+          "id": "KB-015",
+          "title": "Check service status and incident updates",
+          "score": 11.14
+        },
+        {
+          "id": "KB-025",
+          "title": "Known issue: CSV export times out for large workspaces",
+          "score": 6.24
+        },
+        {
+          "id": "KB-022",
+          "title": "Remove users and transfer ownership",
+          "score": 5.38
+        },
+        {
+          "id": "KB-014",
+          "title": "5xx errors from Meridian",
+          "score": 4.84
+        },
+        {
+          "id": "KB-001",
+          "title": "Set up SAML SSO with your identity provider",
+          "score": 3.78
+        }
+      ],
+      "assessment": {
+        "category": "outage",
+        "severity": "critical",
+        "productArea": "platform",
+        "suggestedDecision": "needs_info",
+        "signals": {
+          "security": false,
+          "dataLoss": false,
+          "multiCustomerOutage": true,
+          "reproducible": false,
+          "injectionSuspected": false
+        },
+        "detailsPresent": {
+          "accountId": false,
+          "errorMessage": false,
+          "steps": false,
+          "timestamp": false
+        },
+        "articleMatches": [
+          {
+            "id": "KB-015",
+            "confidence": "medium"
+          },
+          {
+            "id": "KB-025",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-022",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-014",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-001",
+            "confidence": "low"
+          }
+        ],
+        "rationale": "Customer reports the whole app down with connection errors on every page, and metadata shows 2 other accounts reporting the same issue in the last hour, which is evidence of a multi-customer outage. Account ID, region, timestamp, and error text are missing, and KB-015 only partially applies since it covers checking status and what details to send."
+      },
+      "decision": {
+        "decision": "escalate",
+        "ruleId": "R3-MULTI-CUSTOMER-OUTAGE",
+        "reason": "An outage affecting multiple customers always escalates.",
+        "evidence": [
+          "2 other accounts reporting the same issue",
+          "Model flagged an outage affecting multiple customers"
+        ],
+        "modelSuggestion": "needs_info",
+        "overrodeModel": true,
+        "missingDetails": [
+          "accountId",
+          "timestamp"
+        ],
+        "resolveArticle": null
+      },
+      "reply": "Hi Orbit Studios, thanks for reporting this. We're sorry your whole company is blocked. This has been escalated to the engineering team, and I will update you as soon as there is news. To help them investigate, please send your account ID (Settings > Account, it starts with acct_) and when it happened, with time zone. You can also watch live status for each region at status.meridian.example [KB-015].",
+      "bugReport": {
+        "summary": "Complete application outage for Orbit Studios, connection errors on every page; 2 other accounts reported the same in the last hour.",
+        "impact": "Orbit Studios (pro plan) reports the entire application is down for their whole company. Two other accounts reported the same issue in the last hour, so this may be a wider outage.",
+        "stepsToReproduce": [
+          "Not provided yet. Customer says every page fails to load with connection errors."
+        ],
+        "evidence": [
+          "\"The entire application is down for our whole company. We get connection errors on every page.\"",
+          "Other accounts reporting the same issue in the last hour: 2"
+        ],
+        "ruledOut": []
+      },
+      "citations": {
+        "cited": [
+          "KB-015"
+        ],
+        "removed": []
+      },
+      "guard": {
+        "blocked": false,
+        "reasons": []
+      },
+      "usage": {
+        "inputTokens": 9499,
+        "outputTokens": 683,
+        "costUsd": 0.025828,
+        "latencyMs": 6786
+      },
+      "modelErrors": []
+    },
+    {
+      "ticketId": "MT-3023",
+      "model": "claude-sonnet-5-5",
+      "signals": {
+        "security": [],
+        "dataLoss": [],
+        "injection": [],
+        "present": {
+          "accountId": false,
+          "timestamp": false,
+          "errorMessage": false,
+          "steps": false
+        }
+      },
+      "redacted": [],
+      "retrieved": [
+        {
+          "id": "KB-025",
+          "title": "Known issue: CSV export times out for large workspaces",
+          "score": 9.03
+        },
+        {
+          "id": "KB-015",
+          "title": "Check service status and incident updates",
+          "score": 8.74
+        },
+        {
+          "id": "KB-003",
+          "title": "SAML error: SAML_SIGNATURE_INVALID",
+          "score": 8.54
+        },
+        {
+          "id": "KB-024",
+          "title": "Known issue: delayed webhook deliveries in eu-west",
+          "score": 7.51
+        },
+        {
+          "id": "KB-018",
+          "title": "SSL certificate not issued for a custom domain",
+          "score": 6.5
+        }
+      ],
+      "assessment": {
+        "category": "defect",
+        "severity": "high",
+        "productArea": "api",
+        "suggestedDecision": "needs_info",
+        "signals": {
+          "security": false,
+          "dataLoss": false,
+          "multiCustomerOutage": false,
+          "reproducible": false,
+          "injectionSuspected": false
+        },
+        "detailsPresent": {
+          "accountId": false,
+          "errorMessage": false,
+          "steps": false,
+          "timestamp": false
+        },
+        "articleMatches": [
+          {
+            "id": "KB-025",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-015",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-003",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-024",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-018",
+            "confidence": "low"
+          }
+        ],
+        "rationale": "All API calls fail with unspecified SSL errors and nothing changed on the customer side, which blocks the production integration. Only two other accounts reported it, which is not clear evidence of a multi-customer outage. The ticket lacks account ID, exact error text, timestamp, and region, and none of the articles clearly match (KB-018 concerns custom domain certificates, not API calls), so more info is needed."
+      },
+      "decision": {
+        "decision": "escalate",
+        "ruleId": "R3-MULTI-CUSTOMER-OUTAGE",
+        "reason": "An outage affecting multiple customers always escalates.",
+        "evidence": [
+          "2 other accounts reporting the same issue"
+        ],
+        "modelSuggestion": "needs_info",
+        "overrodeModel": true,
+        "missingDetails": [
+          "accountId",
+          "timestamp"
+        ],
+        "resolveArticle": null
+      },
+      "reply": "Hi Cedar & Co, thanks for reporting this. Since your API calls all began failing at the same moment with SSL errors and other accounts are reporting something similar, we have escalated this to the engineering team, and I will update you as soon as I hear back. To help them investigate, please send us your account ID (Settings > Account, it starts with acct_) and when it happened, with time zone. You can also watch status.meridian.example for incident updates in the meantime [KB-015].",
+      "bugReport": {
+        "summary": "Pro customer reports all API calls failing at once with SSL errors; other accounts reporting the same.",
+        "impact": "Cedar & Co (pro plan) has a fully broken API integration. Two other accounts reported the same issue in the last hour, so this may be a wider outage. This is the customer's first contact on this issue.",
+        "stepsToReproduce": [
+          "Not provided yet."
+        ],
+        "evidence": [
+          "\"All our API calls started failing at the same moment with SSL errors.\"",
+          "\"Nothing changed on our end.\"",
+          "Other accounts reporting the same issue in the last hour: 2"
+        ],
+        "ruledOut": [
+          "Customer states nothing changed on their side."
+        ]
+      },
+      "citations": {
+        "cited": [
+          "KB-015"
+        ],
+        "removed": []
+      },
+      "guard": {
+        "blocked": false,
+        "reasons": []
+      },
+      "usage": {
+        "inputTokens": 9625,
+        "outputTokens": 744,
+        "costUsd": 0.02669,
+        "latencyMs": 7283
+      },
+      "modelErrors": []
+    },
+    {
+      "ticketId": "MT-3024",
+      "model": "claude-sonnet-5-5",
+      "signals": {
+        "security": [],
+        "dataLoss": [],
+        "injection": [],
+        "present": {
+          "accountId": false,
+          "timestamp": false,
+          "errorMessage": false,
+          "steps": false
+        }
+      },
+      "redacted": [],
+      "retrieved": [
+        {
+          "id": "KB-009",
+          "title": "429 Too Many Requests and rate limits",
+          "score": 8.59
+        },
+        {
+          "id": "KB-020",
+          "title": "Refunds, proration, and failed payments",
+          "score": 7.16
+        },
+        {
+          "id": "KB-012",
+          "title": "Webhook retries, timeouts, and delivery logs",
+          "score": 6.75
+        },
+        {
+          "id": "KB-005",
+          "title": "Enforce SSO and keep break-glass admin access",
+          "score": 6.17
+        },
+        {
+          "id": "KB-015",
+          "title": "Check service status and incident updates",
+          "score": 5.8
+        }
+      ],
+      "assessment": {
+        "category": "defect",
+        "severity": "medium",
+        "productArea": "api",
+        "suggestedDecision": "needs_info",
+        "signals": {
+          "security": false,
+          "dataLoss": false,
+          "multiCustomerOutage": false,
+          "reproducible": false,
+          "injectionSuspected": false
+        },
+        "detailsPresent": {
+          "accountId": false,
+          "errorMessage": false,
+          "steps": false,
+          "timestamp": false
+        },
+        "articleMatches": [
+          {
+            "id": "KB-009",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-020",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-012",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-005",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-015",
+            "confidence": "medium"
+          }
+        ],
+        "rationale": "About 1 in 8 requests hang for 30 seconds and succeed on retry. This is intermittent, has a workaround, and is not a 429 or a clear outage. Two other accounts reporting does not show broad impact. Account ID, region, timestamps, request IDs and error details are missing, so more info is needed."
+      },
+      "decision": {
+        "decision": "escalate",
+        "ruleId": "R3-MULTI-CUSTOMER-OUTAGE",
+        "reason": "An outage affecting multiple customers always escalates.",
+        "evidence": [
+          "2 other accounts reporting the same issue"
+        ],
+        "modelSuggestion": "needs_info",
+        "overrodeModel": true,
+        "missingDetails": [
+          "accountId",
+          "timestamp"
+        ],
+        "resolveArticle": null
+      },
+      "reply": "Hi Lumen Works, thanks for the report. Roughly one in eight requests hanging for 30 seconds and then working on an immediate retry is not normal, and we have seen similar reports from other accounts. I have escalated this to the engineering team and will update you as soon as I hear back. To help them investigate, please send your account ID (Settings > Account, it starts with acct_) and when it happened, with time zone. You can also watch status.meridian.example for incident updates [KB-015].",
+      "bugReport": {
+        "summary": "About 1 in 8 API requests hang for 30s then time out; an immediate retry succeeds.",
+        "impact": "Lumen Works (Pro plan) sees intermittent timeouts on roughly 12% of requests. Two other accounts reported the same issue in the last hour, so this looks like a multi-customer problem.",
+        "stepsToReproduce": [
+          "Not provided yet. Customer only describes the intermittent behavior and has not given a reproducible sequence."
+        ],
+        "evidence": [
+          "\"Maybe one in eight requests just hangs for 30 seconds and times out.\"",
+          "\"If I retry immediately it works fine.\"",
+          "Other accounts reporting the same issue in the last hour: 2"
+        ],
+        "ruledOut": [
+          "Retrying immediately succeeds, so it is not a persistent failure of a specific request."
+        ]
+      },
+      "citations": {
+        "cited": [
+          "KB-015"
+        ],
+        "removed": []
+      },
+      "guard": {
+        "blocked": false,
+        "reasons": []
+      },
+      "usage": {
+        "inputTokens": 9531,
+        "outputTokens": 773,
+        "costUsd": 0.026792,
+        "latencyMs": 7508
+      },
+      "modelErrors": []
+    },
+    {
+      "ticketId": "MT-3025",
+      "model": "claude-sonnet-5-5",
+      "signals": {
+        "security": [],
+        "dataLoss": [],
+        "injection": [],
+        "present": {
+          "accountId": false,
+          "timestamp": false,
+          "errorMessage": false,
+          "steps": false
+        }
+      },
+      "redacted": [],
+      "retrieved": [
+        {
+          "id": "KB-012",
+          "title": "Webhook retries, timeouts, and delivery logs",
+          "score": 10.2
+        },
+        {
+          "id": "KB-024",
+          "title": "Known issue: delayed webhook deliveries in eu-west",
+          "score": 6.64
+        },
+        {
+          "id": "KB-025",
+          "title": "Known issue: CSV export times out for large workspaces",
+          "score": 6.54
+        },
+        {
+          "id": "KB-011",
+          "title": "Set up webhooks",
+          "score": 5.66
+        },
+        {
+          "id": "KB-015",
+          "title": "Check service status and incident updates",
+          "score": 5.52
+        }
+      ],
+      "assessment": {
+        "category": "defect",
+        "severity": "medium",
+        "productArea": "api",
+        "suggestedDecision": "needs_info",
+        "signals": {
+          "security": false,
+          "dataLoss": false,
+          "multiCustomerOutage": false,
+          "reproducible": false,
+          "injectionSuspected": false
+        },
+        "detailsPresent": {
+          "accountId": false,
+          "errorMessage": false,
+          "steps": false,
+          "timestamp": false
+        },
+        "articleMatches": [
+          {
+            "id": "KB-012",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-024",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-025",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-011",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-015",
+            "confidence": "medium"
+          }
+        ],
+        "rationale": "About 10% of calls time out intermittently with no pattern, and the ticket lacks account ID, region, timestamps, error text, or request IDs. Two other accounts reporting in the last hour is not clear evidence of a multi-customer outage, so more details are needed; KB-015 is the closest article for diagnosing and reporting this."
+      },
+      "decision": {
+        "decision": "escalate",
+        "ruleId": "R3-MULTI-CUSTOMER-OUTAGE",
+        "reason": "An outage affecting multiple customers always escalates.",
+        "evidence": [
+          "2 other accounts reporting the same issue"
+        ],
+        "modelSuggestion": "needs_info",
+        "overrodeModel": true,
+        "missingDetails": [
+          "accountId",
+          "timestamp"
+        ],
+        "resolveArticle": null
+      },
+      "reply": "Hi Braid Financial, thanks for reporting the intermittent timeouts. We have escalated this to the engineering team, and I will update you as soon as we have news. To help them investigate, please send us your account ID (Settings > Account, it starts with acct_) and when it happened, with time zone. You already told us roughly 10% of calls are timing out with no pattern by endpoint, so you do not need to resend that. You can also check status.meridian.example for live updates on any incident.",
+      "bugReport": {
+        "summary": "Intermittent timeouts (~10% of calls) on Braid Financial's integration, no pattern by endpoint; 2 other accounts reported the same in the last hour.",
+        "impact": "Braid Financial (pro plan) sees roughly 10% of calls timing out. Two other accounts reported the same issue in the last hour, so this looks like a multi-customer problem. Severity beyond that is unknown.",
+        "stepsToReproduce": [
+          "Not provided yet. Customer reports intermittent timeouts across endpoints with no consistent pattern."
+        ],
+        "evidence": [
+          "\"Our monitoring shows roughly 10% of calls timing out, but no consistent pattern by endpoint.\"",
+          "Other accounts reporting the same issue in the last hour: 2"
+        ],
+        "ruledOut": []
+      },
+      "citations": {
+        "cited": [],
+        "removed": []
+      },
+      "guard": {
+        "blocked": false,
+        "reasons": []
+      },
+      "usage": {
+        "inputTokens": 9769,
+        "outputTokens": 769,
+        "costUsd": 0.027228,
+        "latencyMs": 6682
+      },
+      "modelErrors": []
+    },
+    {
+      "ticketId": "MT-3026",
+      "model": "claude-sonnet-5-5",
+      "signals": {
+        "security": [],
+        "dataLoss": [],
+        "injection": [],
+        "present": {
+          "accountId": false,
+          "timestamp": false,
+          "errorMessage": false,
+          "steps": false
+        }
+      },
+      "redacted": [],
+      "retrieved": [
+        {
+          "id": "KB-005",
+          "title": "Enforce SSO and keep break-glass admin access",
+          "score": 3.92
+        },
+        {
+          "id": "KB-010",
+          "title": "Report a security concern",
+          "score": 3.73
+        },
+        {
+          "id": "KB-003",
+          "title": "SAML error: SAML_SIGNATURE_INVALID",
+          "score": 3.5
+        },
+        {
+          "id": "KB-022",
+          "title": "Remove users and transfer ownership",
+          "score": 3.29
+        },
+        {
+          "id": "KB-025",
+          "title": "Known issue: CSV export times out for large workspaces",
+          "score": 2.92
+        }
+      ],
+      "assessment": {
+        "category": "defect",
+        "severity": "medium",
+        "productArea": "platform",
+        "suggestedDecision": "needs_info",
+        "signals": {
+          "security": false,
+          "dataLoss": false,
+          "multiCustomerOutage": false,
+          "reproducible": false,
+          "injectionSuspected": false
+        },
+        "detailsPresent": {
+          "accountId": false,
+          "errorMessage": false,
+          "steps": false,
+          "timestamp": false
+        },
+        "articleMatches": [
+          {
+            "id": "KB-005",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-010",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-003",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-022",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-025",
+            "confidence": "low"
+          }
+        ],
+        "rationale": "The ticket is vague (intermittent slowness or spinning) with no error text, steps, account ID, or timestamp. Two other accounts reporting in the last hour is not clear evidence of a multi-customer outage, and no retrieved article matches, so more information is needed."
+      },
+      "decision": {
+        "decision": "escalate",
+        "ruleId": "R3-MULTI-CUSTOMER-OUTAGE",
+        "reason": "An outage affecting multiple customers always escalates.",
+        "evidence": [
+          "2 other accounts reporting the same issue"
+        ],
+        "modelSuggestion": "needs_info",
+        "overrodeModel": true,
+        "missingDetails": [
+          "accountId",
+          "timestamp"
+        ],
+        "resolveArticle": null
+      },
+      "reply": "Hi Trailhead Outdoors, thanks for flagging this. Intermittent spinning is frustrating, and we've seen similar reports from other accounts, so this has been escalated to the engineering team. I will update you as soon as I have news. To help them investigate, please send your account ID (Settings > Account, it starts with acct_) and when it happened, with time zone.",
+      "bugReport": {
+        "summary": "Intermittent slowness and spinning in the app, reported by multiple accounts within the last hour.",
+        "impact": "Trailhead Outdoors (pro plan) reports the app is sometimes instant and sometimes spins. Two other accounts reported the same issue in the last hour. Severity is unclear, and it looks like a possible multi-customer outage.",
+        "stepsToReproduce": [
+          "Not provided yet. The customer only describes intermittent behavior and gave no specific action or page."
+        ],
+        "evidence": [
+          "Subject: \"App feels unreliable today\"",
+          "\"Sometimes instant, sometimes it just spins.\"",
+          "Other accounts reporting the same issue in the last hour: 2"
+        ],
+        "ruledOut": []
+      },
+      "citations": {
+        "cited": [],
+        "removed": []
+      },
+      "guard": {
+        "blocked": false,
+        "reasons": []
+      },
+      "usage": {
+        "inputTokens": 9363,
+        "outputTokens": 691,
+        "costUsd": 0.025636,
+        "latencyMs": 7206
+      },
+      "modelErrors": []
+    },
+    {
+      "ticketId": "MT-3027",
+      "model": "claude-sonnet-5-5",
+      "signals": {
+        "security": [],
+        "dataLoss": [],
+        "injection": [],
+        "present": {
+          "accountId": false,
+          "timestamp": false,
+          "errorMessage": false,
+          "steps": false
+        }
+      },
+      "redacted": [],
+      "retrieved": [
+        {
+          "id": "KB-019",
+          "title": "Plans, invoices, and billing details",
+          "score": 12.67
+        },
+        {
+          "id": "KB-020",
+          "title": "Refunds, proration, and failed payments",
+          "score": 9.21
+        },
+        {
+          "id": "KB-025",
+          "title": "Known issue: CSV export times out for large workspaces",
+          "score": 8.44
+        },
+        {
+          "id": "KB-014",
+          "title": "5xx errors from Meridian",
+          "score": 5.79
+        },
+        {
+          "id": "KB-012",
+          "title": "Webhook retries, timeouts, and delivery logs",
+          "score": 5.65
+        }
+      ],
+      "assessment": {
+        "category": "billing",
+        "severity": "medium",
+        "productArea": "billing",
+        "suggestedDecision": "needs_info",
+        "signals": {
+          "security": false,
+          "dataLoss": false,
+          "multiCustomerOutage": false,
+          "reproducible": true,
+          "injectionSuspected": false
+        },
+        "detailsPresent": {
+          "accountId": false,
+          "errorMessage": true,
+          "steps": true,
+          "timestamp": false
+        },
+        "articleMatches": [
+          {
+            "id": "KB-019",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-020",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-025",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-014",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-012",
+            "confidence": "low"
+          }
+        ],
+        "rationale": "The customer cannot complete checkout payment with two different cards (spins ~30s, then 'payment couldn't be processed'), which is a billing/payment failure. KB-020 covers failed recurring payments, not a checkout failure, so it is not a match. The ticket lacks an account ID and timestamp, and the note that 2 other accounts reported the same issue is metadata, not clear evidence of a multi-customer outage, so more info is needed."
+      },
+      "decision": {
+        "decision": "escalate",
+        "ruleId": "R3-MULTI-CUSTOMER-OUTAGE",
+        "reason": "An outage affecting multiple customers always escalates.",
+        "evidence": [
+          "2 other accounts reporting the same issue"
+        ],
+        "modelSuggestion": "needs_info",
+        "overrodeModel": true,
+        "missingDetails": [
+          "accountId",
+          "timestamp"
+        ],
+        "resolveArticle": null
+      },
+      "reply": "Hi Sable Design, thanks for reporting this, and sorry for the trouble with checkout. We have escalated this to the engineering team, and we will update you as soon as we know more. To help them investigate, please send us your account ID (Settings > Account, it starts with acct_) and when it happened, with time zone. We have noted that you tried three times with two different cards and that the page spins for about thirty seconds before saying the payment couldn't be processed.",
+      "bugReport": {
+        "summary": "Checkout payment fails after ~30s spinner with 'payment couldn't be processed' on multiple cards; several accounts affected.",
+        "impact": "Sable Design (Pro plan) cannot complete payment. 2 other accounts reported the same issue in the last hour, so this looks like a multi-customer outage. This is the customer's first contact about it.",
+        "stepsToReproduce": [
+          "Not provided yet. Customer attempted checkout three times with two different cards."
+        ],
+        "evidence": [
+          "\"I've tried to pay three times with two different cards.\"",
+          "\"It spins for about thirty seconds and then says the payment couldn't be processed.\"",
+          "Other accounts reporting the same issue in the last hour: 2"
+        ],
+        "ruledOut": [
+          "Problem with a single card: the failure occurred with two different cards."
+        ]
+      },
+      "citations": {
+        "cited": [],
+        "removed": []
+      },
+      "guard": {
+        "blocked": false,
+        "reasons": []
+      },
+      "usage": {
+        "inputTokens": 9475,
+        "outputTokens": 797,
+        "costUsd": 0.02692,
+        "latencyMs": 7669
+      },
+      "modelErrors": []
+    },
+    {
+      "ticketId": "MT-3028",
+      "model": "claude-sonnet-5-5",
+      "signals": {
+        "security": [],
+        "dataLoss": [],
+        "injection": [],
+        "present": {
+          "accountId": false,
+          "timestamp": false,
+          "errorMessage": false,
+          "steps": false
+        }
+      },
+      "redacted": [],
+      "retrieved": [
+        {
+          "id": "KB-020",
+          "title": "Refunds, proration, and failed payments",
+          "score": 9.1
+        },
+        {
+          "id": "KB-019",
+          "title": "Plans, invoices, and billing details",
+          "score": 8.42
+        },
+        {
+          "id": "KB-015",
+          "title": "Check service status and incident updates",
+          "score": 3.56
+        },
+        {
+          "id": "KB-014",
+          "title": "5xx errors from Meridian",
+          "score": 3.26
+        },
+        {
+          "id": "KB-011",
+          "title": "Set up webhooks",
+          "score": 2.89
+        }
+      ],
+      "assessment": {
+        "category": "billing",
+        "severity": "low",
+        "productArea": "billing",
+        "suggestedDecision": "needs_info",
+        "signals": {
+          "security": false,
+          "dataLoss": false,
+          "multiCustomerOutage": false,
+          "reproducible": false,
+          "injectionSuspected": false
+        },
+        "detailsPresent": {
+          "accountId": false,
+          "errorMessage": false,
+          "steps": false,
+          "timestamp": false
+        },
+        "articleMatches": [
+          {
+            "id": "KB-020",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-019",
+            "confidence": "medium"
+          },
+          {
+            "id": "KB-015",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-014",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-011",
+            "confidence": "low"
+          }
+        ],
+        "rationale": "Customer asks whether they were charged after a payment page error and has no receipt; no charge is confirmed, so this is a billing question. Account ID, invoice details, error text, and time are missing, so more information is needed. The '2 other accounts' count is not clear evidence of a multi-customer outage."
+      },
+      "decision": {
+        "decision": "escalate",
+        "ruleId": "R3-MULTI-CUSTOMER-OUTAGE",
+        "reason": "An outage affecting multiple customers always escalates.",
+        "evidence": [
+          "2 other accounts reporting the same issue"
+        ],
+        "modelSuggestion": "needs_info",
+        "overrodeModel": true,
+        "missingDetails": [
+          "accountId",
+          "timestamp"
+        ],
+        "resolveArticle": null
+      },
+      "reply": "Hi Harbour Freight Co, thanks for flagging this. We know a payment page error can be worrying, and other customers have reported a similar issue recently. I have escalated this to the engineering team, and I will update you as soon as I hear back. To help them check your charge, please send your account ID (Settings > Account, it starts with acct_) and when it happened, with time zone. You can also view your invoices in Settings > Billing [KB-019]. Please don't retry the payment until we have more information.",
+      "bugReport": {
+        "summary": "Payment page error for a Pro customer who is unsure whether a charge went through and got no receipt email; 2 other accounts reported the same issue in the last hour.",
+        "impact": "Harbour Freight Co (Pro plan) cannot confirm whether a payment was taken or if they were double charged. Two other accounts reported the same issue in the last hour, which suggests a wider payment outage.",
+        "stepsToReproduce": [
+          "Not provided yet. The customer only says the payment page errored."
+        ],
+        "evidence": [
+          "\"The payment page errored but I want to be sure I wasn't double charged.\"",
+          "\"I haven't received a receipt email.\"",
+          "Other accounts reporting the same issue in the last hour: 2"
+        ],
+        "ruledOut": []
+      },
+      "citations": {
+        "cited": [
+          "KB-019"
+        ],
+        "removed": []
+      },
+      "guard": {
+        "blocked": false,
+        "reasons": []
+      },
+      "usage": {
+        "inputTokens": 9283,
+        "outputTokens": 741,
+        "costUsd": 0.025976,
+        "latencyMs": 6743
+      },
+      "modelErrors": []
+    },
+    {
+      "ticketId": "MT-3029",
+      "model": "claude-sonnet-5-5",
+      "signals": {
+        "security": [],
+        "dataLoss": [],
+        "injection": [],
+        "present": {
+          "accountId": false,
+          "timestamp": false,
+          "errorMessage": false,
+          "steps": true
+        }
+      },
+      "redacted": [],
+      "retrieved": [
+        {
+          "id": "KB-020",
+          "title": "Refunds, proration, and failed payments",
+          "score": 8.67
+        },
+        {
+          "id": "KB-019",
+          "title": "Plans, invoices, and billing details",
+          "score": 7.65
+        },
+        {
+          "id": "KB-003",
+          "title": "SAML error: SAML_SIGNATURE_INVALID",
+          "score": 6.75
+        },
+        {
+          "id": "KB-006",
+          "title": "Create, scope, and rotate API keys",
+          "score": 5.31
+        },
+        {
+          "id": "KB-015",
+          "title": "Check service status and incident updates",
+          "score": 5.15
+        }
+      ],
+      "assessment": {
+        "category": "defect",
+        "severity": "medium",
+        "productArea": "billing",
+        "suggestedDecision": "needs_info",
+        "signals": {
+          "security": false,
+          "dataLoss": false,
+          "multiCustomerOutage": false,
+          "reproducible": true,
+          "injectionSuspected": false
+        },
+        "detailsPresent": {
+          "accountId": false,
+          "errorMessage": false,
+          "steps": false,
+          "timestamp": false
+        },
+        "articleMatches": [
+          {
+            "id": "KB-020",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-019",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-003",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-006",
+            "confidence": "low"
+          },
+          {
+            "id": "KB-015",
+            "confidence": "low"
+          }
+        ],
+        "rationale": "Customer says updating the billing card errors every time but gives no error text, account ID, steps, or time, so it is unclear whether this is a setup issue or a Meridian defect. Only 2 other accounts reported it, which is not clear multi-customer evidence, and no article addresses card update failures; more details are needed."
+      },
+      "decision": {
+        "decision": "escalate",
+        "ruleId": "R3-MULTI-CUSTOMER-OUTAGE",
+        "reason": "An outage affecting multiple customers always escalates.",
+        "evidence": [
+          "2 other accounts reporting the same issue"
+        ],
+        "modelSuggestion": "needs_info",
+        "overrodeModel": true,
+        "missingDetails": [
+          "accountId",
+          "timestamp"
+        ],
+        "resolveArticle": null
+      },
+      "reply": "Hi Pinnacle Labs, thanks for reporting this. We've seen similar reports from other customers, so the issue has been escalated to the engineering team, and I will update you as we learn more. To help them investigate, please send us your account ID (Settings > Account, it starts with acct_) and when it happened, with time zone. In the meantime, please avoid sending full card numbers in the ticket. The last 4 digits are enough if you need to refer to a card.",
+      "bugReport": {
+        "summary": "Updating the billing card in Settings > Billing fails with an error every time; other customers reporting the same.",
+        "impact": "Pinnacle Labs (Pro plan) cannot change their payment card. 2 other accounts reported the same issue in the last hour. The rest of the app works normally. Risk of failed payments and a read-only workspace if a card expires.",
+        "stepsToReproduce": [
+          "Not provided yet. Customer says they try to swap the billing card on the account and it errors every time."
+        ],
+        "evidence": [
+          "\"Trying to swap the card on our account and it just errors every time. The rest of the app works fine.\"",
+          "Other accounts reporting the same issue in the last hour: 2"
+        ],
+        "ruledOut": [
+          "Not a general app outage: the customer says the rest of the app works fine."
+        ]
+      },
+      "citations": {
+        "cited": [],
+        "removed": []
+      },
+      "guard": {
+        "blocked": false,
+        "reasons": []
+      },
+      "usage": {
+        "inputTokens": 9353,
+        "outputTokens": 749,
+        "costUsd": 0.026196,
+        "latencyMs": 6678
+      },
+      "modelErrors": []
+    }
+  ]
+}

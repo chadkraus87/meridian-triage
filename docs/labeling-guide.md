@@ -110,7 +110,8 @@ A problem report needs certain details before support can act on it.
 - It applies to `needs_info` and `escalate` tickets. An escalation can still have missing details (for example an outage with no account ID, or an enterprise defect with no timestamp); the reply escalates and asks for them in the same message.
 - If nothing required is missing, `askFor` is `[]`. The reply then asks the customer for nothing and says who will follow up (for example "our billing team reviews refund requests" or "a support engineer will answer this").
 - Categories with no required details (how_to, billing, security) always have `askFor: []`.
-- Possible data loss (decision step 2) is the exception: ask only for the account ID and when it happened, whichever is missing, whatever the category. When a customer reports lost data, we escalate right away and ask only what we need to find it. Steps to reproduce can come later from Engineering.
+- An outage affecting multiple customers (decision step 3) asks only for the account ID and when it started, whichever is missing, whatever the category. Steps to reproduce don't apply in the middle of an outage.
+- Possible data loss (decision step 2) is the other exception: ask only for the account ID and when it happened, whichever is missing, whatever the category. When a customer reports lost data, we escalate right away and ask only what we need to find it. Steps to reproduce can come later from Engineering.
 - Never ask for details the customer already gave.
 
 ## Decision procedure

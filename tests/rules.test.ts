@@ -64,6 +64,10 @@ describe("R3 multi-customer outage", () => {
   it("does not fire for a single other account", () => {
     expect(run({ ticket: ticket({ otherAccountsReporting: 1 }) }).ruleId).not.toBe("R3-MULTI-CUSTOMER-OUTAGE");
   });
+  it("asks only for the account ID and time, even when the model calls it a defect", () => {
+    const d = run({ ticket: ticket({ otherAccountsReporting: 4 }), assessment: assessment({ category: "defect" }) });
+    expect(d).toMatchObject({ ruleId: "R3-MULTI-CUSTOMER-OUTAGE", missingDetails: ["accountId", "timestamp"] });
+  });
   it("escalates when the model sees evidence of many customers affected", () => {
     const a = assessment({ signals: { ...assessment().signals, multiCustomerOutage: true } });
     expect(run({ assessment: a }).ruleId).toBe("R3-MULTI-CUSTOMER-OUTAGE");

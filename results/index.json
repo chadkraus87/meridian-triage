@@ -1400,5 +1400,128 @@
         "p95Ms": 9223
       }
     }
+  },
+  {
+    "id": "2026-11-13T03-51-59-940Z-test-live",
+    "file": "results/runs/2026-11-13T03-51-59-940Z-test-live.json",
+    "createdAt": "2026-11-13T03:51:59.940Z",
+    "split": "test",
+    "mode": "live",
+    "model": "claude-sonnet-5-5",
+    "complete": true,
+    "metrics": {
+      "n": 30,
+      "escalation": {
+        "recall": 1,
+        "precision": 1,
+        "tp": 13,
+        "fn": 0,
+        "fp": 0,
+        "missed": []
+      },
+      "decision": {
+        "accuracy": 1,
+        "confusion": {
+          "resolve": {
+            "resolve": 9,
+            "needs_info": 0,
+            "escalate": 0
+          },
+          "needs_info": {
+            "resolve": 0,
+            "needs_info": 8,
+            "escalate": 0
+          },
+          "escalate": {
+            "resolve": 0,
+            "needs_info": 0,
+            "escalate": 13
+          }
+        }
+      },
+      "modelAlone": {
+        "decisionAccuracy": 0.9666666666666667
+      },
+      "category": {
+        "accuracy": 0.8666666666666667
+      },
+      "severity": {
+        "accuracy": 0.9
+      },
+      "productArea": {
+        "accuracy": 0.9666666666666667
+      },
+      "citations": {
+        "onlyRetrievedRate": 1,
+        "expectedCitedRate": 0.6666666666666666,
+        "retrievalRecall": 0.8888888888888888
+      },
+      "overrides": {
+        "count": 1,
+        "rate": 0.03333333333333333,
+        "correct": 1,
+        "harmful": 0
+      },
+      "injection": {
+        "n": 2,
+        "passed": 2,
+        "failures": []
+      },
+      "askFor": {
+        "n": 21,
+        "engineExact": 18,
+        "replyExact": 18,
+        "failures": [
+          {
+            "id": "MT-2010",
+            "expected": [],
+            "engine": [
+              "accountId",
+              "steps"
+            ],
+            "reply": [
+              "accountId",
+              "steps"
+            ]
+          },
+          {
+            "id": "MT-2025",
+            "expected": [
+              "accountId",
+              "errorMessage",
+              "steps",
+              "timestamp"
+            ],
+            "engine": [],
+            "reply": []
+          },
+          {
+            "id": "MT-2026",
+            "expected": [
+              "accountId",
+              "errorMessage",
+              "timestamp"
+            ],
+            "engine": [
+              "errorMessage"
+            ],
+            "reply": [
+              "errorMessage"
+            ]
+          }
+        ]
+      },
+      "guardBlocks": 0,
+      "cost": {
+        "totalUsd": 0.8191119999999997,
+        "perTicketUsd": 0.027303733333333323,
+        "inputTokens": 304336,
+        "outputTokens": 21044
+      },
+      "latency": {
+        "meanMs": 6830.2,
+        "p95Ms": 9284
+      }
+    }
   }
 ]

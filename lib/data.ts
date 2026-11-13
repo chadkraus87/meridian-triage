@@ -24,11 +24,12 @@ export function parseArticle(text: string): Article {
   };
 }
 
-export function loadArticles(dir = path.join(ROOT, "help-center")): Article[] {
+export function loadArticles(): Article[] {
+  const dir = path.join(process.cwd(), "data", "help-center");
   return readdirSync(dir)
     .filter((f) => f.endsWith(".md"))
     .sort()
-    .map((f) => parseArticle(readFileSync(path.join(dir, f), "utf8")));
+    .map((f) => parseArticle(readFileSync(path.join(process.cwd(), "data", "help-center", f), "utf8")));
 }
 
 export type Split = "dev" | "test";

@@ -1,26 +1,86 @@
 @import "tailwindcss";
 
+/* ============================================================================
+   Meridian Triage design tokens
+   Shared with TechOps Command Center (the same fictional company's internal
+   tools), so the two read as one family. Low-chroma surfaces keep the decision
+   colours the only saturated thing on screen. Decision colour is always paired
+   with a text label, never used on its own.
+   Contrast values were validated in TechOps: ink-4 clears 4.5:1 on panels.
+   ========================================================================= */
+
+@theme {
+  --color-void: #05070b;
+  --color-surface: #0a0d14;
+  --color-surface-2: #0e121b;
+  --color-surface-3: #141926;
+  --color-surface-4: #1b2130;
+
+  --color-line: #1a2030;
+  --color-line-soft: #141926;
+
+  --color-ink: #e7ecf5;
+  --color-ink-2: #a3aec4;
+  --color-ink-3: #8a96ad;
+  --color-ink-4: #7a869e;
+
+  /* Decisions: resolve = ok, needs info = warn, escalate = crit. */
+  --color-ok: #34d399;
+  --color-warn: #fbbf43;
+  --color-crit: #ff5b65;
+  --color-info: #38bdf8;
+  --color-ok-dim: #0d2b22;
+  --color-warn-dim: #302410;
+  --color-crit-dim: #331319;
+  --color-info-dim: #0c2333;
+
+  --color-accent: #5b8cff;
+  --color-accent-dim: #131b33;
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", monospace;
+
+  --radius-panel: 10px;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: dark;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: color-mix(in oklab, var(--color-accent) 25%, transparent);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-void);
+  color: var(--color-ink);
+}
+
+/* One visible focus style everywhere. */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.panel {
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-panel);
+}
+
+/* Customer text, logs, and drafts keep their line breaks but never overflow. */
+.preserve {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
 }

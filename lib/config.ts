@@ -2,6 +2,8 @@ import type { Category, DetailKey } from "./types";
 
 /** The one place the model name lives. */
 export const MODEL = "claude-sonnet-5-5";
+/** How the model is named on the website. */
+export const MODEL_LABEL = "Claude Sonnet 5.5";
 
 /** USD per million tokens for MODEL. Check current pricing before quoting costs. */
 export const PRICE_PER_MTOK = { input: 2, output: 10 };

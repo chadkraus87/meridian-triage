@@ -47,7 +47,7 @@ const WRONG = [
   ],
   [
     "The resolve check sometimes blocks a right answer.",
-    "Before the agent can resolve a ticket, the model has to be confident and the keyword search has to agree. In one dev run the model picked the right article, but the search ranked it fourth, so the ticket went to needs info. Across every recorded run, that check never stopped a wrong resolve. I haven't decided yet whether it's worth keeping.",
+    "Before the agent can resolve a ticket, the model has to be confident and the keyword search has to agree. In one dev run the model picked the right article, but the search ranked it fourth, so the ticket went to needs info. Across every recorded run, that check never stopped a wrong resolve. I'm keeping it anyway. When it's wrong, the ticket goes to needs info and a person answers it, which is the safe way to be wrong.",
   ],
   [
     "The model doesn't always follow its own instructions.",
